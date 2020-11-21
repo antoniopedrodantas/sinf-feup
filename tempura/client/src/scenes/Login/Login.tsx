@@ -4,7 +4,11 @@ import './styles/Login.css';
 const Login: React.FC = () => {
   return (
     <>
-      <p className="login"> This is the Login page :o </p>
+      <div className="login">
+        <div className="loginForm">
+          login form here
+        </div>
+      </div>
     </>
   );
 };
