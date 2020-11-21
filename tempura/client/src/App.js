@@ -1,25 +1,31 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Login from './scenes/Login/Login';
+import Overview from './scenes/Overview/Overview';
+import Sales from './scenes/Sales/Sales';
+import Purchases from './scenes/Purchases/Purchases';
+import Financial from './scenes/Financial/Financial';
+import Stock from './scenes/Stock/Stock';
+import NotFound from './scenes/Static/NotFound';
+
 import './App.css';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/" exact component={Login} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/overview" exact component={Overview} />
+        <Route path="/sales" exact component={Sales} />
+        <Route path="/purchases" exact component={Purchases} />
+        <Route path="/financial" exact component={Financial} />
+        <Route path="/stock" exact component={Stock} />
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
   );
-}
+};
+
 
 export default App;
