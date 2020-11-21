@@ -2,7 +2,7 @@ import React from 'react';
 import './styles/Purchases.css';
 
 
-const Purchases = () => {
+const Purchases: React.FC = () => {
   return (
     <>
       <p className="purchases"> This is the Purchases page :o </p>
