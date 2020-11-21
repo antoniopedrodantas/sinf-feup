@@ -1,16 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Login from './scenes/Login/Login';
-import Overview from './scenes/Overview/Overview';
-import Sales from './scenes/Sales/Sales';
-import Purchases from './scenes/Purchases/Purchases';
-import Financial from './scenes/Financial/Financial';
-import Stock from './scenes/Stock/Stock';
-import NotFound from './scenes/Static/NotFound';
+import Login from '../Login/Login';
+import Overview from '../Overview/Overview';
+import Sales from '../Sales/Sales';
+import Purchases from '../Purchases/Purchases';
+import Financial from '../Financial/Financial';
+import Stock from '../Stock/Stock';
+import NotFound from '../Static/NotFound';
 
-import './App.css';
 
-const App = () => {
+import './styles/App.css';
+
+const App : React.FC = () => {
   return (
     <Router>
       <Switch>
@@ -26,6 +27,4 @@ const App = () => {
     </Router>
   );
 };
-
-
 export default App;
