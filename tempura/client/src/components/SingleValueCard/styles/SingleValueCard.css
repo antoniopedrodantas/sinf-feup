@@ -1,0 +1,16 @@
+.card{
+  border: black 1px solid;
+  width: 15%;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.card-title{
+  text-align: center;
+}
+
+.card-value{
+  text-align: center;
+  padding-bottom: 1rem;
+}
