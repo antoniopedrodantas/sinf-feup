@@ -1,3 +1,15 @@
+:root {
+  --white-color: #FFFFFF;
+  --red-color: #FF3945;
+  --card-background: #0D1B2A;
+  --core-background: #142231;
+  --menu-selection: #384753;
+}
+
+html, body{
+  color: var(--white-color);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
