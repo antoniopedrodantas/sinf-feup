@@ -21,6 +21,7 @@ body {
   background-color: var(--core-background);
   width: 100vw; 
   height: 100vh;
+  overflow: hidden;
 }
 
 code {

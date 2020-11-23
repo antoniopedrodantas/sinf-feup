@@ -1,0 +1,44 @@
+@import '../../index.css';
+
+.left-side{
+  background-color: var(--card-background);
+
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+
+  align-items: center;
+
+}
+
+#left-logo{
+  width: 10%;
+  height: 10%;
+}
+
+.left-buttons{
+  color: var(--white-color);
+  background-color: var(--red-color);
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 1.2em;
+
+  margin-bottom: 2em;
+  
+  padding-right: 1.2em;
+  padding-left: 1.2em;
+  padding-bottom: 0.4em;
+  padding-top: 0.4em;
+}
+
+.left-buttons:hover{
+  color: var(--red-color);
+  background-color: var(--white-color);
+  cursor: pointer;
+}

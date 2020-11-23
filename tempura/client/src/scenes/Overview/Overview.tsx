@@ -1,10 +1,13 @@
 import React from 'react';
 import './styles/Overview.css';
+import SideBar from '../../components/SideBar';
+
 
 const Overview: React.FC = () => {
   return (
     <>
-      <p className="overview"> This is the Overview page :o </p>
+      <SideBar /> 
+      {/* add css to put side bar on left side */}
     </>
   );
 };
