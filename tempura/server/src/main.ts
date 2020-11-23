@@ -1,13 +1,37 @@
-import express from "express"
+import "reflect-metadata";
+import { ConnectionOptions, createConnection } from "typeorm";
+import express from "express";
+import * as bodyParser from "body-parser";
+import { User } from "./entity/User";
+import { root } from "./path";
 
-const app = express();
+const options: ConnectionOptions = {
+    type: "sqlite",
+    database: `${root}/database/tempura.db`,
+    entities: [ User ],
+    logging: true
+}
 
-app.get("/", (req, res) => {
-    res.send("Hello World")
-})
+createConnection(options)
+    .then(async connection => {
 
-const PORT = process.env.PORT || 3000;
+        // create express app
+        const app = express();
+        app.use(bodyParser.json());
 
-app.listen(PORT, () => {
-    console.log(`Server running in https://localhost:${PORT}`)
-})
+        // setup express app here
+        // ...
+
+        // start express server
+        app.listen(3000);
+
+        app.get("/", (req, res) => {
+            res.send("Hello World")
+        })
+
+        console.log("Express server has started on port 3000. Open http://localhost:3000/ to see results");
+
+    })
+    .catch((error) => {
+        console.error(error)
+    });
