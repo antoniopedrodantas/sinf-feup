@@ -6,16 +6,14 @@ import './styles/Overview.css';
 const Overview: React.FC = () => {
   return (
     <>
-
       <div className="row h-100">
         <div className="left-side col-md-2">
-            <SideBar />
+            <SideBar coreview="overview"/>
         </div>
         <div className="right-side col-md-10">
           OVERVIEW: All the other content should be placed here
         </div>
       </div>
-      
     </>
   );
 };

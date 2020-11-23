@@ -9,7 +9,7 @@ const Stock: React.FC = () => {
     <>
       <div className="row h-100">
         <div className="left-side col-md-2">
-            <SideBar />
+            <SideBar coreview="stock"/>
         </div>
         <div className="right-side col-md-10">
           STOCK: All the other content should be placed here

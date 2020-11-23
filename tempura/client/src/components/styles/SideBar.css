@@ -27,7 +27,7 @@
 
 ::-webkit-scrollbar {
   width: 0px;
-  background: transparent; /* make scrollbar transparent */
+  background: transparent; 
 }
 
 #left-logo{
@@ -53,7 +53,7 @@
 }
 
 .logout{
-  margin-top:2em;
+  margin-top: auto;
 }
 
 .left-buttons:hover{
@@ -69,7 +69,8 @@
 .nav-items{
   display: flex;
   flex-direction: column;
-
+  margin-top: 5em;
+  margin-bottom: 5em;
 }
 
 .nav-item{
@@ -80,6 +81,26 @@
   color: var(--white-color);
   font-size: 1.5em;
   font-weight: 600;
+}
+
+.selected-item{
+  text-decoration: none;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+
+  color: var(--red-color);
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.nav-item:hover{
+  color: var(--red-color);
+  text-decoration: none;
+}
+
+.selected-item:hover{
+  color: var(--red-color);
+  text-decoration: none;
 }
 
 .nav-icon{

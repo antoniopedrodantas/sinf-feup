@@ -10,7 +10,7 @@ const Purchases: React.FC = () => {
     <>
       <div className="row h-100">
         <div className="left-side col-md-2">
-            <SideBar />
+            <SideBar coreview="purchases"/>
         </div>
         <div className="right-side col-md-10">
           PURCHASES: All the other content should be placed here 
