@@ -4,6 +4,7 @@ import express from "express";
 import * as bodyParser from "body-parser";
 import { User } from "./entity/User";
 import { root } from "./path";
+import router from "./routes";
 
 const options: ConnectionOptions = {
     type: "sqlite",
@@ -21,6 +22,8 @@ createConnection(options)
 
         // setup express app here
         // ...
+
+        app.use(router);
 
         // start express server
         app.listen(3000);
