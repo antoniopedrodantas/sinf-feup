@@ -37,8 +37,38 @@
   padding-top: 0.4em;
 }
 
+.logout{
+  margin-top:2em;
+}
+
 .left-buttons:hover{
   color: var(--red-color);
   background-color: var(--white-color);
   cursor: pointer;
 }
+
+.import{
+  margin-right: 0.2em;
+}
+
+.nav-items{
+  display: flex;
+  flex-direction: column;
+
+}
+
+.nav-item{
+  text-decoration: none;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+
+  color: var(--white-color);
+  font-size: 2em;
+  font-weight: 600;
+}
+
+.nav-icon{
+  margin-right: 1em;
+}
+
+
