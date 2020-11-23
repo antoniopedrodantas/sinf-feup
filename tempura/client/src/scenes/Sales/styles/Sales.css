@@ -1,5 +1,6 @@
 @import '../../../index.css';
 
-.sales {
-    background-color: var(--card-background);
+.right-side{
+    background-color: var(--core-background);
+    color: var(--white-color);
 }

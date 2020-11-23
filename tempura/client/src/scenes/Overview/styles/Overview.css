@@ -1,5 +1,6 @@
 @import '../../../index.css';
 
-.overview{
-    background-color: var(--menu-selection);
+.right-side{
+    background-color: var(--core-background);
+    color: var(--white-color);
 }

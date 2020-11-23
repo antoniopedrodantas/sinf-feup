@@ -8,6 +8,7 @@
 
 html, body{
   color: var(--white-color);
+  background-color: var(--core-background);
 }
 
 body {

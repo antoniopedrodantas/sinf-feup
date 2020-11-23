@@ -1,10 +1,19 @@
 import React from 'react';
+
+import SideBar from '../../components/SideBar';
 import './styles/Financial.css';
 
 export const Financial: React.FC = () => {
   return (
     <>
-      <p className="financial"> This is the Financial page :o </p>
+      <div className="row h-100">
+        <div className="left-side col-md-2">
+            <SideBar />
+        </div>
+        <div className="right-side col-md-10">
+          FINANCIAL: All the other content should be placed here
+        </div>
+      </div>
     </>
   ); 
 };

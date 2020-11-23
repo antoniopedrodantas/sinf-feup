@@ -14,11 +14,26 @@
 
   align-items: center;
 
+
+  width: 300px;
+  position: fixed;
+  overflow-y: scroll;
+  top: 0;
+  left: 0;
+  z-index: 999; 
+  height: 100vh;
+
+} 
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
 }
 
 #left-logo{
-  width: 10%;
-  height: 10%;
+  width: 50%;
+  margin-top: 2em;
+  margin-bottom: 2em;
 }
 
 .left-buttons{
@@ -63,7 +78,7 @@
   margin-bottom: 0.7em;
 
   color: var(--white-color);
-  font-size: 2em;
+  font-size: 1.5em;
   font-weight: 600;
 }
 

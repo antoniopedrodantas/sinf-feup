@@ -1,13 +1,21 @@
 import React from 'react';
-import './styles/Overview.css';
-import SideBar from '../../components/SideBar';
 
+import SideBar from '../../components/SideBar';
+import './styles/Overview.css';
 
 const Overview: React.FC = () => {
   return (
     <>
-      <SideBar /> 
-      {/* add css to put side bar on left side */}
+
+      <div className="row h-100">
+        <div className="left-side col-md-2">
+            <SideBar />
+        </div>
+        <div className="right-side col-md-10">
+          OVERVIEW: All the other content should be placed here
+        </div>
+      </div>
+      
     </>
   );
 };

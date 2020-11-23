@@ -1,11 +1,20 @@
 import React from 'react';
+
+import SideBar from '../../components/SideBar';
 import './styles/Sales.css';
 
 
 const Sales: React.FC = () => {
   return (
     <>
-      <div className="sales"> This is the Sales page :o </div>
+      <div className="row h-100">
+        <div className="left-side col-md-2">
+            <SideBar />
+        </div>
+        <div className="right-side col-md-10">
+          SALES: All the other content should be placed here
+        </div>
+      </div>
     </>
   );
 };

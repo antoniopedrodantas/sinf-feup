@@ -1,5 +1,6 @@
 @import '../../../index.css';
 
-.stock{
-    background-color: var(--red-color);
+.right-side{
+    background-color: var(--core-background);
+    color: var(--white-color);
 }

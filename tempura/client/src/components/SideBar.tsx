@@ -9,40 +9,38 @@ import { faChartLine, faCashRegister, faShoppingCart, faCoins, faWarehouse} from
 const SideBar: React.FC = () => {
   return (
     <>
-      <div className="left-side">
-        <img id="left-logo" src={logo} alt="logo" />
-        
-        <button className="left-buttons"> 
-          <span> <span className="import"><FontAwesomeIcon  icon={faFileImport} /></span> Import File</span>
-        </button>
+      <img id="left-logo" src={logo} alt="logo" />
+      
+      <button className="left-buttons"> 
+        <span> <span className="import"><FontAwesomeIcon  icon={faFileImport} /></span> Import File</span>
+      </button>
 
-        <nav className="nav-items">
-          <a id="overview" className="nav-item" href="#">
-            <span className="nav-icon fa-layers fa-fw"><FontAwesomeIcon icon={faChartLine} size = 'lg'/></span> <span>Overview</span>
-          </a>
+      <nav className="nav-items">
+        <a id="overview" className="nav-item" href="#">
+          <span className="nav-icon fa-layers fa-fw"><FontAwesomeIcon icon={faChartLine} size = 'lg'/></span> <span>Overview</span>
+        </a>
 
-          <a id="sales" className="nav-item" href="#">
-            <span className="nav-icon fa-layers fa-fw"><FontAwesomeIcon icon={faCashRegister} size = 'lg'/></span> <span>Sales</span>
-          </a>
+        <a id="sales" className="nav-item" href="#">
+          <span className="nav-icon fa-layers fa-fw"><FontAwesomeIcon icon={faCashRegister} size = 'lg'/></span> <span>Sales</span>
+        </a>
 
-          <a id="purchases" className="nav-item" href="#">
-            <span className="nav-icon fa-layers fa-fw"><FontAwesomeIcon icon={faShoppingCart} size = 'lg'/></span> <span>Purchases</span>
-          </a>
+        <a id="purchases" className="nav-item" href="#">
+          <span className="nav-icon fa-layers fa-fw"><FontAwesomeIcon icon={faShoppingCart} size = 'lg'/></span> <span>Purchases</span>
+        </a>
 
-          <a id="financial" className="nav-item" href="#">
-            <span className="nav-icon fa-layers fa-fw"><FontAwesomeIcon icon={faCoins} size = 'lg'/></span> <span>Financial</span>
-          </a>
+        <a id="financial" className="nav-item" href="#">
+          <span className="nav-icon fa-layers fa-fw"><FontAwesomeIcon icon={faCoins} size = 'lg'/></span> <span>Financial</span>
+        </a>
 
-          <a id="stock" className="nav-item" href="#">
-            <span className="nav-icon fa-layers fa-fw"><FontAwesomeIcon icon={faWarehouse} size = 'lg'/></span> <span>Stock</span>
-          </a>
+        <a id="stock" className="nav-item" href="#">
+          <span className="nav-icon fa-layers fa-fw"><FontAwesomeIcon icon={faWarehouse} size = 'lg'/></span> <span>Stock</span>
+        </a>
 
-        </nav>
+      </nav>
 
-        <button className="left-buttons logout"> 
-          <span> <FontAwesomeIcon icon={faSignOutAlt}/> Logout</span>
-        </button>
-      </div>
+      <button className="left-buttons logout"> 
+        <span> <FontAwesomeIcon icon={faSignOutAlt}/> Logout</span>
+      </button>
     </>
   );
 };

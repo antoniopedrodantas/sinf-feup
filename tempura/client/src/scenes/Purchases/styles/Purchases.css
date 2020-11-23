@@ -1,5 +1,6 @@
 @import '../../../index.css';
 
-.purchases {
+.right-side{
     background-color: var(--core-background);
+    color: var(--white-color);
 }

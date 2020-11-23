@@ -1,5 +1,6 @@
 @import '../../../index.css';
 
-.financial{
-    background-color: orange;
+.right-side{
+    background-color: var(--core-background);
+    color: var(--white-color);
 }
