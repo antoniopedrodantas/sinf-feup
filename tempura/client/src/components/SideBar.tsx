@@ -80,5 +80,6 @@ TODO:
 - routes
 - media queries
 - toogle
+- remove scroll bar from FireFox
 */}
 
