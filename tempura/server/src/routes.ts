@@ -5,6 +5,7 @@ import product from "./routes/product";
 import supplier from "./routes/supplier";
 
 import stock from "./routes/stock";
+import sales from "./routes/sales";
 import overview from "./routes/overview";
 import purchases from "./routes/purchases";
 import financial from "./routes/financial";
@@ -19,6 +20,7 @@ router.use('/product', product);
 router.use('/supplier', supplier);
 
 router.use('/', stock);
+router.use('/', sales);
 router.use('/', overview);
 router.use('/', purchases);
 router.use('/', financial);
