@@ -1,4 +1,6 @@
 {
+   "type": "sqlite",
+   "database": "database/tempura.db",
    "synchronize": true,
    "logging": false,
    "entities": [
