@@ -1,5 +1,7 @@
 import express from "express";
 
+import auth from "./routes/auth";
+
 import client from "./routes/client";
 import product from "./routes/product";
 import supplier from "./routes/supplier";
@@ -14,6 +16,8 @@ import miscellaneous from "./routes/miscellaneous";
 
 const router = express.Router();
 
+
+router.use('/', auth);
 
 router.use('/client', client);
 router.use('/product', product);
