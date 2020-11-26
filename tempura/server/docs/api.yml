@@ -1,0 +1,1581 @@
+openapi: "3.0.2"
+
+info:
+  title: "Tempura API"
+  description: "Get helpful statistics about your company's performance"
+  version: "1.0.0"
+
+servers:
+  - url: "https://localhost:3000/"
+    description: "Local Development Server"
+
+paths:
+
+  # auth endpoints
+  /login:
+    post:
+      tags:
+      - "auth"
+      summary: "Log in to the service"
+      description: ""
+      operationId: "Login"
+      requestBody:
+        description: "User to log in"
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                  format: password
+            example:
+              username: bernas
+              password: pass123
+      responses:
+        200:
+          description: Successfully logged in
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - token
+                properties:
+                  token:
+                    type: string
+              example:
+                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security: []
+  /logout:
+    post:
+      tags:
+        - auth
+      summary: Logout of the service
+      description: ""
+      operationId: Logout
+      responses:
+        200:
+          description: Successfully logged out
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code: 
+                    type: integer
+                    format: int32
+                  message:
+                    type: string
+              example:
+                code: 200
+                message: User successfully logged out.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # client endpoints
+  /client/{id}/info:
+    get:
+      tags:
+        - client
+      summary: Get the client's information
+      description: ""
+      operationId: ClientInfo
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - entity
+                  - name
+                  - country
+                  - tax_id
+                  - email
+                  - phone
+                properties:
+                  entity:
+                    type: string
+                  name:
+                    type: string
+                  country:
+                    type: string
+                  tax_id:
+                    type: integer
+                  email:
+                    type: string
+                  phone:
+                    type: string
+              example:
+                entity: "LRLDA"
+                name: "L. Ribeiro, Lda."
+                country: "Portugal"
+                tax_id: "502607564"
+                email: "geral@lribeiro.pt"
+                phone: "+351253534890"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /client/{id}/total_sales:
+    get:
+      tags:
+        - client
+      summary: Get the total sales value
+      description: "Get the total value of sales realized with that client within the specified time period"
+      operationId: ClientTotalSales
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - total_sales
+                properties:
+                  total_sales:
+                    type: number
+                    format: double
+              example:
+                total_sales: 9435
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /client/{id}/accounts_receivable:
+    get:
+      tags:
+        - client
+      summary: Get client's accounts receivable
+      description: "Get the client's accounts receivable value within the specified time period"
+      operationId: ClientAccRcv
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - accounts_receivable
+                properties:
+                  accounts_receivable:
+                    type: number
+                    format: double
+              example:
+                total_sales: 2294
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /client/{id}/top_products_purchased:
+    get:
+      tags:
+        - client
+      summary: Get a list of the client's top purchased products
+      description: "Get a list of the products the client has purchased the most within the specified time period"
+      operationId: ClientTopProducts
+      parameters:
+        - $ref: '#/components/parameters/client_id'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - products
+                properties:
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        units:
+                          type: integer
+                          format: int32
+              example:
+                products: [
+                  {id: 23, name: sashimi, units: 150},
+                  {id: 12, name: sushi, units: 120},
+                  {id: 65, name: robata, units: 100},
+                  {id: 73, name: tempura, units: 100}]
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # product endpoints
+  # FIXME: do we need the start and end date in this endpoint?
+  /product/{id}/info:
+    get:
+      tags:
+        - product
+      summary: Get the product's information
+      description: ""
+      operationId: ProductInfo
+      parameters:
+        - $ref: '#/components/parameters/product_id'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - name
+                  - description
+                  - main_supplier
+                  - bar_code
+                properties:
+                  name:
+                    type: string
+                  description:
+                    type: string
+                  main_supplier:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      name:
+                        type: string
+                  bar_code:
+                    type: integer
+                    format: int32
+              example:
+                name: Tempura XL
+                description: Larger Tempuras
+                main_supplier: {id: 41, name: "Kaizuya, Co., Ltd"}
+                bar_code: 0705632441947
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /product/{id}/total_units_sold:
+    get:
+      tags:
+        - product
+      summary: Get the number of units sold
+      description: "Get the number of units sold within the specified time period"
+      operationId: ProductUnitsSold
+      parameters:
+        - $ref: '#/components/parameters/product_id'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - units
+                properties:
+                  units:
+                    type: integer
+                    format: int32
+              example:
+                units: 42000
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /product/{id}/units_in_stock:
+    get:
+      tags:
+        - product
+      summary: Get the number of units in stock
+      description: "Get the number of units in stock within the specified time period"
+      operationId: ProductUnitsInStock
+      parameters:
+        - $ref: '#/components/parameters/product_id'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - units
+                properties:
+                  units:
+                    type: integer
+                    format: int32
+              example:
+                units: 17000
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /product/{id}/average_sale_price:
+    get:
+      tags:
+        - product
+      summary: Get the average retail price of the product
+      description: "Get the average retail price of the product during the specified time period"
+      operationId: ProductAvgSalePrice
+      parameters:
+        - $ref: '#/components/parameters/product_id'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - avg_price
+                properties:
+                  avg_price:
+                    type: number
+                    format: float
+              example:
+                avg_price: 22.2
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /product/{id}/average_purchase_price:
+    get:
+      tags:
+        - product
+      summary: Get the average purchase price of the product
+      description: "Get the average purchase price of the product during the specified time period"
+      operationId: ProductAvgPurchasePrice
+      parameters:
+        - $ref: '#/components/parameters/product_id'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - avg_price
+                properties:
+                  avg_price:
+                    type: number
+                    format: float
+              example:
+                avg_price: 10.5
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /product/{id}/average_profit_per_unit:
+    get:
+      tags:
+        - product
+      summary: Get the average profit per unit of product sold
+      description: "Get the average profit per unit of product sold during the specified time period"
+      operationId: ProductAvgProfit
+      parameters:
+        - $ref: '#/components/parameters/product_id'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - avg_profit
+                properties:
+                  avg_profit:
+                    type: number
+                    format: float
+              example:
+                avg_profit: 11.7
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  # FIXME: how is this going to work with the start and end date?
+  /product/{id}/units_sold_per_month:
+    get:
+      tags:
+        - product
+      summary: Get the number of units sold per month
+      description: "Get the number of units sold per month during the specified time period"
+      operationId: ProductUnitsSoldMonth
+      parameters:
+        - $ref: '#/components/parameters/product_id'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - units
+                properties:
+                  units:
+                    type: array
+                    items:
+                      type: integer
+                      format: int32
+              example:
+                units: [10,11,13,12,12,4,5,6,7,8,9,20]
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # supplier endpoints
+  /supplier/{id}/info:
+    get:
+      tags:
+        - supplier
+      summary: Get the supplier's information
+      description: "Get the supplier's information"
+      operationId: SupplierInfo
+      parameters:
+        - $ref: '#/components/parameters/supplier_id'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - entity
+                  - name
+                  - country
+                  - tax_id
+                  - email
+                  - phone
+                properties:
+                  entity:
+                    type: string
+                  name: 
+                    type: string
+                  country:
+                    type: string
+                  tax_id:
+                    type: integer
+                    format: int32
+                  email:
+                    type: string
+                  phone:
+                    type: string
+              example:
+                entity: DTSN
+                name: Daito-Suisan CO., LTD
+                country: Japan
+                tax_id: 5802460733564
+                email: general@daito-suisan.jp
+                phone: "+81426328510"
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /supplier/{id}/total_sales:
+    get:
+      tags:
+        - supplier
+      summary: Get the supplier's total sales value
+      description: "Get the supplier's total sales value during the specified time period"
+      operationId: SupplierSales
+      parameters:
+        - $ref: '#/components/parameters/supplier_id'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - total_sales
+                properties:
+                  total_sales:
+                    type: number
+                    format: float
+              example:
+                total_sales: 12000
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /supplier/{id}/accounts_receivable:
+    get:
+      tags:
+        - supplier
+      summary: Get the supplier's accounts receivable
+      description: "Get the supplier's accounts receivable value during the specified time period"
+      operationId: SupplierAccRcv
+      parameters:
+        - $ref: '#/components/parameters/supplier_id'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - accounts_receivable
+                properties:
+                  total_sales:
+                    type: number
+                    format: float
+              example:
+                accounts_receivable: 1400
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /supplier/{id}/top_products_purchased:
+    get:
+      tags:
+        - supplier
+      summary: Get the list of the top purchased produts from this supplier
+      description: "Get a list of the top purchased products from this supplier within the specified time period"
+      operationId: SupplierTopProducts
+      parameters:
+        - $ref: '#/components/parameters/supplier_id'
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - products
+                properties:
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        units:
+                          type: integer
+                          format: int32
+              example:
+                products: [
+                  {id: 23, name: sashimi, units: 1050},
+                  {id: 12, name: sushi, units: 1020},
+                  {id: 65, name: robata, units: 1000},
+                  {id: 73, name: tempura, units: 1000}]
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # overview endpoints
+  /total_costs:
+    get:
+      tags:
+        - overview
+      summary: Get the company's total costs
+      description: "Get the company's total costs within the specified time period"
+      operationId: TotalCosts
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - costs
+                properties:
+                  costs:
+                    type: number
+                    format: float
+              example:
+                costs: 148209
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'    
+  /liquidity:
+    get:
+      tags:
+        - overview
+      summary: Get the company's liquidity
+      description: "Get the company's liquidity within the specified time period"
+      operationId: Liquidity
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - liquidity
+                properties:
+                  liquidity:
+                    type: number
+                    format: float
+              example:
+                liquidity: 67.3
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # sales endpoints 
+  /cogs_vs_sales_revenue:
+    get:
+      tags:
+        - sales
+      summary: Get the company's cost of goods sold vs sales revenue
+      description: "Get the company's cost of goods sold vs sales revenue over time, within the specified time period"
+      operationId: COGSvsSR
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - cogs
+                  - sales_revenue
+                properties:
+                  cogs:
+                    type: array
+                    items:
+                      type: number
+                      format: float
+                  sales_revenue:
+                    type: array
+                    items:
+                      type: number
+                      format: float
+              example:
+                cogs: [10, 10, 20, 10, 23]
+                sales_revenue: [30, 20, 10, 30, 33]
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /top_clients:
+    get:
+      tags:
+        - sales
+      summary: Get a list of the company's top clients
+      description: "Get a list of the company's top clients within the specified time period"
+      operationId: TopClients
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - clients
+                properties:
+                  clients:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        total:
+                          type: number
+                          format: float
+                        orders: 
+                          type: integer
+                          format: int32
+                        max:
+                          type: number
+                          format: float
+              example:
+                clients: [
+                  {id: "1a", name: "Vítor Hugo Leite Gonçalves", total: 10500, orders: 17, max: 2500},
+                  {id: "3h", name: "Bernardo Santos", total: 9345, orders: 21, max: 2000},
+                  {id: "3b", name: "António Pedro Dantas", total: 7266, orders: 10, max: 1000},
+                  {id: "2s", name: "Leonor Mendes Freitas", total: 7199, orders: 3, max: 4700},
+                  {id: "2j", name: "Filipe Xavier Ferreira", total: 3000, orders: 12, max: 700}
+                  ]
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'  
+  /average_sale_price:
+    get:
+      tags:
+        - sales
+      summary: Get the average value of a sale
+      description: "Get average value of a sale within the specified time period"
+      operationId: AvgSale
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - avg_sale
+                properties:
+                  avg_sale:
+                    type: number
+                    format: float
+              example:
+                avg_sale: 789
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # financial endpoints
+  /accounts_receivable:
+    get:
+      tags:
+        - financial
+      summary: Get the company's accounts receivable
+      description: "Get the company's accounts receivable within the specified time period"
+      operationId: AccountsReceivable
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - acc_receivable
+                properties:
+                  acc_receivable:
+                    type: number
+                    format: float
+              example:
+                acc_receivable: 22200
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /accounts_payable:
+    get:
+      tags:
+        - financial
+      summary: Get the company's accounts payable
+      description: "Get the company's accounts payable within the specified time period"
+      operationId: AccountsPayable
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - acc_payable
+                properties:
+                  acc_payable:
+                    type: number
+                    format: float
+              example:
+                acc_payable: 5230
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /balance_sheet:
+    get:
+      tags:
+        - financial
+      summary: Get the company's balance sheet
+      description: "Get the company's balance sheet within the specified time period"
+      operationId: BalanceSheet
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - assets
+                  - liabilities
+                properties:
+                  assets:
+                    type: object
+                    properties:
+                      cash:
+                        type: number
+                        format: float
+                      inventory:
+                        type: number
+                        format: float
+                      property:
+                        type: number
+                        format: float
+                      intangible:
+                        type: number
+                        format: float
+                      total:
+                        type: number
+                        format: float
+                  liabilities:
+                    type: object
+                    properties:
+                      debt:
+                        type: number
+                        format: float
+                      acc_payable:
+                        type: number
+                        format: float
+                      revenue:
+                        type: number
+                        format: float
+                      other: 
+                        type: number
+                        format: float
+                      total:
+                        type: number
+                        format: float
+              example:
+                assets: {cash: 39343, inventory: 7691, property: 177689, intangible: 5001, total: 229724}
+                liabilities: {debt: 29343, acc_payable: 35900, revenue: 5573, other: 39021, total: 109837}
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # stock endpoints
+  /total_assets_in_stock:
+    get:
+      tags:
+        - stock
+      summary: Get the value of the company's assets in stock 
+      description: "Get the value of the company's assets in stock within the specified time period"
+      operationId: TotalAssets
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - assets
+                properties:
+                  assets:
+                    type: number
+                    format: float
+              example:
+                assets: 52500
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /inventory_turnover:
+    get:
+      tags:
+        - stock
+      summary: Get the company's inventory turnover value
+      description: "Get the company's inventory turnover value within the specified time period"
+      operationId: InventoryTurnover
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - turnover
+                properties:
+                  turnover:
+                    type: number
+                    format: float
+              example:
+                turnover: 3.4
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /inventory_period:
+    get:
+      tags:
+        - stock
+      summary: Get the company's inventory period value
+      description: "Get the company's inventory period value within the specified time period"
+      operationId: InventoryPeriod
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - period
+                properties:
+                  period:
+                    type: number
+                    format: float
+              example:
+                period: 107.4
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /average_sales_quantity:
+    get:
+      tags:
+        - stock
+      summary: Get the company's average sales quantity
+      description: "Get the company's average sales quantity within the specified time period"
+      operationId: AvgSalesQuantity
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - avg_sales
+                properties:
+                  avg_sales:
+                    type: number
+                    format: float
+              example:
+                avg_sales: 80
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /product_listing:
+    get:
+      tags:
+        - stock
+      summary: Get a list of the company's products
+      description: "Get a list of the company's products with information relative to the specified time interval"
+      operationId: ProductListing
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - products
+                properties:
+                  products:
+                    type: array
+                    items:
+                      type: object  
+                      properties:
+                        id:
+                          type: integer
+                          format: int32
+                        name:
+                          type: string
+                        stock:
+                          type: integer
+                          format: int32
+                        sold:
+                          type: integer
+                          format: int32
+                        avg_purchase_price:
+                          type: number
+                          format: float
+                        avg_selling_price:
+                          type: number
+                          format: float
+              example:
+                products: [
+                  {id: 00001, name: Sushi, stock: 550, sold: 345, avg_purchase_price: 9.2, avg_selling_price: 15},
+                  {id: 00002, name: Hossomakis, stock: 550, sold: 345, avg_purchase_price: 9.2, avg_selling_price: 15},
+                  {id: 00003, name: Sashimi, stock: 550, sold: 345, avg_purchase_price: 9.2, avg_selling_price: 15},
+                  {id: 00004, name: Yakisoba, stock: 550, sold: 345, avg_purchase_price: 9.2, avg_selling_price: 15}
+                ]
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # purchases endpoints
+  /average_margin_per_supplier:
+    get:
+      tags:
+        - purchases
+      summary: Get the company's average margin per supplier
+      description: "Get the company's average margin per supplier within the specified time period"
+      operationId: AvgMarginSupplier
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - margin
+                properties:
+                  margin:
+                    type: number
+                    format: float
+              example:
+                margin: 2000.56
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /largest_margin_supplier:
+    get:
+      tags:
+        - purchases
+      summary: Get the company's largest margin supplier
+      description: "Get the company's largest margin supplier within the specified time period"
+      operationId: LargestMarginSupplier
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - supplier
+                properties:
+                  supplier:
+                    type: string
+              example:
+                supplier: "Kaizuya, Co., Ltd."
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /top_purchased_products:
+    get:
+      tags:
+        - purchases
+      summary: Get a list of the company's top purchased products
+      description: "Get a list of the company's top purchased products within the specified time period"
+      operationId: TopPurchasedProducts
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - products
+                properties:
+                  products:
+                    type: array
+                    items:
+                      properties:
+                        id:
+                          type: integer
+                          format: int32
+                        name:
+                          type: string
+                        units:
+                          type: integer
+                          format: int32
+                        price:
+                          type: number
+                          format: float
+              example:
+                products: [
+                  {id: 0001, name: Sashimi, units: 300, price: 7.8},
+                  {id: 0023, name: Tempura, units: 250, price: 3.8}
+                ]
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /supplier_region:
+    get:
+      tags:
+        - purchases
+      summary: Get the suppliers regions
+      description: "Get the company's suppliers' regions within the specified time period"
+      operationId: SupplierRegion
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - regions
+                properties:
+                  regions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        region:
+                          type: string
+                        percentage:
+                          type: number
+                          format: float
+              example:
+                regions: [
+                  {region: Europe, percentage: 17},
+                  {region: Asia, percentage: 83}
+                ]
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /top_suppliers:
+    get:
+      tags:
+        - purchases
+      summary: Get a list of the company's top suppliers
+      description: "Get a list of the company's top suppliers within the specified time period"
+      operationId: TopSuppliers
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - suppliers
+                properties:
+                  suppliers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        name:
+                          type: string
+                        total:
+                          type: number
+                          format: float
+                        orders:
+                          type: integer
+                          format: int32
+                        max:
+                          type: number
+                          format: float
+              example:
+                suppliers: [
+                  {id: "AG837", name: "Kaizuya, Co., Ltd.", total: "2124", orders: 5, max: 809},
+                  {id: "DF231", name: "KONDO SHOTEN, CO., LTD.", total: "1341", orders: 4, max: 678},
+                  {id: "HWE34", name: "Daito-Suisan, Co., Ltd.", total: "798", orders: 3, max: 356}
+                ]
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  # miscellaneous endpoints
+  /total_profit:
+    get:
+      tags:
+        - overview
+        - financial
+      summary: Get the company's total profit
+      description: "Get the company's total profit within the specified time period"
+      operationId: TotalProfit
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - profit
+                properties:
+                  profit:
+                    type: number
+                    format: float
+              example:
+                profit: 352100
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /total_revenue:
+    get:
+      tags:
+        - overview
+        - sales
+      summary: Get the company's total revenue
+      description: "Get the company's total revenue within the specified time period"
+      operationId: TotalRevenue
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - revenue
+                properties:
+                  profit:
+                    type: number
+                    format: float
+              example:
+                profit: 500309
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /revenue_growth:
+    get:
+      tags:
+        - overview
+        - financial
+      summary: Get the company's revenue growth over time
+      description: "Get the company's revenue growth over time, within the specified time period"
+      operationId: RevenueGrowth
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - revenue_growth
+                properties:
+                  revenue_growth:
+                    type: array
+                    items:
+                      type: number
+                      format: float
+              example:
+                revenue_growth: [10,11,13,12,12,4,5,6,7,8,9,20]
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /top_selling_products:
+    get:
+      tags:
+        - overview
+        - sales
+      summary: Get a list of the company's top selling products
+      description: "Get a list of the company's top selling products during the specified time period"
+      operationId: TopSellingProducts
+      parameters:
+        - $ref: '#/components/parameters/start_date'
+        - $ref: '#/components/parameters/end_date'
+      responses:
+        200:
+          description: ""
+          content: 
+            application/json:
+              schema:
+                type: object
+                required:
+                  - revenue
+                properties:
+                  products:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        units:
+                          type: integer
+                          format: int32
+                        price:
+                          type: number
+                          format: float
+              example:
+                products: [
+                  {id: 23, name: sashimi, units: 150, price: 17.8},
+                  {id: 73, name: tempura, units: 121, price: 18.8},
+                  {id: 12, name: sushi, units: 103, price: 20.0},
+                  {id: 65, name: robata, units: 89, price: 9.2}]
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+security:
+  - accessToken: []
+
+components:
+  securitySchemes:
+    accessToken:
+      type: http
+      description: Unique user's access token generated at login
+      scheme: bearer
+      bearerFormat: JWT
+
+  parameters:
+    start_date:
+      name: start_date
+      in: query
+      description: The start date of the time period to be considered
+      required: true
+      allowEmptyValue: false
+      schema:
+        type: string
+        format: date
+    end_date:
+      name: end_date
+      in: query
+      description: The start date of the time period to be considered
+      required: true
+      allowEmptyValue: false
+      schema:
+        type: string
+        format: date
+
+    client_id:
+      name: id
+      in: path
+      description: The client's unique identificator
+      required: true
+      allowEmptyValue: false
+      schema: 
+        type: string
+
+    product_id:
+      name: id
+      in: path
+      description: The product's unique identificator
+      required: true
+      allowEmptyValue: false
+      schema:
+        type: string
+
+    supplier_id:
+      name: id
+      in: path
+      description: The supplier's unique identificator
+      required: true
+      allowEmptyValue: false
+      schema:
+        type: string
+
+  schemas:
+
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
