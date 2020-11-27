@@ -15,7 +15,7 @@
   align-items: center;
 
 
-  width: 300px;
+  /*width: 300px;*/
   position: fixed;
   overflow-y: scroll;
   top: 0;
@@ -163,3 +163,42 @@
   }
 }
 
+@media(max-width: 768px)
+{
+
+  .left-side{
+    background-color: var(--card-background);
+    height: 50vh;
+    align-items: center;
+  }
+
+  #left-logo{
+    display: none;
+  }
+
+  .spanText{
+    display: inline;
+  }
+
+  
+  .nav-items{
+    width: 90%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+
+  .nav-item, .selected-item{
+    font-size: 1em;
+  }
+  
+  .import{
+    margin-top:2em;
+    margin-bottom: 1em;
+  }
+
+  .logout{
+    margin-top: 1em;
+    margin-bottom: 2em;
+  }
+
+}

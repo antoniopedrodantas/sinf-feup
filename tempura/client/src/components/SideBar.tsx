@@ -36,8 +36,8 @@ class SideBar extends Component<SideProps> {
       <>
         <img id="left-logo" src={logo} alt="logo" />
         
-        <button className="left-buttons"> 
-          <span> <span className="import"><FontAwesomeIcon  icon={faFileImport} /></span >  <span className="spanText">Import File</span></span>
+        <button className="left-buttons import"> 
+          <span> <span className="import"><FontAwesomeIcon  icon={faFileImport} /></span> <span className="spanText">Import File</span></span>
         </button>
 
         <nav className="nav-items">
@@ -78,8 +78,6 @@ export default SideBar;
 {/* 
 TODO:
 - routes
-- media queries
-- toogle
 - remove scroll bar from FireFox
 */}
 
