@@ -9,26 +9,3 @@
     display: none;
 }
 
-/* a partir dos 1100px dar toogle*/
-@media(max-width:1100px)
-{
-  .toggle-menu{
-    font-size: 1.2em;
-    padding: 0.5em 1em 0.5em 1em;
-    background-color: var(--card-background);
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .tempura{
-    color: var(--red-color);
-    font-weight: 600;
-  }
-
-  .toggle-icon{
-    color: var(--red-color);
-    font-size: 1.1em;
-  }
-}
