@@ -79,5 +79,7 @@ export default SideBar;
 TODO:
 - routes
 - remove scroll bar from FireFox
+- add animation when clicking hamburguer menu
+- checkbox unchecked by default (atm it's checked)
 */}
 
