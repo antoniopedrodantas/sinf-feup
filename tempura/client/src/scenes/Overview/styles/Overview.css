@@ -3,3 +3,9 @@
 .overview{
     background-color: var(--menu-selection);
 }
+
+#cenas{
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+}

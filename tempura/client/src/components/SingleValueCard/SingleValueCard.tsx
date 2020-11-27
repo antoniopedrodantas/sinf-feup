@@ -10,7 +10,7 @@ const SingleValueCard: React.FC<SingleValueCardProps> = ({ type, title, value })
     <>
       <div className={classNames}>
         <h2 className="card-title">{title}</h2>
-        <h3 className="card-value">{value}</h3>
+        <h1 className="card-value">{value}</h1>
       </div>
     </>
   );
