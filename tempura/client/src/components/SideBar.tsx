@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+
 import './styles/SideBar.css';
-const logo =  require("../assets/logo.svg")
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileImport, faSignOutAlt} from '@fortawesome/free-solid-svg-icons'
 import { faChartLine, faCashRegister, faShoppingCart, faCoins, faWarehouse} from '@fortawesome/free-solid-svg-icons'
+const logo =  require("../assets/logo.svg")
 
 interface SideProps {
   coreview: string;
@@ -15,7 +16,7 @@ class SideBar extends Component<SideProps> {
     const {coreview} = this.props
     let overviewItem="nav-item", salesItem="nav-item", purchasesItem="nav-item", financialItem="nav-item", stockItem="nav-item"
     let core = {coreview}.coreview
-
+    
     if(!core.localeCompare("overview")){
       overviewItem="selected-item"
     }
@@ -34,7 +35,7 @@ class SideBar extends Component<SideProps> {
    
     return (
       <>
-        <img id="left-logo" src={logo} alt="logo" />
+        <img id="left-logo" src={logo} alt="logo"/>
         
         <button className="left-buttons import"> 
           <span> <span className="import"><FontAwesomeIcon  icon={faFileImport} /></span> <span className="spanText">Import File</span></span>
@@ -42,23 +43,23 @@ class SideBar extends Component<SideProps> {
 
         <nav className="nav-items">
 
-          <a id="overview" className={overviewItem} href="#">
+          <a id="overview" className={overviewItem} href="/overview">
             <span className="nav-icon fa-layers fa-fw"><FontAwesomeIcon icon={faChartLine} size = 'lg'/></span> <span className="spanText">Overview</span>
           </a>
 
-          <a id="sales" className={salesItem} href="#">
+          <a id="sales" className={salesItem} href="/sales">
             <span className="nav-icon fa-layers fa-fw"><FontAwesomeIcon icon={faCashRegister} size = 'lg'/></span> <span className="spanText">Sales</span>
           </a>
           
-          <a id="purchases" className={purchasesItem} href="#">
+          <a id="purchases" className={purchasesItem} href="/purchases">
             <span className="nav-icon fa-layers fa-fw"><FontAwesomeIcon icon={faShoppingCart} size = 'lg'/></span> <span className="spanText">Purchases</span>
           </a>
 
-          <a id="financial" className={financialItem} href="#">
+          <a id="financial" className={financialItem} href="/financial">
             <span className="nav-icon fa-layers fa-fw"><FontAwesomeIcon icon={faCoins} size = 'lg'/></span> <span className="spanText">Financial</span>
           </a>
 
-          <a id="stock" className={stockItem} href="#">
+          <a id="stock" className={stockItem} href="/stock">
             <span className="nav-icon fa-layers fa-fw"><FontAwesomeIcon icon={faWarehouse} size = 'lg'/></span> <span className="spanText">Stock</span>
           </a>
 
@@ -77,7 +78,6 @@ export default SideBar;
 
 {/* 
 TODO:
-- routes
 - remove scroll bar from FireFox
 - add animation when clicking hamburguer menu
 - checkbox unchecked by default (atm it's checked)
