@@ -11,7 +11,7 @@ const Stock: React.FC = () => {
     <>
       <div className="frame"> 
 
-        <input type="checkbox" id="menu"></input>
+        <input type="checkbox" id="menu" defaultChecked={true}></input>
 
         <div className="toggle-menu">
           <div className="tempura"> Tempura</div>

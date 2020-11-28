@@ -12,7 +12,7 @@ const Purchases: React.FC = () => {
     <>
       <div className="frame"> 
 
-        <input type="checkbox" id="menu"></input>
+        <input type="checkbox" id="menu" defaultChecked={true}></input>
         <div className="toggle-menu">
           <div className="tempura"> Tempura</div>
           <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon"/></label>
