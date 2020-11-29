@@ -21,7 +21,8 @@
     "start:watch": "nodemon",
     "build": "tsc",
     "migration:run": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run",
-    "migration:revert": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:revert"
+    "migration:revert": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:revert",
+    "migration:db" : "rm -f ./database/tempura.db && touch ./database/tempura.db"
   },
   "nodemonConfig": {
     "ignore": [

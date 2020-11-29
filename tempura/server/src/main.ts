@@ -5,12 +5,14 @@ import * as bodyParser from "body-parser";
 import { User } from "./entity/User";
 import { root } from "./path";
 import router from "./routes";
+import { Saft } from "./entity/Saft";
 
 const options: ConnectionOptions = {
     type: "sqlite",
     database: `${root}/database/tempura.db`,
-    entities: [ User ],
-    logging: true
+    entities: [ User, Saft ],
+    logging: true,
+    synchronize: true,
 }
 
 createConnection(options)
