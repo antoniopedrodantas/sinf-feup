@@ -22,7 +22,7 @@
     "build": "tsc",
     "migration:run": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run",
     "migration:revert": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:revert",
-    "migration:db" : "rm -f ./database/tempura.db && touch ./database/tempura.db"
+    "migration:db": "rm -f ./database/tempura.db && touch ./database/tempura.db"
   },
   "nodemonConfig": {
     "ignore": [
@@ -36,5 +36,9 @@
     ],
     "exec": "yarn start",
     "ext": "ts"
+  },
+  "devDependencies": {
+    "swagger-jsdoc": "^6.0.0-rc.3",
+    "swagger-ui-express": "^4.1.5"
   }
 }

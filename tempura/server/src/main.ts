@@ -6,6 +6,8 @@ import { User } from "./entity/User";
 import { root } from "./path";
 import router from "./routes";
 import { Saft } from "./entity/Saft";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUI from "swagger-ui-express";
 
 const options: ConnectionOptions = {
     type: "sqlite",
@@ -25,16 +27,34 @@ createConnection(options)
         // setup express app here
         // ...
 
+        const swaggerDefinition = {
+            openapi: "3.0.2",
+            info: {
+                title: "TempuraAPI",
+                description: "Get helpful statistics about your company's performance",
+                version: "1.0.0"
+            },
+            servers: [
+                {
+                    url: "http://localhost:3000",
+                    description: "Development Server"
+                },
+            ],
+        };
+
+        const options = {
+            swaggerDefinition,
+            apis: ['./routes/*.ts']
+        };
+
+        const swaggerSpec = swaggerJSDoc(options);
+
+
+        app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
         app.use(router);
 
         // start express server
         app.listen(3000);
-
-        app.get("/", (req, res) => {
-            res.send("Hello World")
-        })
-
-        console.log("Express server has started on port 3000. Open http://localhost:3000/ to see results");
 
     })
     .catch((error) => {
