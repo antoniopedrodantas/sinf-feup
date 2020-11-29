@@ -170,6 +170,10 @@
     background-color: var(--card-background);
     height: 50vh;
     align-items: center;
+
+    animation: linear;
+    animation-name: bounce;
+    animation-duration: 4s;
   }
 
   #left-logo{
@@ -202,3 +206,14 @@
   }
 
 }
+
+@keyframes bounce {
+  0%        { left:100%;    opacity: 0;   }
+  40%       { left:   0;    opacity: 0.5; }
+  50%       { left: 12%;    opacity: 0.7; }
+  65%       { left:   0;    opacity: 0.8; }
+  75%       { left:  8%;    opacity: 0.8; }
+  85%       { left:   0;    opacity: 0.9; }
+  92%       { left:  4%;    opacity: 1;   }
+  100%      { left:   0;    opacity: 1;   }
+} 

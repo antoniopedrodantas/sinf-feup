@@ -1,4 +1,5 @@
-import React from 'react';
+import React , { useState }from 'react';
+import {Transition} from 'react-transition-group';
 
 import SideBar from '../../components/SideBar';
 import './styles/Overview.css';
@@ -7,6 +8,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars} from '@fortawesome/free-solid-svg-icons'
 
 const Overview: React.FC = () => {
+
+  const [activeMenu, setActiveMenu] = useState('main')
   return (
     <>
       <div className="frame"> 

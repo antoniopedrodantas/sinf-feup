@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 
 import './styles/SideBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -68,7 +68,9 @@ class SideBar extends Component<SideProps> {
         <button className="left-buttons logout"> 
           <span> <FontAwesomeIcon icon={faSignOutAlt}/> <span className="spanText">Logout</span></span>
         </button>
+     
     </>
+    
     );
 
   }
@@ -80,6 +82,5 @@ export default SideBar;
 TODO:
 - remove scroll bar from FireFox
 - add animation when clicking hamburguer menu
-- checkbox unchecked by default (atm it's checked)
 */}
 
