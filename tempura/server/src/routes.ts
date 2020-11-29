@@ -1,6 +1,9 @@
 import express from "express";
 
+import docs from "./routes/docs";
+
 import auth from "./routes/auth";
+import uploadSaft from "./routes/uploadSaft";
 
 import client from "./routes/client";
 import product from "./routes/product";
@@ -12,11 +15,12 @@ import overview from "./routes/overview";
 import purchases from "./routes/purchases";
 import financial from "./routes/financial";
 import miscellaneous from "./routes/miscellaneous";
-import uploadSaft from "./routes/uploadSaft";
 
 
 const router = express.Router();
 
+
+router.use('/', docs);
 
 router.use('/', auth);
 router.use('/', uploadSaft);
