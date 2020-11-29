@@ -4,11 +4,15 @@
   "main": "main.ts",
   "license": "UNLICENSED",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.9",
     "@types/node": "^14.14.9",
     "@types/validator": "^13.1.0",
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
     "nodemon": "^2.0.6",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.0",
@@ -22,7 +26,7 @@
     "build": "tsc",
     "migration:run": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:run",
     "migration:revert": "./node_modules/.bin/ts-node ./node_modules/.bin/typeorm migration:revert",
-    "migration:db" : "rm -f ./database/tempura.db && touch ./database/tempura.db"
+    "migration:db": "rm -f ./database/tempura.db && touch ./database/tempura.db"
   },
   "nodemonConfig": {
     "ignore": [

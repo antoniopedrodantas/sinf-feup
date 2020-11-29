@@ -18,6 +18,7 @@ const router = express.Router();
 
 
 router.use('/', auth);
+router.use('/',);
 
 router.use('/client', client);
 router.use('/product', product);
