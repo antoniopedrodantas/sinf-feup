@@ -26,4 +26,4 @@ yarn-error.log*
 
 ### VSCode ###
 .vscode
-tempura/server/database/tempura.db
+

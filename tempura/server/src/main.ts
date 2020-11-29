@@ -6,6 +6,8 @@ import { User } from "./entity/User";
 import { root } from "./path";
 import router from "./routes";
 import { Saft } from "./entity/Saft";
+import cors from "cors";
+import morgan from "morgan";
 
 const options: ConnectionOptions = {
     type: "sqlite",
@@ -20,22 +22,18 @@ createConnection(options)
 
         // create express app
         const app = express();
-        app.use(bodyParser.json());
-
+        
         // setup express app here
         // ...
-
+        app.use(bodyParser.json());
+        app.use(bodyParser.urlencoded({ extended: true }))
         app.use(router);
+        app.use(cors());
+        app.use(morgan('dev'));
+
 
         // start express server
-        app.listen(3000);
-
-        app.get("/", (req, res) => {
-            res.send("Hello World")
-        })
-
-        console.log("Express server has started on port 3000. Open http://localhost:3000/ to see results");
-
+        app.listen(8000);
     })
     .catch((error) => {
         console.error(error)
