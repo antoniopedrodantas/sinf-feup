@@ -4,17 +4,31 @@
   "main": "main.ts",
   "license": "UNLICENSED",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.2"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.0",
+    "@types/cors": "^2.8.8",
+    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.9",
+    "@types/morgan": "^1.9.2",
+    "@types/multer": "^1.4.4",
     "@types/node": "^14.14.9",
     "@types/validator": "^13.1.0",
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
     "nodemon": "^2.0.6",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.0",
     "ts-node": "^9.0.0",
     "typeorm": "^0.2.29",
-    "typescript": "^4.1.2"
+    "typescript": "^4.1.2",
+    "validate-with-xmllint": "^1.2.0",
+    "swagger-jsdoc": "^6.0.0-rc.3",
+    "swagger-ui-express": "^4.1.5"
   },
   "scripts": {
     "start": "node --inspect=5858 -r ts-node/register ./src/main.ts",
@@ -36,9 +50,5 @@
     ],
     "exec": "yarn start",
     "ext": "ts"
-  },
-  "devDependencies": {
-    "swagger-jsdoc": "^6.0.0-rc.3",
-    "swagger-ui-express": "^4.1.5"
   }
 }

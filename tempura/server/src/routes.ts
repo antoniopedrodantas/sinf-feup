@@ -12,12 +12,14 @@ import overview from "./routes/overview";
 import purchases from "./routes/purchases";
 import financial from "./routes/financial";
 import miscellaneous from "./routes/miscellaneous";
+import uploadSaft from "./routes/uploadSaft";
 
 
 const router = express.Router();
 
 
 router.use('/', auth);
+router.use('/', uploadSaft);
 
 router.use('/client', client);
 router.use('/product', product);

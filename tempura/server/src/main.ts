@@ -8,6 +8,8 @@ import router from "./routes";
 import { Saft } from "./entity/Saft";
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUI from "swagger-ui-express";
+import cors from "cors";
+import morgan from "morgan";
 
 const options: ConnectionOptions = {
     type: "sqlite",
@@ -22,8 +24,7 @@ createConnection(options)
 
         // create express app
         const app = express();
-        app.use(bodyParser.json());
-
+        
         // setup express app here
         // ...
 
@@ -36,7 +37,7 @@ createConnection(options)
             },
             servers: [
                 {
-                    url: "http://localhost:3000",
+                    url: "http://localhost:8000",
                     description: "Development Server"
                 },
             ],
@@ -50,12 +51,16 @@ createConnection(options)
         const swaggerSpec = swaggerJSDoc(options);
 
 
+        app.use(bodyParser.json());
+        app.use(bodyParser.urlencoded({ extended: true }))
         app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
         app.use(router);
+        app.use(cors());
+        app.use(morgan('dev'));
+
 
         // start express server
-        app.listen(3000);
-
+        app.listen(8000);
     })
     .catch((error) => {
         console.error(error)
