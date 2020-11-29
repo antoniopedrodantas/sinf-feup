@@ -1,14 +1,15 @@
 import express, { NextFunction, Request, Response } from "express";
-import { writeFile } from "fs";
-import multer, { MulterError } from "multer";
+import multer from "multer";
 import { root } from "../path";
+import {
+  validateXMLWithXSD
+}  from "validate-with-xmllint";
 
 const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    //TODO check if dir exists
-    cb(null, `${root}/safts/`)
+    cb(null, `${root}/safts/`);
   },
   filename: (req, file, cb) => {
     // TODO add name scheme or name generator
@@ -20,7 +21,18 @@ const filefilter = (req: Request, file: Express.Multer.File, cb: multer.FileFilt
   if (file.mimetype != 'application/xml') {
     cb(new Error('Wrong file type.'))
   } else { // TODO: add validacao xsd aqui 
-    cb(null, true);
+    validateXMLWithXSD(file.path, `${root}/safts/saftpt1.04_01.xsd`)
+      .then((res) => {
+        cb(null,true)
+      })
+      .catch((err) => {
+
+        console.log(err);
+        cb(new Error('Saft file does not have proper schema'));
+        
+      })
+    
+    
   }
 }
 
