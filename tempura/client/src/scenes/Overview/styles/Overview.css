@@ -3,3 +3,11 @@
 .overview{
     background-color: var(--menu-selection);
 }
+
+.borderless tr {
+    border: none;
+}
+
+.table-header{
+    border-bottom: solid 2px white;
+}
