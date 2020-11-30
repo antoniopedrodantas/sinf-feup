@@ -81,6 +81,7 @@ export default SideBar;
 {/* 
 TODO:
 - remove scroll bar from FireFox
-- add animation when clicking hamburguer menu
+- remove horizontal scroll 
+- fix rightSide bug on mobile version
 */}
 
