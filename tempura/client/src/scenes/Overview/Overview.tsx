@@ -1,5 +1,4 @@
 import React , { useState }from 'react';
-import {Transition} from 'react-transition-group';
 
 import SideBar from '../../components/SideBar';
 import './styles/Overview.css';
@@ -9,7 +8,6 @@ import { faBars} from '@fortawesome/free-solid-svg-icons'
 
 const Overview: React.FC = () => {
 
-  const [activeMenu, setActiveMenu] = useState('main')
   return (
     <>
       <div className="frame"> 
