@@ -7,6 +7,10 @@ import parser from "xml2json";
 import { JsonObject } from "swagger-ui-express";
 
 
+import { getRepository } from "typeorm";
+import { Saft } from "../entity/Saft";
+
+
 const router = express.Router();
 
 const xsdPath = `${root}/safts/saftpt1.04_01.xsd`;
@@ -83,7 +87,7 @@ function uploadfile(request: Request, response: Response, next: NextFunction) {
       let fileName = "test.json"; // FIXME: this is temporary
 
       // get header information
-      const saftHeaderInfo = {
+      const saftHeaderInfo: SaftHeader = {
         name: fileName,
         creationDate: header.DateCreated,
         startDate: header.StartDate,
@@ -98,7 +102,7 @@ function uploadfile(request: Request, response: Response, next: NextFunction) {
       // TODO: insert file entry into db with above information
 
       // TODO: modify json schema, to make more accessible (may depends on saft type)
-      
+
       // remove header
       delete jsonObj["Header"];
 
@@ -162,6 +166,32 @@ function convertGeneralLedgerAccounts(old: JsonObject) {
     "TaxonomyCodes": taxonomyCodes,
     "Accounts": accounts
   };
+}
+
+
+interface SaftHeader {
+  name: string,
+  creationDate: string,
+  startDate: string,
+  endDate: string,
+  fiscalYear: string,
+  type: string,
+  path: string
+};
+
+// possible scenarios
+//  - overlaps, but the file is newer -> delete old file (disk and db) and insert new
+//  - overlaps, but the file is older -> keep old file and send error explaining the situation
+//  - overlaps, but the file is a different type -> insert new file
+//  - no overlap -> insert new file
+
+function checkOverlapping(info: SaftHeader) {
+  // how can a file completly overlap another?
+  //  - same start and end date 
+}
+
+function insertSaft(info: SaftHeader) {
+
 }
 
 
