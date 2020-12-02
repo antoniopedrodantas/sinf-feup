@@ -1,37 +1,20 @@
 import React from 'react';
 import './styles/Overview.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import CustomTable from '../../components/CustomTable/CustomTable';
 
 const Overview: React.FC = () => {
+
+  const columns1 = ["Name", "Price", "Whatever"];
+  const types2= ["text", "money", "text"];
+  const values3 = [
+    ["Sushi", "12", "ok"],
+    ["Tempura", "10", "ok"],
+    ["Sashimi", "12", "ok"]
+  ];
+
   return (
     <>
-
-      <table className="table table-dark table-borderless table-sm">
-      <thead>
-        <tr className="table-header">
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </table>
+      <CustomTable columns={columns1} type={types2} values={values3} />
     </>
   );
 };
