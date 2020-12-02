@@ -10,16 +10,6 @@ interface TableProps{
 
 const CustomTable: React.FC<TableProps> = ({columns, type, values}) => {
 
-    const renderBody = () =>{
-        return values.map((value) =>
-            <tr>
-                {value.map((elem, i) => {     
-                    return (<td>{elem} {renderType(i)}</td> ) 
-                })}
-            </tr>
-        );
-    }
-
     const renderType = (i) =>{
         switch(type[i]){
             case 'money': return " €";
@@ -44,7 +34,7 @@ const CustomTable: React.FC<TableProps> = ({columns, type, values}) => {
                         <tr>
                         {  
                             value.map((elem, i) => {     
-                                return (<td>{elem} {renderType(i)}</td> ) 
+                                return (<td>{elem}{renderType(i)}</td> ) 
                             }) 
                         }
                         </tr>
