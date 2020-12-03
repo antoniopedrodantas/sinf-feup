@@ -16,7 +16,7 @@ const Overview: React.FC = () => {
 
   return (
     <>
-      <CustomTable columns={columns1} type={types2} values={values3} />
+      <CustomTable title="Product Listing" columns={columns1} type={types2} values={values3} />
     </>
   );
 };
