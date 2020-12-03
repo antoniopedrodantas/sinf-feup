@@ -34,11 +34,17 @@ const Overview: React.FC = () => {
 
   return (
     <>
-      <CustomTable title="Product Listing" columns={columns1} type={types1} values={values1} />
-      <p></p>
-      <CustomTable title="Top Products Sold" columns={columns2} type={types2} values={values2} />
-      <p></p>
-      <CustomTable title="Top Purchased Products" columns={columns3} type={types3} values={values3} />
+      <div className="tb1">
+        <CustomTable title="Product Listing" columns={columns1} type={types1} values={values1} />
+      </div>
+      
+      <div className="tb2">
+        <CustomTable title="Top Products Sold" columns={columns2} type={types2} values={values2} /> 
+      </div>
+
+      <div className="tb3">
+        <CustomTable title="Top Purchased Products" columns={columns3} type={types3} values={values3} />  
+      </div>
     </>
   );
 };

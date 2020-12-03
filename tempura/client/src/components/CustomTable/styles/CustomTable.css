@@ -1,5 +1,12 @@
 @import '../../../index.css';
 
+.borderless tr {
+    border: none;
+}
+
+.table-header{
+    border-bottom: solid 2px white;
+}
 
 .table-div{
     background-color: var(--card-background);
@@ -43,10 +50,4 @@ td{
 
 .normal-table > td{
     color: var(--red-color) !important;
-}
-
-@media(max-width: 320px){
-    .table-title{
-        margin-right: 0;
-    }
 }

@@ -1,4 +1,6 @@
 import React from "react";
+import CSS from 'csstype';
+
 import './styles/CustomTable.css';
 
 
@@ -18,7 +20,7 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
             case 'number': return ;
             case 'text': default: return ;
         }
-    } /*add number to fiels */
+    }
 
     const generateClassName = (i) =>{
         switch(type[i]){
@@ -40,10 +42,9 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
     }
 
     var classType = columns.length <= 5 ? "normal-table" : "large-table";
-
     return(
         <>
-            <div className="table-div">
+            <div className="table-div table-responsive">
                 <h3 className="table-title">{title}</h3>
                 <table className="table table-dark table-borderless table-sm">
                     <thead>
@@ -73,3 +74,8 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
 };
 
 export default CustomTable;
+
+/*
+TODO
+- meter scroll vertical quando houver demasiados items
+*/

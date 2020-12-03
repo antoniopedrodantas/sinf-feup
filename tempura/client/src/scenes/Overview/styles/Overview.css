@@ -4,10 +4,32 @@
     background-color: var(--menu-selection);
 }
 
-.borderless tr {
-    border: none;
+.tb1, .tb2, .tb3{
+    margin-top: 1em;
 }
 
-.table-header{
-    border-bottom: solid 2px white;
+.tb1 > .table-div{
+    width: 45% !important;
+}
+
+.tb2 > .table-div{
+    width: 18% !important;
+}
+
+.tb3 > .table-div{
+    width: 22% !important;
+}
+
+@media(max-width: 1100px){
+    .tb1 > .table-div{
+        width: 100% !important;
+    }
+    
+    .tb2 > .table-div{
+        width: 50% !important;
+    }
+    
+    .tb3 > .table-div{
+        width: 50% !important;
+    }
 }
