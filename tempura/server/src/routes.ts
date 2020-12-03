@@ -2,6 +2,8 @@ import express from "express";
 
 import auth from "./routes/auth";
 
+import users from "./controllers/UserController";
+
 import client from "./routes/client";
 import product from "./routes/product";
 import supplier from "./routes/supplier";
@@ -18,6 +20,8 @@ const router = express.Router();
 
 
 router.use('/', auth);
+
+router.use('/', users);
 
 router.use('/client', client);
 router.use('/product', product);

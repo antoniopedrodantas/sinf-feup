@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { ConnectionOptions, createConnection } from "typeorm";
 import express from "express";
 import * as bodyParser from "body-parser";
-import { User } from "./entity/User";
+import { User } from "./entity/User";
 import { root } from "./path";
 import router from "./routes";
 
