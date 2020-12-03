@@ -2,7 +2,7 @@ import { Entity, Column, CreateDateColumn, PrimaryGeneratedColumn, OneToMany, Ma
 import { User } from "./User";
 
 export enum TaxAccountingBasis {
-  ACCOUNTABILITY = 'C',
+  ACCOUNTING = 'C',
   BILLING = 'F'
 }
 
