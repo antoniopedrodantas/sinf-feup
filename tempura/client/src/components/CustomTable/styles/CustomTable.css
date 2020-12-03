@@ -1,8 +1,22 @@
 @import '../../../index.css';
 
 
+.table-div{
+    background-color: var(--card-background);
+    border-radius: 8px;
+    display: inline-block;
+}
+
+.table-title{
+    margin-left: 1em;
+    margin-top: 0.2em;
+}
+
 .table{
     background-color: transparent !important;
+    width: auto !important; 
+    margin-left: 1em;
+    margin-right: 1em;
 }
 
 .header-elem{
@@ -11,12 +25,12 @@
 
 td{
     font-weight: 600;
+    padding: 10px !important;
 }
 
 .large-table > td:first-child, .large-table > td:nth-child(2){
     color: var(--white-color) !important;
 }
-
 
 .large-table > td{
     color: var(--red-color) !important;
