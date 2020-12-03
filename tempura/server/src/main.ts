@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { ConnectionOptions, createConnection } from "typeorm";
-import express from "express";
+import express, { NextFunction } from "express";
 import * as bodyParser from "body-parser";
 import { User } from "./entity/User";
 import { root } from "./path";
@@ -8,6 +8,8 @@ import router from "./routes";
 import { Saft } from "./entity/Saft";
 import cors from "cors";
 import morgan from "morgan";
+
+import errorMiddleware from "./middlewares/errorMiddleware";
 
 const options: ConnectionOptions = {
     type: "sqlite",
@@ -33,6 +35,7 @@ createConnection(options)
         app.use(cors());
         app.use(morgan('dev'));
 
+        app.use(errorMiddleware);
 
         // start express server
         app.listen(8000);
