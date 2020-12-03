@@ -1,6 +1,10 @@
 @import '../../../index.css';
 
 
+.table{
+    background-color: transparent !important;
+}
+
 .header-elem{
     font-weight: 100;
 }
