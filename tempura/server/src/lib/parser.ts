@@ -8,8 +8,13 @@ function parseJSON(jsonObj: JsonObject) {
     delete jsonObj["Header"];
 
     // convert GeneralLedgerAccounts
-    let accounts = parseGeneralLedgerAccounts(jsonObj["MasterFiles"]["GeneralLedgerAccounts"]);
-    jsonObj["MasterFiles"]["GeneralLedgerAccounts"] = accounts;
+    if (jsonObj.hasOwnProperty("MasterFiles")) {
+        let masterFiles = jsonObj["MasterFiles"];
+        if (masterFiles.hasOwnProperty("GeneralLedgerAccounts")) {
+            let accounts = parseGeneralLedgerAccounts(masterFiles["GeneralLedgerAccounts"]);
+            masterFiles["GeneralLedgerAccounts"] = accounts;
+        }
+    }
 
 
     if (header["TaxAccountingBasis"] === 'C') {
