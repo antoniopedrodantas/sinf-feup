@@ -28,6 +28,17 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
             case 'number': return "text-right";
         }
     }
+
+    /* previously were all text-center */
+    const generateHeaderClassName = (i) =>{
+        switch(type[i]){
+            case 'text': default: return "header-elem text-left";
+            case 'money': return "header-elem text-right";
+            case 'percentage': return "header-elem text-right";
+            case 'number': return "header-elem text-right";
+        }
+    }
+
     var classType = columns.length <= 5 ? "normal-table" : "large-table";
 
     return(
@@ -37,8 +48,8 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
                 <table className="table table-dark table-borderless table-sm">
                     <thead>
                         <tr className="table-header">
-                        {columns.map((header_elem) => {     
-                            return (<th scope="col" className="header-elem text-center">{header_elem}</th>) 
+                        {columns.map((header_elem, i) => {     
+                            return (<th scope="col" className={generateHeaderClassName(i)}>{header_elem}</th>) 
                         })}
                         </tr>
                     </thead>
