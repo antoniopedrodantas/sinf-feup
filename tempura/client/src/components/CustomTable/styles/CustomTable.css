@@ -1,1 +1,26 @@
 @import '../../../index.css';
+
+
+.header-elem{
+    font-weight: 100;
+}
+
+.large-table > td:first-child, .large-table > td:nth-child(2){
+    color: var(--white-color) !important;
+}
+
+td{
+    font-weight: 600;
+}
+.large-table > td{
+    color: var(--red-color) !important;
+}
+
+.normal-table > td:first-child{
+    color: var(--white-color) !important;
+}
+
+.normal-table > td{
+    color: var(--red-color) !important;
+}
+

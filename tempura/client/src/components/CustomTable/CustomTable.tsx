@@ -17,6 +17,7 @@ const CustomTable: React.FC<TableProps> = ({columns, type, values}) => {
             case 'text': default: return ;
         }
     }
+    var classType = columns.length <= 5 ? "normal-table" : "large-table";
 
     return(
         <>
@@ -24,17 +25,17 @@ const CustomTable: React.FC<TableProps> = ({columns, type, values}) => {
                 <thead>
                     <tr className="table-header">
                     {columns.map((header_elem) => {     
-                        return (<th scope="col">{header_elem}</th>) 
+                        return (<th scope="col" className="header-elem">{header_elem}</th>) 
                     })}
                     </tr>
                 </thead>
                 <tbody>
                     {values.map((value) => {     
                         return( 
-                        <tr>
+                        <tr className={classType}>
                         {  
                             value.map((elem, i) => {     
-                                return (<td>{elem}{renderType(i)}</td> ) 
+                                return (<td className="body-elem">{elem}{renderType(i)}</td> ) 
                             }) 
                         }
                         </tr>
