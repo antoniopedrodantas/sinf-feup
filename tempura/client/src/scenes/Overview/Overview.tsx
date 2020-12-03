@@ -17,10 +17,10 @@ const Overview: React.FC = () => {
                     ];
 
   const columns2 = ["Name", "Sold Units"];
-  const types2   = ["text","text"];
+  const types2   = ["text","number"];
   const values3  = [
                       ["Sushi", "12"],
-                      ["Tempura", "10"]
+                      ["Tempura", "100"]
                     ];
 
 

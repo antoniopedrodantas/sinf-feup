@@ -15,16 +15,17 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
         switch(type[i]){
             case 'money': return " €";
             case 'percentage': return ' %';
+            case 'number': return ;
             case 'text': default: return ;
         }
-    }
+    } /*add number to fiels */
 
     const generateClassName = (i) =>{
         switch(type[i]){
             case 'text': default: return "text-left";
             case 'money': return "text-right";
             case 'percentage': return "text-right";
-
+            case 'number': return "text-right";
         }
     }
     var classType = columns.length <= 5 ? "normal-table" : "large-table";
@@ -32,7 +33,7 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
     return(
         <>
             <div className="table-div">
-                <h2 className="table-title">{title}</h2>
+                <h3 className="table-title">{title}</h3>
                 <table className="table table-dark table-borderless table-sm">
                     <thead>
                         <tr className="table-header">
