@@ -3,7 +3,8 @@ import './styles/Login.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock} from '@fortawesome/free-solid-svg-icons'
 
-import { request } from 'http';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const logo =  require("../../assets/logo.svg")
 
@@ -11,36 +12,26 @@ const Login: React.FC = () => {
 
   // Connection with Backend
 
-  const submit = async () => {
+  const history = useHistory();
+
+  const submit = async (event: any) => {
     
+    event.preventDefault();
+
     // Gets username and password
     const username = (document.getElementById("username") as HTMLInputElement).value;
     const password = (document.getElementById("password") as HTMLInputElement).value;
+
+    await axios.post('http://localhost:8000/login', { username, password }).then(res => {
+      console.log(res);
+      console.log(res.data);
+      history.push('/overview');
+    }).catch(err => {
+      console.log(err);
+    });
     
-    const req = request(
-      {
-        host: 'localhost',
-        port: '8000',
-        path: '/login',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      },
-      response => {
-        console.log(response); // 200
-      }
-    );
-     
-    req.write(JSON.stringify({
-      username: username,
-      password: password
-    }));
-     
-    req.end();
   };
   
-
   // Frontend
 
   return (
