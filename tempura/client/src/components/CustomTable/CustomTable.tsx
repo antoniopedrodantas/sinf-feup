@@ -23,7 +23,7 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
         }
     }
 
-    const generateClassName = (i:any) =>{
+    const generateClassName = (i:CustomTableType) =>{
         switch(type[i]){
             case 'text': default: return "text-left";
             case 'money': return "text-right";
