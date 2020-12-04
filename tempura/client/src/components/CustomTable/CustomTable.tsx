@@ -4,10 +4,12 @@ import CSS from 'csstype';
 import './styles/CustomTable.css';
 
 
+type CustomTableType = "money" | "percentage" | "text" | "number";
+
 interface TableProps{
     title: String;
     columns: String[]; 
-    type: String[];
+    type: CustomTableType[];
     values: String[][];
 }
 
