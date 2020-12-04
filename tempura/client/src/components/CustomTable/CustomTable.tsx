@@ -17,8 +17,7 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
         switch(type[i]){
             case 'money': return " €";
             case 'percentage': return ' %';
-            case 'number': return ;
-            case 'text': default: return ;
+            case 'number': case 'text': default: return ;
         }
     }
 
