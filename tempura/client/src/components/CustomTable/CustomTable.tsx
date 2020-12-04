@@ -33,7 +33,7 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
     }
 
     /* previously were all text-center */
-    const generateHeaderClassName = (i:any) =>{
+    const generateHeaderClassName = (i: CustomTableType) =>{
         switch(type[i]){
             case 'text': default: return "header-elem text-left";
             case 'money': return "header-elem text-right";
