@@ -1,23 +1,49 @@
 import React from 'react';
 import SingleValueCard from 'src/components/SingleValueCard/SingleValueCard';
+import CustomTable from '../../components/CustomTable/CustomTable';
 import './styles/Overview.css';
 
 const Overview: React.FC = () => {
+
+  const columns1 = ["Name", "Price", "Description", "Test", "Test", "Test"];
+  const types1   = ["text", "text", "text", "money", "money", "money"];
+  const values1  = [
+                      ["Sushi", "12", "Best in Japan", "1", "244", "Fafe"],
+                      ["Tempura", "10", "CR7 das Tempuras", "1", "2", "Fafe"],
+                      ["Sashimi", "24", "Windóóóhhhhh", "122", "12", "Fafe"],
+                      ["Sushi", "12", "Best in Japan", "1", "244", "Fafe"],
+                      ["Tempura", "10", "CR7 das Tempuras", "1", "2", "Fafe"],
+                      ["Sashimi", "24", "Windóóóhhhhh", "122", "12", "Fafe"]
+                    ];
+
+  const columns2 = ["Name", "Sold Units"];
+  const types2   = ["text","number"];
+  const values2  = [
+                      ["Sushi", "12"],
+                      ["Tempura", "100"]
+                    ];
+  const columns3 = ["Name", "Purchased Units", "Price"];
+  const types3   = ["text","number", "money"];
+  const values3  = [
+                      ["Sushi", "500", "7.8"],
+                      ["Tempura", "100", "12"],
+                      ["Robata", "270", "5.2"],
+                      ["Wasabi", "140", "9"]
+                    ];
+
+
   return (
     <>
-    <div id="cenas">
-      <SingleValueCard type="text" title="Titulo" value="3"/>
-      <SingleValueCard type="text" title="Titulo" value="2" />
-        <SingleValueCard type="text" title="Titulo" value="14,700 €"  />
+      <div className="tb1">
+        <CustomTable title="Product Listing" columns={columns1} type={types1} values={values1} />
       </div>
-      <div id="cenas">
-        <SingleValueCard type="text" title="Titulo bem grande para teste" value="Totally-not-Yakuza" />
-        <SingleValueCard type="money" title="Titulo" value={2000000} />
-        <SingleValueCard type="money" title="Titulo" value={2000000} />
-        <SingleValueCard type="unit" title="Titulo" value={1} />
-        <SingleValueCard type="unit" title="Titulo" value={10} />
-        <SingleValueCard type="date" title="Titulo" value={1.5} />
-        <SingleValueCard type="date" title="Titulo" value={10} />
+      
+      <div className="tb2">
+        <CustomTable title="Top Products Sold" columns={columns2} type={types2} values={values2} /> 
+      </div>
+
+      <div className="tb3">
+        <CustomTable title="Top Purchased Products" columns={columns3} type={types3} values={values3} />  
       </div>
     </>
   );
