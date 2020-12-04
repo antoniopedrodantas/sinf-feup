@@ -13,7 +13,7 @@ interface TableProps{
 
 const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
 
-    const renderType = (i) =>{
+    const renderType = (i:any) =>{
         switch(type[i]){
             case 'money': return " €";
             case 'percentage': return ' %';
@@ -22,7 +22,7 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
         }
     }
 
-    const generateClassName = (i) =>{
+    const generateClassName = (i:any) =>{
         switch(type[i]){
             case 'text': default: return "text-left";
             case 'money': return "text-right";
@@ -32,7 +32,7 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
     }
 
     /* previously were all text-center */
-    const generateHeaderClassName = (i) =>{
+    const generateHeaderClassName = (i:any) =>{
         switch(type[i]){
             case 'text': default: return "header-elem text-left";
             case 'money': return "header-elem text-right";
