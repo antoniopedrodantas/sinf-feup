@@ -1,38 +1,51 @@
-import { JsonObject } from "swagger-ui-express";
 
-
-
-function parseJSON(jsonObj: JsonObject) {
+function parseJSON(jsonObj: any) {
     const header = jsonObj["Header"];
 
     delete jsonObj["Header"];
 
-    // convert GeneralLedgerAccounts
     if (jsonObj.hasOwnProperty("MasterFiles")) {
         let masterFiles = jsonObj["MasterFiles"];
+
         if (masterFiles.hasOwnProperty("GeneralLedgerAccounts")) {
             let accounts = parseGeneralLedgerAccounts(masterFiles["GeneralLedgerAccounts"]);
             masterFiles["GeneralLedgerAccounts"] = accounts;
         }
+
+        if (masterFiles.hasOwnProperty("Customer")) {
+            let customers = parseCustomers(masterFiles["Customer"]);
+            masterFiles["Customer"] = customers;
+        }
+
+        if (masterFiles.hasOwnProperty("Supplier")) {
+            let suppliers = parseSuppliers(masterFiles["Supplier"]);
+            masterFiles["Supplier"] = suppliers;
+        }
+
+        if (masterFiles.hasOwnProperty("Product")) {
+            let products = parseProducts(masterFiles["Product"]);
+            masterFiles["Product"] = products;
+        }
     }
 
+    if (jsonObj.hasOwnProperty("SourceDocuments")) {
+        let sourceDocuments = jsonObj["SourceDocuments"];
 
-    if (header["TaxAccountingBasis"] === 'C') {
-        // accountability
-
-        // only need the accounts ?
-    } else if (header["TaxAccountingBasis"] === 'F') {
-        // billing
-
+        if (sourceDocuments.hasOwnProperty("SalesInvoices")) {
+            
+        }
     }
+
+    
+
 }
 
 
-function parseGeneralLedgerAccounts(old: JsonObject) {
-    let taxonomyCodes: JsonObject = {};
-    let accounts: JsonObject = {};
+function parseGeneralLedgerAccounts(old: any) {
+    let taxonomyCodes: any = {};
+    let accounts: any = {};
 
-    let oldAccounts: Array<JsonObject> = old["Account"];
+    let oldAccounts: Array<any> = old["Account"];
     oldAccounts.forEach(element => {
         let id = element["AccountID"];
 
@@ -59,5 +72,43 @@ function parseGeneralLedgerAccounts(old: JsonObject) {
         "Accounts": accounts
     };
 }
+
+function parseCustomers(old: Array<any>) {
+    let customers: any = {};
+
+    old.forEach(element => {
+        let id = element["CustomerID"];
+        delete element["CustomerID"];
+
+        customers[id] = element;
+    });
+
+    return customers;
+}
+
+function parseSuppliers(old: Array<any>) {
+    let suppliers: any = {};
+
+    old.forEach(element => {
+        let id = element["SupplierID"];
+        delete element["SupplierID"];
+
+        suppliers[id] = element;
+    })
+
+    return suppliers;
+}
+
+function parseProducts(old: Array<any>) {
+    let products: any = {};
+
+    old.forEach(element => {
+        let id = element["ProductCode"];
+        delete element["ProductCode"];
+
+        products[id] = element
+    })
+}
+
 
 export default parseJSON;
