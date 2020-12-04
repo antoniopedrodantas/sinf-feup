@@ -1,3 +1,5 @@
+@import '../../../index.css';
+
 .purchases {
-    background-color: pink;
+    background-color: var(--core-background);
 }

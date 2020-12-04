@@ -1,3 +1,136 @@
-.login{
-    background-color: aqua;
+@import '../../../index.css';
+
+
+.loginContainer{
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    width: 30%;
+    font-size: 1.2em;
+
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+#logo{
+    width: 40%;
+    height: 40%;
+    margin-top:2em;
+    margin-bottom: 2em;
+}
+
+#loginHR{
+    width: 70%;
+    border-color: var(--red-color);
+    background-color: var(--red-color);
+    height: 5;
+    
+}
+
+#loginText{
+    color: var(--red-color);
+    font-weight: 600;
+}
+
+.loginForm{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input{
+    background-color: var(--core-background);
+    border: none;
+    width: 80%;
+    color: var(--white-color);
+    
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;	
+}
+
+.credentials{
+    margin-top: 3em;
+    margin-bottom: 2em;
+}
+
+.username, .password{
+    background-color: var(--core-background);
+    border-radius: 8px;
+
+    padding-right: 5em;
+    padding-left: 1em;
+    padding-bottom: 0.4em;
+    padding-top: 0.4em;
+}
+
+.username{
+    margin-bottom: 1em;
+}
+
+.icon1{
+    margin-right: 0.7em;
+}
+
+.icon2{
+    margin-right: 0.5em;
+}
+
+
+.loginButton{
+    color: var(--white-color);
+    background-color: var(--red-color);
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    font-size: 1.2em;
+
+    margin-bottom: 2em;
+    
+    padding-right: 1.2em;
+    padding-left: 1.2em;
+    padding-bottom: 0.4em;
+    padding-top: 0.4em;
+}
+
+.loginButton:hover{
+    color: var(--red-color);
+    background-color: var(--white-color);
+    cursor: pointer;
+}
+
+
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+
+/* add media queries*/
+@media(max-width:1230px)
+{
+    .loginContainer{
+        width: 50%;
+    }
+}
+
+@media(max-width:700px)
+{
+    .loginContainer{
+        width: 80%;
+    }
+}
+
+@media(max-width:400px)
+{
+    .loginContainer{
+        width: 95%;
+    }
 }

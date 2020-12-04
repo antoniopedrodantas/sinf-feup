@@ -1,3 +1,5 @@
+@import '../../../index.css';
+
 .not_found{
-    background-color: red;
+    background-color: var(--red-color);
 }
