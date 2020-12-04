@@ -15,7 +15,7 @@ interface TableProps{
 
 const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
 
-    const renderType = (i:any) =>{
+    const renderType = (i: CustomTableType ) =>{
         switch(type[i]){
             case 'money': return " €";
             case 'percentage': return ' %';
