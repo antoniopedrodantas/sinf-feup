@@ -3,19 +3,16 @@ import CSS from 'csstype';
 
 import './styles/CustomTable.css';
 
-
-type CustomTableType = "money" | "percentage" | "text" | "number";
-
 interface TableProps{
     title: String;
     columns: String[]; 
-    type: CustomTableType[];
+    type: String[];
     values: String[][];
 }
 
 const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
 
-    const renderType = (i: CustomTableType ) =>{
+    const renderType = (i:any) =>{
         switch(type[i]){
             case 'money': return " €";
             case 'percentage': return ' %';
@@ -23,7 +20,7 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
         }
     }
 
-    const generateClassName = (i:CustomTableType) =>{
+    const generateClassName = (i:any) =>{
         switch(type[i]){
             case 'text': default: return "text-left";
             case 'money': return "text-right";
@@ -33,7 +30,7 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
     }
 
     /* previously were all text-center */
-    const generateHeaderClassName = (i: CustomTableType) =>{
+    const generateHeaderClassName = (i:any) =>{
         switch(type[i]){
             case 'text': default: return "header-elem text-left";
             case 'money': return "header-elem text-right";

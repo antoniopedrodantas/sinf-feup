@@ -6,7 +6,7 @@ import CustomTable from '../../components/CustomTable/CustomTable';
 const Overview: React.FC = () => {
 
   const columns1 = ["Name", "Price", "Description", "Test", "Test", "Test"];
-  const types1   = ["text", "percentage", "text", "money", "money","text"];
+  const types1   = ["text", "percentage", "text", "money", "money","money"];
   const values1  = [
                       ["Sushi", "12", "Best in Japan", "1", "244", "Fafe"],
                       ["Tempura", "10", "CR7 das Tempuras", "1", "2", "Fafe"],
