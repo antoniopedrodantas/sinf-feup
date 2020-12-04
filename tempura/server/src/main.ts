@@ -26,13 +26,13 @@ createConnection(options)
         app.use(router);
 
         // start express server
-        app.listen(3000);
+        app.listen(8000);
 
         app.get("/", (req, res) => {
             res.send("Hello World")
         })
 
-        console.log("Express server has started on port 3000. Open http://localhost:3000/ to see results");
+        console.log("Express server has started on port 8000. Open http://localhost:8000/ to see results");
 
     })
     .catch((error) => {
