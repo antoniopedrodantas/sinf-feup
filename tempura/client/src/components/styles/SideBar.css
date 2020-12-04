@@ -71,8 +71,8 @@
 .nav-items{
   display: flex;
   flex-direction: column;
-  margin-top: 5em;
-  margin-bottom: 5em;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 .nav-item{
@@ -117,7 +117,7 @@
   }
 
   .nav-items{
-    margin-top: 10em;
+    margin-top: 1em;
   }
 
   .left-buttons{
@@ -136,7 +136,7 @@
     margin-left: 1em;
   }
   .nav-items{
-    margin-top: 10em;
+    margin-top: 1em;
     margin-left: 1em;
   }
 
@@ -154,7 +154,7 @@
   .nav-items{
     font-size: 1.5em;
     margin-left: 1.6em;
-    margin-top: 5em;
+    margin-top: 1em;
   }
 
   #left-logo{
@@ -169,7 +169,7 @@
   .left-side{
     background-color: var(--card-background);
     height: 50vh;
-    align-items: center;
+    /* align-items: center; */
 
     animation: linear;
     animation-name: bounce;
@@ -189,10 +189,14 @@
     width: 90%;
     margin-top: 1em;
     margin-bottom: 1em;
+    position: relative; 
+    float: right !important;
   }
 
   .nav-item, .selected-item{
     font-size: 1em;
+    position: relative;
+    float: right;
   }
   
   .import{
