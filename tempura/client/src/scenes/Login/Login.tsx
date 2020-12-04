@@ -22,10 +22,15 @@ const Login: React.FC = () => {
     const username = (document.getElementById("username") as HTMLInputElement).value;
     const password = (document.getElementById("password") as HTMLInputElement).value;
 
+    // requests database for login
     await axios.post('http://localhost:8000/login', { username, password }).then(res => {
-      console.log(res);
-      console.log(res.data);
+      
+      // sets token on local storage
+      localStorage.setItem('auth-token', res.data.token);
+
+      // redirects to overview page
       history.push('/overview');
+
     }).catch(err => {
       console.log(err);
     });
