@@ -1,5 +1,27 @@
 @import '../../../index.css';
 
-.stock{
+.stock-content{
+    padding-left: 3em;
+    padding-right: 3em;
+    overflow: hidden;
+}
+
+.top-cards, .bottom-cards{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.product-listing{
+    margin-top:1em;
+}
+
+.date-selection{
     background-color: var(--red-color);
+    border-radius: 8px;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    width: fit-content;
+    margin-left: auto;
+
 }
