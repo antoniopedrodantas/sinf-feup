@@ -23,7 +23,7 @@ const Stock: React.FC = () => {
   return (
     <>
       <div className="stock-content">
-        {/* adicionar algo para simular date selection */}
+        {/* apenas para simular date-selection component */}
         <div className="date-selection">
           # 2019 ?
         </div>
