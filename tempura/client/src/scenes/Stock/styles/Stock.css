@@ -12,10 +12,6 @@
     justify-content: space-between;
 }
 
-.product-listing{
-    margin-top:3em;
-}
-
 .date-selection{
     background-color: var(--red-color);
     border-radius: 8px;
@@ -30,6 +26,22 @@
     font-size: 1.4em;
 
 }
+
+.product-listing{
+    margin-top:3em;
+    margin-bottom: 1em;
+
+    max-height: 50vh;
+    overflow-y: auto;
+    -ms-overflow-style: none; /* IE 11 */
+    scrollbar-width: none; /* Firefox 64 */
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
 
 @media(max-width: 1260px){
     .top-cards > .card, .bottom-cards > .card{
