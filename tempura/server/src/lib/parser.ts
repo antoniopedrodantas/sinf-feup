@@ -151,10 +151,6 @@ function parseSalesInvoices(old: any) {
         invoices[id] = element;
     });
 
-    console.log(invoices)
-    console.log(customers)
-    console.log(products)
-
     return {
         "NumberOfEntries": old["NumberOfEntries"],
         "TotalDebit": old["TotalDebit"],

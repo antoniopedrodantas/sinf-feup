@@ -14,7 +14,6 @@ import parseJSON from "../lib/parser";
 import HttpException from "../exceptions/HttpException";
 
 import asyncMiddleware from "../middlewares/asyncMiddleware";
-import { JsonObject } from "swagger-ui-express";
 
 
 const router = express.Router();
@@ -38,7 +37,7 @@ const upload = multer({
 }).single('saft');
 
 
-// TODO: Auth middleware
+// TODO: add authentication middleware
 router.post('/upload', upload, asyncMiddleware(uploadfile));
 
 
@@ -46,7 +45,7 @@ function filefilter(request: Request, file: Express.Multer.File, next: multer.Fi
 	if (file.mimetype != 'application/xml') {
 		next(new HttpException(415, 'Wrong file extension, not an xml file.'))
 	}
-	// TODO: add validacao xsd aqui 
+	// TODO: add xml validation with provided xsd
 	// commented code is here for when we get back to this
 
 	// console.log(file.buffer);
@@ -67,7 +66,6 @@ function filefilter(request: Request, file: Express.Multer.File, next: multer.Fi
 async function uploadfile(request: Request, response: Response, next: NextFunction) {
 
 	// xml to json
-	console.log(request.file.filename);
 	const xmlData = fs.readFileSync(`${root}/safts/tmp/${request.file.filename}`);
 	let jsonObj = JSON.parse(parser.toJson(xmlData));
 
@@ -83,9 +81,8 @@ async function uploadfile(request: Request, response: Response, next: NextFuncti
 		throw next(new HttpException(400, 'SAFT type not supported'));
 	}
 
-	// get header info
 	// TODO: come up with some sort of naming scheme
-	let fileName = `${request.file.filename}.json`; // FIXME: this is temporary
+	let fileName = `${request.file.filename}.json`;
 
 	const saftRepository = getRepository(Saft);
 
@@ -109,7 +106,6 @@ async function uploadfile(request: Request, response: Response, next: NextFuncti
 		throw next(new HttpException(500, 'Internal server error'))
 	}
 
-	// improve json schema
 	parseJSON(jsonObj);
 
 	fs.writeFileSync(`${root}/safts/${fileName}`, JSON.stringify(jsonObj));
@@ -122,7 +118,7 @@ async function uploadfile(request: Request, response: Response, next: NextFuncti
 		});
 }
 
-function getSaftInfo(fileName: string, header: JsonObject) {
+function getSaftInfo(fileName: string, header: any) {
 	return {
 		name: fileName,
 		start_date: new Date(header.StartDate),
