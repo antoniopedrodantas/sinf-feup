@@ -8,7 +8,7 @@
     justify-content: space-around;
     overflow: hidden;
     padding: 1em;
-    max-width: 25vw;
+    width: 25%;
 
     overflow-x: auto;
     -ms-overflow-style: none; /* IE 11 */
@@ -35,4 +35,23 @@
     color:var(--white-color);
     font-size: 1.2em;
     font-weight: 600;
+}
+
+@media(max-width: 1500px){
+    .info-drill{
+        width: 35%;
+    }
+}
+
+@media(max-width: 850px){
+    .info-drill{
+        width: 42%;
+    }
+}
+
+@media(max-width: 768px){
+    .info-drill{
+        width: 90%;
+        margin:0 auto;
+    }
 }
