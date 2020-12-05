@@ -76,4 +76,5 @@ export default CustomTable;
 /*
 TODO
 - meter scroll vertical quando houver demasiados items
+- adicionar media queries ao cartoes
 */
