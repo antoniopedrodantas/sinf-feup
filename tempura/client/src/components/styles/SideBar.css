@@ -196,21 +196,24 @@
 
   
   .nav-items{
-    width: 90%;
-    margin-top: 5vh;
-    margin-bottom: 1em;
-    position: relative; 
-    float: right !important;
+    width: 100vw;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    /* position: relative; 
+    float: right !important; */
+    align-self: center;
   }
 
   .nav-item, .selected-item{
+    width: 50vw;
     font-size: 1em;
     position: relative;
-    float: right;
+    /* float: right; */
+    align-self: center;
   }
   
   .import{
-    margin-top:2em;
+    margin-top:3em;
     margin-bottom: 1em;
   }
 

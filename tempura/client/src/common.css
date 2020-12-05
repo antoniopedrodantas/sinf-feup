@@ -60,9 +60,10 @@
   }
 
   .menu-close{
-    display: block;
+    display: inline;
     font-size: 2em;
-    right: 0;
+    position: fixed;
+    right: 7vw;
   }
 
   input[type=checkbox]:checked ~ .row > .left-side{
