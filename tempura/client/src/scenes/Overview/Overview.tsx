@@ -16,8 +16,9 @@ const Overview: React.FC = () => {
 
   // checks for authentication
   useEffect(() => {
+
+    // gets auth-token from the local storage
     const token = localStorage.getItem("auth-token");
-    console.log(token);
 
     // token is not null
     if(token != null){
@@ -45,6 +46,8 @@ const Overview: React.FC = () => {
     }
 
   }, []);
+
+  // Frontend
 
   return (
     <>
