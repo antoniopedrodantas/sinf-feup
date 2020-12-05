@@ -32,7 +32,8 @@ function parseJSON(jsonObj: any) {
         let sourceDocuments = jsonObj["SourceDocuments"];
 
         if (sourceDocuments.hasOwnProperty("SalesInvoices")) {
-            
+            let salesInvoices = parseSalesInvoices(sourceDocuments["SalesInvoices"]);
+            sourceDocuments["SalesInvoices"] = salesInvoices;
         }
     }
 
@@ -108,6 +109,60 @@ function parseProducts(old: Array<any>) {
 
         products[id] = element
     })
+
+    return products;
+}
+
+function parseSalesInvoices(old: any) {
+    let invoices: any = {};
+    let customers: any = {};
+    let products: any = {};
+
+    let oldInvoices: Array<any> = old["Invoice"];
+    oldInvoices.forEach(element => {
+        let id = element["InvoiceNo"];
+        delete element["InvoiceNo"];
+
+        let customerID = element["CustomerID"];
+        if (customers.hasOwnProperty(customerID)) {
+            customers[customerID].push(id);
+        } else {
+            customers[customerID] = [customerID];
+        }
+
+        let lines: Array<any> = element["Line"];
+        lines.forEach(line => {
+            let number = line["LineNumber"];
+            let productID = line["ProductCode"];
+
+            if (products.hasOwnProperty(productID)) {
+                products[productID].push({
+                    "Invoice": id,
+                    "Line": number
+                });
+            } else {
+                products[productID] = [{
+                    "Invoice": id,
+                    "Line": number
+                }];
+            }
+        });
+
+        invoices[id] = element;
+    });
+
+    console.log(invoices)
+    console.log(customers)
+    console.log(products)
+
+    return {
+        "NumberOfEntries": old["NumberOfEntries"],
+        "TotalDebit": old["TotalDebit"],
+        "TotalCredit": old["TotalCredit"],
+        "Invoice": invoices,
+        "CustomerInvoice": customers,
+        "ProductInvoice": products
+    }
 }
 
 
