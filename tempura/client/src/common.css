@@ -12,6 +12,10 @@
 }
 
 .toggle-menu{
+    display: none;
+  }
+
+.menu-close{
   display: none;
 }
 
@@ -27,13 +31,18 @@
 {
 
   .right-side{
-    margin-left: 1em;
+    display: none;
   }
 
   .toggle-menu{
     font-size: 1.2em;
-    padding: 0.5em 1em 0.5em 1em;
-    background-color: var(--card-background);
+    padding: 0.5em 1em 0.5em 0.5em;
+    background-color: var(--core-background);
+    width: 100vw;
+
+    /* position: fixed !important;
+    top:0;
+    width: 90%; */
 
     display: flex !important;
     flex-direction: row;
@@ -50,7 +59,26 @@
     font-size: 1.1em;
   }
 
+  .menu-close{
+    display: block;
+    font-size: 2em;
+    right: 0;
+  }
+
   input[type=checkbox]:checked ~ .row > .left-side{
+    /* transform: translate3d(100vw, 0, 0) !important; */
     display: none !important;
   }
+
+  input[type=checkbox]:checked ~ .row > .right-side{
+    display: block;
+    margin-left: 0.2em;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    padding-left: 0.5em !important;
+  }
+
+  
 }

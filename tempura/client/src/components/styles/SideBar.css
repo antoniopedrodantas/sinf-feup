@@ -3,6 +3,10 @@
 .left-side{
   background-color: var(--card-background);
 
+  position: fixed;
+  top: 0;
+  margin: 0;
+
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
@@ -11,7 +15,6 @@
   -ms-flex-align: center;
   -webkit-align-items: center;
   -webkit-box-align: center;
-
   align-items: center;
 
 
@@ -71,7 +74,7 @@
 .nav-items{
   display: flex;
   flex-direction: column;
-  margin-top: 1em;
+  margin-top: 5vh;
   margin-bottom: 1em;
 }
 
@@ -117,7 +120,7 @@
   }
 
   .nav-items{
-    margin-top: 1em;
+    margin-top: 5vh;
   }
 
   .left-buttons{
@@ -136,7 +139,7 @@
     margin-left: 1em;
   }
   .nav-items{
-    margin-top: 1em;
+    margin-top: 5vh;
     margin-left: 1em;
   }
 
@@ -153,8 +156,8 @@
 
   .nav-items{
     font-size: 1.5em;
-    margin-left: 1.6em;
-    margin-top: 1em;
+    margin-left: 5vh;
+    margin-top: 5vh;
   }
 
   #left-logo{
@@ -167,13 +170,20 @@
 {
 
   .left-side{
+    /* display: none; */
     background-color: var(--card-background);
-    height: 50vh;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+    /* transform: translate3d(0vw, 0, 0); */
+    height: 100vh;
     /* align-items: center; */
 
-    animation: linear;
+    animation: linear; 
     animation-name: bounce;
-    animation-duration: 4s;
+    animation-duration: 1.5s;  
   }
 
   #left-logo{
@@ -187,7 +197,7 @@
   
   .nav-items{
     width: 90%;
-    margin-top: 1em;
+    margin-top: 5vh;
     margin-bottom: 1em;
     position: relative; 
     float: right !important;
@@ -211,13 +221,11 @@
 
 }
 
+
+
 @keyframes bounce {
   0%        { left:100%;    opacity: 0;   }
   40%       { left:   0;    opacity: 0.5; }
-  50%       { left: 12%;    opacity: 0.7; }
-  65%       { left:   0;    opacity: 0.8; }
-  75%       { left:  8%;    opacity: 0.8; }
-  85%       { left:   0;    opacity: 0.9; }
-  92%       { left:  4%;    opacity: 1;   }
+  50%       { left: 5%;    opacity: 0.7; }
   100%      { left:   0;    opacity: 1;   }
 } 
