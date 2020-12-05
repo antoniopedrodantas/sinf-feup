@@ -9,13 +9,20 @@ interface InfoProps{
 
 const DrillDownInfo: React.FC<InfoProps> = ({title,fields, values}) => {
   
+    const retrieveValue = (i: any) =>{
+        if(values[i]!= null)
+            return values[i]
+        else
+            return <i>no information</i>
+    }
+
     return (
         <>
         <div className="info-drill">
-            <h3 className="table-title">{title}</h3>
+            <h3 className="drill-title">{title}</h3>
             <div className="info-values">
                 {fields.map((field, i) => {     
-                    return (<p className="info-p"><span className="info-field">{field}</span><span className="info-value">{values[i]}</span></p>) 
+                    return (<p className="info-p"><span className="info-field">{field}:</span><span className="info-value">{retrieveValue(i)}</span></p>) 
                 })}
             </div>
         </div>

@@ -1,1 +1,38 @@
 @import '../../../index.css';
+
+.info-drill{
+    background-color: var(--card-background);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    overflow: hidden;
+    padding: 1em;
+    max-width: 25vw;
+
+    overflow-x: auto;
+    -ms-overflow-style: none; /* IE 11 */
+    scrollbar-width: none; /* Firefox 64 */
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+.drill-title{
+    margin-left: 1em;
+    margin-bottom: 1em;
+}
+.info-field{
+    color:var(--red-color);
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-right: 0.8em;
+}
+
+.info-value{
+    color:var(--white-color);
+    font-size: 1.2em;
+    font-weight: 600;
+}
