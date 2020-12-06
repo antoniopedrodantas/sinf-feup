@@ -4,7 +4,9 @@ import './styles/SideBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileImport, faSignOutAlt} from '@fortawesome/free-solid-svg-icons'
 import { faChartLine, faCashRegister, faShoppingCart, faCoins, faWarehouse} from '@fortawesome/free-solid-svg-icons'
+import { Redirect } from 'react-router-dom';
 const logo =  require("../assets/logo.svg")
+
 
 interface SideProps {
   coreview: string;
@@ -12,10 +14,18 @@ interface SideProps {
 
 class SideBar extends Component<SideProps> {
 
+  // logout redirect state
+  state = { logout: null };
+
   render() {
     const {coreview} = this.props
     let overviewItem="nav-item", salesItem="nav-item", purchasesItem="nav-item", financialItem="nav-item", stockItem="nav-item"
     let core = {coreview}.coreview
+
+    // redirects to the login page
+    if (this.state.logout) {
+      return <Redirect to="/login" />
+    }
     
     if(!core.localeCompare("overview")){
       overviewItem="selected-item"
@@ -32,6 +42,20 @@ class SideBar extends Component<SideProps> {
     else{
       stockItem="selected-item"
     }
+
+    // Connection with Backend
+
+    const logout = () => {
+
+      // clears auth-token
+      localStorage.clear();
+
+      // tells the user needs to logout
+      this.setState({ logout: true });
+      
+    };
+
+    // Frontend
    
     return (
       <>
@@ -65,7 +89,7 @@ class SideBar extends Component<SideProps> {
 
         </nav>
 
-        <button className="left-buttons logout"> 
+        <button className="left-buttons logout" onClick={logout}> 
           <span> <FontAwesomeIcon icon={faSignOutAlt}/> <span className="spanText">Logout</span></span>
         </button>
      
