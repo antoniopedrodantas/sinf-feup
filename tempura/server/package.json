@@ -36,6 +36,7 @@
     "yamljs": "^0.3.0"
   },
   "scripts": {
+    "setup": "mkdir -p ./safts/tmp && mkdir -p ./database && touch ./database/tempura.db",
     "start": "node --inspect=5858 -r ts-node/register ./src/main.ts",
     "start:watch": "nodemon",
     "build": "tsc",
