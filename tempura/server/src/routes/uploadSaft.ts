@@ -43,7 +43,8 @@ router.post('/upload', upload, asyncMiddleware(uploadfile));
 
 function filefilter(request: Request, file: Express.Multer.File, next: multer.FileFilterCallback) {
 	if (file.mimetype != 'application/xml') {
-		next(new HttpException(415, 'Wrong file extension, not an xml file.'))
+		console.log(file);
+		return next(new HttpException(415, 'Wrong file extension, not an xml file.'));
 	}
 	// TODO: add xml validation with provided xsd
 	// commented code is here for when we get back to this
@@ -60,7 +61,7 @@ function filefilter(request: Request, file: Express.Multer.File, next: multer.Fi
 	//   cb(new Error('Not a valid SAFT-PT file.'));
 	// }
 
-	next(null, true)
+	return next(null, true);
 }
 
 async function uploadfile(request: Request, response: Response, next: NextFunction) {
