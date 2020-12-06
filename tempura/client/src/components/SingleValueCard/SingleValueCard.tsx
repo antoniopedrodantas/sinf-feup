@@ -1,6 +1,6 @@
 import React from "react";
-import './styles/SingleValueCard.css';
 import { SVCNumberProp, SVCTextProp } from "./SVCMoneyProp";
+import './styles/SingleValueCard.css';
 
 type SingleValueCardProps = SVCNumberProp  | SVCTextProp;
 
@@ -20,7 +20,7 @@ const SingleValueCard: React.FC<SingleValueCardProps> = ({ type, title, value })
   return (
     <>
       <div className={classNames}>
-        <h2 className="card-title">{title}</h2>
+        <h3 className="card-title">{title}</h3>
         <h1 className="card-value">{suffixedValue()}</h1>
       </div>
     </>
