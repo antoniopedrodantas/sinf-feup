@@ -23,6 +23,7 @@ const Overview: React.FC = () => {
               <div className="tempura"> Tempura</div>
               <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon"/></label>
             </div>
+            <div className="right-body">
             OVERVIEW: All the other content should be placed here
             <p>dfsfsdfdsfsdfsdf</p>
             <p>dfsfsdfdsfsdfsdf</p>
@@ -51,6 +52,7 @@ const Overview: React.FC = () => {
             <p>test</p>
             <p>dfsfsdfdsfsdfsdf</p>
             <p>LAST test</p>
+            </div>
 
           </div>
         </div>

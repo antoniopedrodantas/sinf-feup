@@ -27,6 +27,10 @@
   cursor: pointer;
 }
 
+.menu-close{
+  cursor: pointer;
+}
+
 @media(max-width: 768px)
 {
 
@@ -34,11 +38,20 @@
     display: none;
   }
 
+  .row{
+    height: 100vh !important;
+    margin-left: 0 !important;
+    margin-right: 0!important;
+    overflow: hidden;
+
+  }
+
   .toggle-menu{
     font-size: 1.2em;
-    padding: 0.5em 1em 0.5em 0.5em;
-    background-color: var(--core-background);
+    padding: 0.5em 1em 0em 1em;
+    background-color: var(--card-background);
     width: 100vw;
+    left: 0;
 
     /* position: fixed !important;
     top:0;
@@ -63,7 +76,13 @@
     display: inline;
     font-size: 2em;
     position: fixed;
-    right: 7vw;
+    right: 0.5em;
+    padding-top: 0.3em;
+  }
+
+  .right-body{
+    padding-left: 1em;
+    padding-top: 1em;
   }
 
   input[type=checkbox]:checked ~ .row > .left-side{
@@ -73,12 +92,13 @@
 
   input[type=checkbox]:checked ~ .row > .right-side{
     display: block;
-    margin-left: 0.2em;
+    margin-left: 0em;
     position: fixed !important;
     top: 0;
     left: 0;
     width: 100vw !important;
-    padding-left: 0.5em !important;
+    padding-left: 0em !important;
+    overflow-x: hidden;
   }
 
   
