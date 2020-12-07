@@ -6,7 +6,7 @@ info:
   version: "1.0.0"
 
 servers:
-  - url: "https://localhost:3000/"
+  - url: "https://localhost:8000/"
     description: "Local Development Server"
 
 paths:
@@ -91,6 +91,50 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+
+  /upload:
+    post:
+      tags:
+        - miscellaneous
+      summary: Upload a SAFT-PT file
+      description: ""
+      operationId: Upload
+      requestBody:
+        description: The SAFT file that will be uploaded 
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                saft:
+                  type: string
+                  format: binary
+      responses:
+        200:
+          description: SAFT was uploaded successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - code
+                  - message
+                properties:
+                  code:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                code: false
+                message: SAFT was uploaded successfully.
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
 
   # client endpoints
   /client/{id}/info:

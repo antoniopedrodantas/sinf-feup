@@ -9,6 +9,7 @@
 
 html, body{
   color: var(--white-color);
+  background-color: var(--core-background);
 }
 
 body {
@@ -22,6 +23,7 @@ body {
   background-color: var(--core-background);
   width: 100vw; 
   height: 100vh;
+  overflow: hidden;
 }
 
 code {
