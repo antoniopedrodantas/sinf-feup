@@ -3,7 +3,7 @@
 .line-chart{
     background-color: var(--card-background);
     border-radius: 8px;
-    width: 50%;
+    width: 30%;
     overflow: hidden;
 }
 
@@ -37,12 +37,17 @@
 
 @media(max-width: 930px){
     .line-chart, .pie-chart{
-        width: 60%;
+        width: 100%;
     }
 }
 
-@media(max-width: 500px){
+@media(max-width: 700px){
     .line-chart, .pie-chart{
         width: 100%;
+    }
+
+    .line-values{
+        padding: 0;
+        margin:0;
     }
 }

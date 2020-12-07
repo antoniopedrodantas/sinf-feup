@@ -10,8 +10,8 @@ const Purchases: React.FC = () => {
   const values = ["13", "5", "3", "5", "7"];
 
   const lables2 =["Jan", "Feb", "Mar", "Apr", "May", "June"];
-  const values2 = ["20", "2", "8", "5", "7", "2"];
-  const values3 = ["0", "20", "8", "1", "3", "2"];
+  const values2 = ["500", "200", "120", "310", "400", "297"];
+  const values3 = ["300", "180", "80", "180", "220", "110"];
 
   return (
     <>

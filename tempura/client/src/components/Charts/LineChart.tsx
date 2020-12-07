@@ -17,12 +17,13 @@ const LineChart: React.FC<PieChartProps> = ({title, labels, data, data2}) => {
                 <h3 className="chart-title">{title}</h3>
                 <div className="chart-values line-values">
                     <Line 
+                        width={300}
                         data={{
                             labels:labels,
                             datasets: [
                             {
                                 data: data,
-                                label: 'Cost of Goods Solds',
+                                label: data2 == null? '' : 'Cost of Goods Solds',
                                 backgroundColor: 'rgb(255,57,69)',
                                 borderColor: 'rgb(255,57,69)',
                                 fill: false,
@@ -65,7 +66,8 @@ const LineChart: React.FC<PieChartProps> = ({title, labels, data, data2}) => {
                             legend:{
                                 display: data2 == null ? false: true, 
                                 position: 'bottom'
-                            }
+                            },
+                            responsive: true
                         }}
                     />
                 </div>
