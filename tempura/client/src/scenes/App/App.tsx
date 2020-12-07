@@ -7,6 +7,7 @@ import Purchases from '../Purchases/Purchases';
 import Financial from '../Financial/Financial';
 import Stock from '../Stock/Stock';
 import NotFound from '../Static/NotFound';
+import Client from '../DrillDowns/Client/Client';
 
 
 import './styles/App.css';
@@ -22,6 +23,7 @@ const App : React.FC = () => {
         <Route path="/purchases" exact component={Purchases} />
         <Route path="/financial" exact component={Financial} />
         <Route path="/stock" exact component={Stock} />
+        <Route path="/client" exact component={Client} />
         <Route component={NotFound} />
       </Switch>
     </Router>
