@@ -1,9 +1,16 @@
 @import '../../../index.css';
 
-.line-chart, .pie-chart{
+.line-chart{
     background-color: var(--card-background);
     border-radius: 8px;
-    width: 40%;
+    width: 50%;
+    overflow: hidden;
+}
+
+.pie-chart{
+    background-color: var(--card-background);
+    border-radius: 8px;
+    width: 30%;
     overflow: hidden;
 }
 

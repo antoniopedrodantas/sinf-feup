@@ -6,9 +6,10 @@ interface PieChartProps{
     title: String;
     labels: String[];
     data: String[];
+    data2?: String[];
 }
 
-const LineChart: React.FC<PieChartProps> = ({title, labels, data}) => {
+const LineChart: React.FC<PieChartProps> = ({title, labels, data, data2}) => {
 
     return(
         <>
@@ -18,15 +19,28 @@ const LineChart: React.FC<PieChartProps> = ({title, labels, data}) => {
                     <Line 
                         data={{
                             labels:labels,
-                            datasets: [{
+                            datasets: [
+                            {
                                 data: data,
+                                label: 'Cost of Goods Solds',
                                 backgroundColor: 'rgb(255,57,69)',
                                 borderColor: 'rgb(255,57,69)',
                                 fill: false,
                                 lineTension: 0,
                                 pointRadius: 6,
                                 pointHoverRadius: 8
-                            }]
+                            },
+                            {
+                                data: data2,
+                                label: 'Sales Revenue',
+                                backgroundColor: 'green',
+                                borderColor: 'green',
+                                fill: false,
+                                lineTension: 0,
+                                pointRadius: 6,
+                                pointHoverRadius: 8
+                            }
+                        ]
                         }}
                         options={{
                             scales:{
@@ -49,7 +63,8 @@ const LineChart: React.FC<PieChartProps> = ({title, labels, data}) => {
                                 }]
                             },
                             legend:{
-                                display:false
+                                display: data2 == null ? false: true, 
+                                position: 'bottom'
                             }
                         }}
                     />
