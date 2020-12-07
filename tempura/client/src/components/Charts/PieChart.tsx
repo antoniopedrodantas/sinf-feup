@@ -1,6 +1,6 @@
 import React from 'react';
 import { Pie } from 'react-chartjs-2';
-import './styles/PieChart.css';
+import './styles/Charts.css';
 
 interface PieChartProps{
     title: String;
