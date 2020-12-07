@@ -1,5 +1,6 @@
-import React from 'react'
-import { Pie } from 'react-chartjs-2'
+import React from 'react';
+import { Pie } from 'react-chartjs-2';
+import './styles/PieChart.css';
 
 interface PieChartProps{
     title: String;
@@ -10,20 +11,24 @@ interface PieChartProps{
 const PieChart: React.FC<PieChartProps> = ({title, labels, data}) => {
 
     var palette = [
-        'rgb(255,57,69)',
-        'rgb(255, 159, 64)',
-        'rgb(255, 205, 86)',
-        'rgb(0, 163, 51)',
-        'rgb(54, 162, 235)',
+        'rgb(255,57,69)',   //red
+        'rgb(0, 163, 51)',  //green
+        'rgb(255, 205, 86)',//yellow
+        'rgb(253, 106, 2)', //orange
+        'rgb(54, 162, 235)',//blue
+        'rgb(101, 67, 33)', //brown
         'rgb(153, 102, 255)',
-        'rgb(201, 203, 207)'
+        'rgb(201, 203, 207)',
+        'rgb(102, 0, 161)',
+        'rgb(217, 1, 102)',
+        'rgb(56,71, 83)'
     ]
 
     const generateColors = (i: any) =>{
         var colorsArray = []
 
         for(var j = 0; j < i; j++){
-            colorsArray[j] = palette[j];
+            colorsArray[j] = palette[j % palette.length];
         }
 
         return colorsArray;
@@ -34,25 +39,25 @@ const PieChart: React.FC<PieChartProps> = ({title, labels, data}) => {
     return(
         <>
            <div className="pie-chart">
-            <h3 className="chart-title">{title}</h3>
-            <div className="chart-values">
-                <Pie 
-                    data={{
-                        labels:labels,
-                        datasets: [{
-                            data: data,
-                            backgroundColor: colors,
-                            borderColor:  colors
-                            
-                        }]
-                    }}
-                    options={{
+                <h3 className="chart-title">{title}</h3>
+                <div className="chart-values">
+                    <Pie 
+                        data={{
+                            labels:labels,
+                            datasets: [{
+                                data: data,
+                                backgroundColor: colors,
+                                borderColor:  colors
+                            }]
+                        }}
+                        
+                        options={{
 
-                    }}
-                
-                />
+                        }}
+                    
+                    />
+                </div>
             </div>
-        </div>
         </>
     );
 

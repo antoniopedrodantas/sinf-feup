@@ -1,0 +1,49 @@
+@import '../../../index.css';
+
+.pie-chart{
+    background-color: var(--card-background);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    overflow: hidden;
+    width: 30%;
+
+    overflow-x: auto;
+    -ms-overflow-style: none; /* IE 11 */
+    scrollbar-width: none; /* Firefox 64 */
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+.chart-title{
+    margin-left: 1em;
+    margin-top: 0.2em;
+}
+
+.chart-values{
+    align-items: center !important;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+@media(max-width: 1050px){
+    .pie-chart{
+        width: 50%;
+    }
+}
+
+@media(max-width: 930px){
+    .pie-chart{
+        width: 60%;
+    }
+}
+
+@media(max-width: 500px){
+    .pie-chart{
+        width: 100%;
+    }
+}
