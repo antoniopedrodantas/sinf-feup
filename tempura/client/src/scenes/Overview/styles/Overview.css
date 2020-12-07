@@ -1,2 +1,35 @@
 @import '../../../index.css';
 
+.overview{
+    background-color: var(--menu-selection);
+}
+
+.tb1, .tb2, .tb3{
+    margin-top: 1em;
+}
+
+.tb1 > .table-div{
+    width: 45% !important;
+}
+
+.tb2 > .table-div{
+    width: 18% !important;
+}
+
+.tb3 > .table-div{
+    width: 22% !important;
+}
+
+@media(max-width: 1100px){
+    .tb1 > .table-div{
+        width: 100% !important;
+    }
+    
+    .tb2 > .table-div{
+        width: 50% !important;
+    }
+    
+    .tb3 > .table-div{
+        width: 50% !important;
+    }
+}

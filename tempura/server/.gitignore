@@ -1,0 +1,4 @@
+database/tempura.db
+safts/*
+!safts/saftpt.xsd
+node_modules/

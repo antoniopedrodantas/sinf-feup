@@ -1,0 +1,35 @@
+@import '../../../index.css';
+
+.card{
+  border-radius: var(--border-radius);
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--card-background) !important;
+  overflow: hidden;
+  justify-content: flex-start;
+  margin-top: 1em;
+}
+
+.card-title{
+  text-align: left;
+  padding-left: 1em;
+  margin-top: 0.2em;
+}
+
+.card-value{
+  align-self: center;
+  text-align: center;
+  margin: 0 0 0.8em 0;
+  color: var(--red-color);
+  font-size: 2.5vmax;
+  text-overflow: scale;
+}
+
+@media(max-width: 1100px){
+  .card{
+      margin:0 auto;
+      margin-top:1em;
+      width: 60%;
+  }
+}

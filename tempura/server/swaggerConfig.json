@@ -1,0 +1,8 @@
+{
+    "swagger": {
+        "outputDirectory": "./docs",
+        "entryFile": "./src/routes.ts",
+        "yaml" : true,
+        "name": "TempuraAPI"
+    }
+}
