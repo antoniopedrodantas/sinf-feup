@@ -2,7 +2,7 @@ import "reflect-metadata";
 import { ConnectionOptions, createConnection } from "typeorm";
 import express, { NextFunction } from "express";
 import * as bodyParser from "body-parser";
-import { User } from "./entity/User";
+import { User } from "./entity/User";
 import { root } from "./path";
 import router from "./routes";
 import { Saft } from "./entity/Saft";
@@ -19,6 +19,14 @@ const options: ConnectionOptions = {
     synchronize: true,
 }
 
+const corsOptions = {
+    "origin": "http://localhost:3000",
+    "methods": ["GET","PUT","POST","DELETE"],
+    "preflightContinue": false,
+    "credentials": true,
+    "optionsSuccessStatus": 200
+}
+
 createConnection(options)
     .then(async connection => {
 
@@ -28,12 +36,20 @@ createConnection(options)
         // setup express app here
         // ...
 
-
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({ extended: true }))
-        app.use(router);
-        app.use(cors());
+        app.use(cors(corsOptions));
         app.use(morgan('dev'));
+
+        // ...
+
+        app.use(router);
+
+        app.get("/", (req, res) => {
+            res.send("Hello World")
+        })
+
+        console.log("Express server has started on port 8000. Open http://localhost:8000/ to see results");
 
         app.use(errorMiddleware);
 

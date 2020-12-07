@@ -5,6 +5,8 @@ import docs from "./routes/docs";
 import auth from "./routes/auth";
 import uploadSaft from "./routes/uploadSaft";
 
+import users from "./controllers/UserController";
+
 import client from "./routes/client";
 import product from "./routes/product";
 import supplier from "./routes/supplier";
@@ -24,6 +26,8 @@ router.use('/', docs);
 
 router.use('/', auth);
 router.use('/', uploadSaft);
+
+router.use('/', users);
 
 router.use('/client', client);
 router.use('/product', product);

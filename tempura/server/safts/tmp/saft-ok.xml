@@ -1,0 +1,776 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<AuditFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:OECD:StandardAuditFile-Tax:PT_1.04_01">
+  <Header>
+    <AuditFileVersion>1.04_01</AuditFileVersion>
+    <CompanyID>234158247</CompanyID>
+    <TaxRegistrationNumber>234158247</TaxRegistrationNumber>
+    <TaxAccountingBasis>F</TaxAccountingBasis>
+    <CompanyName>Tempura</CompanyName>
+    <CompanyAddress>
+      <BuildingNumber>0</BuildingNumber>
+      <StreetName>R. Dr. Roberto Frias, Porto</StreetName>
+      <AddressDetail>R. Dr. Roberto Frias, Porto   4200 465</AddressDetail>
+      <City>465</City>
+      <PostalCode>4200</PostalCode>
+      <Region>Desconhecido</Region>
+      <Country xsi:type="xsd:string">PT</Country>
+    </CompanyAddress>
+    <FiscalYear>2020</FiscalYear>
+    <StartDate>2020-09-01</StartDate>
+    <EndDate>2020-12-31</EndDate>
+    <CurrencyCode xsi:type="xsd:string">EUR</CurrencyCode>
+    <DateCreated>2020-12-03</DateCreated>
+    <TaxEntity>GLOBAL</TaxEntity>
+    <ProductCompanyTaxID>503140600</ProductCompanyTaxID>
+    <SoftwareCertificateNumber>2616</SoftwareCertificateNumber>
+    <ProductID>PRIMAVERA JASMIN/PRIMAVERA Business Software Solutions</ProductID>
+    <ProductVersion>1.00</ProductVersion>
+  </Header>
+  <MasterFiles>
+    <Customer>
+      <CustomerID>0004.514535423</CustomerID>
+      <AccountID>Desconhecido</AccountID>
+      <CustomerTaxID>514535423</CustomerTaxID>
+      <CompanyName>KABUKI SUSHI E SUSHI EVOLUTION, LDA</CompanyName>
+      <BillingAddress>
+        <BuildingNumber>Desconheci</BuildingNumber>
+        <StreetName>RUA FRANCISCO S¡ CARNEIRO</StreetName>
+        <AddressDetail>KABUKI SUSHI E SUSHI EVOLUTION, LDA  RUA FRANCISCO S¡ CARNEIRO   2500-206 CALDAS DA RAINHA</AddressDetail>
+        <City>CALDAS DA RAINHA</City>
+        <PostalCode>2500-206</PostalCode>
+        <Region>Desconhecido</Region>
+        <Country>PT</Country>
+      </BillingAddress>
+      <Telephone>Desconhecido</Telephone>
+      <Fax>Desconhecido</Fax>
+      <Email>Desconhecido</Email>
+      <Website>Desconhecido</Website>
+      <SelfBillingIndicator>0</SelfBillingIndicator>
+    </Customer>
+    <Customer>
+      <CustomerID>0005.513873562</CustomerID>
+      <AccountID>Desconhecido</AccountID>
+      <CustomerTaxID>513873562</CustomerTaxID>
+      <CompanyName>SUSHI NO KAISHA - SOCIEDADE PORTUGUESA DE SUSHI, LDA</CompanyName>
+      <BillingAddress>
+        <BuildingNumber>Desconheci</BuildingNumber>
+        <StreetName>PRACETA PROFESSOR ALFREDO DE SOUSA</StreetName>
+        <AddressDetail>SUSHI NO KAISHA - SOCIEDADE PORTUGUESA DE SUSHI, LDA  PRACETA PROFESSOR ALFREDO DE SOUSA 4B  1495-241 ALG…S</AddressDetail>
+        <City>ALG…S</City>
+        <PostalCode>1495-241</PostalCode>
+        <Region>Desconhecido</Region>
+        <Country>PT</Country>
+      </BillingAddress>
+      <Telephone>Desconhecido</Telephone>
+      <Fax>Desconhecido</Fax>
+      <Email>Desconhecido</Email>
+      <Website>Desconhecido</Website>
+      <SelfBillingIndicator>0</SelfBillingIndicator>
+    </Customer>
+    <Customer>
+      <CustomerID>0006.507753003</CustomerID>
+      <AccountID>Desconhecido</AccountID>
+      <CustomerTaxID>507753003</CustomerTaxID>
+      <CompanyName>KENDO SUSHI, LDA</CompanyName>
+      <BillingAddress>
+        <BuildingNumber>Desconheci</BuildingNumber>
+        <StreetName>N√O ESPECIFICADO</StreetName>
+        <AddressDetail>KENDO SUSHI, LDA  N√O ESPECIFICADO   4450-000 MATOSINHOS</AddressDetail>
+        <City>MATOSINHOS</City>
+        <PostalCode>4450-000</PostalCode>
+        <Region>Desconhecido</Region>
+        <Country>PT</Country>
+      </BillingAddress>
+      <Telephone>Desconhecido</Telephone>
+      <Fax>Desconhecido</Fax>
+      <Email>Desconhecido</Email>
+      <Website>Desconhecido</Website>
+      <SelfBillingIndicator>0</SelfBillingIndicator>
+    </Customer>
+    <Customer>
+      <CustomerID>0007.502355883</CustomerID>
+      <AccountID>Desconhecido</AccountID>
+      <CustomerTaxID>502355883</CustomerTaxID>
+      <CompanyName>RESTAURANTE CHIN S LUAR, LDA</CompanyName>
+      <BillingAddress>
+        <BuildingNumber>Desconheci</BuildingNumber>
+        <StreetName>OURA VILLAGE</StreetName>
+        <AddressDetail>RESTAURANTE CHIN S LUAR, LDA  OURA VILLAGE   8200-604 ALBUFEIRA</AddressDetail>
+        <City>ALBUFEIRA</City>
+        <PostalCode>8200-604</PostalCode>
+        <Region>Desconhecido</Region>
+        <Country>PT</Country>
+      </BillingAddress>
+      <Telephone>Desconhecido</Telephone>
+      <Fax>Desconhecido</Fax>
+      <Email>Desconhecido</Email>
+      <Website>Desconhecido</Website>
+      <SelfBillingIndicator>0</SelfBillingIndicator>
+    </Customer>
+    <Product>
+      <ProductType>P</ProductType>
+      <ProductCode>HOSSOMAKI</ProductCode>
+      <ProductGroup>Raw seafood and vegetables</ProductGroup>
+      <ProductDescription>Rolled rice in nori seaweed</ProductDescription>
+      <ProductNumberCode>0 938021 147933</ProductNumberCode>
+    </Product>
+    <Product>
+      <ProductType>P</ProductType>
+      <ProductCode>SASHIMI</ProductCode>
+      <ProductGroup>Raw seafood and vegetables</ProductGroup>
+      <ProductDescription>Thinly-sliced seafood or raw fish</ProductDescription>
+      <ProductNumberCode>0 938110 147972</ProductNumberCode>
+    </Product>
+    <Product>
+      <ProductType>P</ProductType>
+      <ProductCode>YAKISOBA</ProductCode>
+      <ProductGroup>Everything related to pastas</ProductGroup>
+      <ProductDescription>Fried noodles</ProductDescription>
+      <ProductNumberCode>0 971000 127863</ProductNumberCode>
+    </Product>
+    <Product>
+      <ProductType>P</ProductType>
+      <ProductCode>NIGUIRI</ProductCode>
+      <ProductGroup>Raw seafood and vegetables</ProductGroup>
+      <ProductDescription>Fish or shellfish placed on top of a rice block</ProductDescription>
+      <ProductNumberCode>0 978021 137962</ProductNumberCode>
+    </Product>
+    <Product>
+      <ProductType>P</ProductType>
+      <ProductCode>WASABI</ProductCode>
+      <ProductGroup>Anything you can dip into</ProductGroup>
+      <ProductDescription>Japanese horseradish</ProductDescription>
+      <ProductNumberCode>0 907011 733966</ProductNumberCode>
+    </Product>
+    <Product>
+      <ProductType>P</ProductType>
+      <ProductCode>SOYSAUCE</ProductCode>
+      <ProductGroup>Anything you can dip into</ProductGroup>
+      <ProductDescription>Liquid condiment</ProductDescription>
+      <ProductNumberCode>0 981007 234987</ProductNumberCode>
+    </Product>
+    <Product>
+      <ProductType>P</ProductType>
+      <ProductCode>BAO</ProductCode>
+      <ProductGroup>Everything related to pastas</ProductGroup>
+      <ProductDescription>Yeast-leavened filled bun</ProductDescription>
+      <ProductNumberCode>0 987122 227903</ProductNumberCode>
+    </Product>
+    <TaxTable>
+      <TaxTableEntry>
+        <TaxType>IVA</TaxType>
+        <TaxCountryRegion>PT</TaxCountryRegion>
+        <TaxCode>INT</TaxCode>
+        <Description>Taxa IntermÈdia</Description>
+        <TaxPercentage>13.000000</TaxPercentage>
+      </TaxTableEntry>
+      <TaxTableEntry>
+        <TaxType>IVA</TaxType>
+        <TaxCountryRegion>PT</TaxCountryRegion>
+        <TaxCode>ISE</TaxCode>
+        <Description>Isento</Description>
+        <TaxPercentage>0.000000</TaxPercentage>
+      </TaxTableEntry>
+      <TaxTableEntry>
+        <TaxType>IVA</TaxType>
+        <TaxCountryRegion>PT</TaxCountryRegion>
+        <TaxCode>NOR</TaxCode>
+        <Description>Taxa Normal</Description>
+        <TaxPercentage>23.000000</TaxPercentage>
+      </TaxTableEntry>
+      <TaxTableEntry>
+        <TaxType>IVA</TaxType>
+        <TaxCountryRegion>PT</TaxCountryRegion>
+        <TaxCode>RED</TaxCode>
+        <Description>Taxa Reduzida</Description>
+        <TaxPercentage>6.000000</TaxPercentage>
+      </TaxTableEntry>
+      <TaxTableEntry>
+        <TaxType>IVA</TaxType>
+        <TaxCountryRegion>PT-AC</TaxCountryRegion>
+        <TaxCode>INT</TaxCode>
+        <Description>Taxa IntermÈdia</Description>
+        <TaxPercentage>9.000000</TaxPercentage>
+      </TaxTableEntry>
+      <TaxTableEntry>
+        <TaxType>IVA</TaxType>
+        <TaxCountryRegion>PT-AC</TaxCountryRegion>
+        <TaxCode>ISE</TaxCode>
+        <Description>Isento</Description>
+        <TaxPercentage>0.000000</TaxPercentage>
+      </TaxTableEntry>
+      <TaxTableEntry>
+        <TaxType>IVA</TaxType>
+        <TaxCountryRegion>PT-AC</TaxCountryRegion>
+        <TaxCode>NOR</TaxCode>
+        <Description>Taxa Normal</Description>
+        <TaxPercentage>18.000000</TaxPercentage>
+      </TaxTableEntry>
+      <TaxTableEntry>
+        <TaxType>IVA</TaxType>
+        <TaxCountryRegion>PT-AC</TaxCountryRegion>
+        <TaxCode>RED</TaxCode>
+        <Description>Taxa Reduzida</Description>
+        <TaxPercentage>4.000000</TaxPercentage>
+      </TaxTableEntry>
+      <TaxTableEntry>
+        <TaxType>IVA</TaxType>
+        <TaxCountryRegion>PT-MA</TaxCountryRegion>
+        <TaxCode>INT</TaxCode>
+        <Description>Taxa IntermÈdia</Description>
+        <TaxPercentage>12.000000</TaxPercentage>
+      </TaxTableEntry>
+      <TaxTableEntry>
+        <TaxType>IVA</TaxType>
+        <TaxCountryRegion>PT-MA</TaxCountryRegion>
+        <TaxCode>ISE</TaxCode>
+        <Description>Isento</Description>
+        <TaxPercentage>0.000000</TaxPercentage>
+      </TaxTableEntry>
+      <TaxTableEntry>
+        <TaxType>IVA</TaxType>
+        <TaxCountryRegion>PT-MA</TaxCountryRegion>
+        <TaxCode>NOR</TaxCode>
+        <Description>Taxa Normal</Description>
+        <TaxPercentage>22.000000</TaxPercentage>
+      </TaxTableEntry>
+      <TaxTableEntry>
+        <TaxType>IVA</TaxType>
+        <TaxCountryRegion>PT-MA</TaxCountryRegion>
+        <TaxCode>RED</TaxCode>
+        <Description>Taxa Reduzida</Description>
+        <TaxPercentage>5.000000</TaxPercentage>
+      </TaxTableEntry>
+    </TaxTable>
+  </MasterFiles>
+  <SourceDocuments>
+    <SalesInvoices>
+      <NumberOfEntries>4</NumberOfEntries>
+      <TotalDebit>0</TotalDebit>
+      <TotalCredit>2091.250000</TotalCredit>
+      <Invoice>
+        <InvoiceNo>FA 2020/2</InvoiceNo>
+        <ATCUD>0</ATCUD>
+        <DocumentStatus>
+          <InvoiceStatus>N</InvoiceStatus>
+          <InvoiceStatusDate>2020-11-29T18:48:45</InvoiceStatusDate>
+          <SourceID>up201703878@fe.up.pt</SourceID>
+          <SourceBilling>P</SourceBilling>
+        </DocumentStatus>
+        <Hash>AD7uc6miyOkG//Xtffm4kfotE/wY+TzNz+CIwZioe+rTBO6pVexhb0zQQKcxudq1nG339qI8m9aQDqPpPrlqjidVamZ6u0lOwuQnZSgPzNxIRkcMwZTrk7kneAr6cc7iGcidCEurvj/wLisA98d60Mw1pXSSha0X1OGNTtIDAzQ=</Hash>
+        <HashControl>1</HashControl>
+        <Period>10</Period>
+        <InvoiceDate>2020-10-15</InvoiceDate>
+        <InvoiceType>FT</InvoiceType>
+        <SpecialRegimes>
+          <SelfBillingIndicator>0</SelfBillingIndicator>
+          <CashVATSchemeIndicator>0</CashVATSchemeIndicator>
+          <ThirdPartiesBillingIndicator>0</ThirdPartiesBillingIndicator>
+        </SpecialRegimes>
+        <SourceID>up201703878@fe.up.pt</SourceID>
+        <SystemEntryDate>2020-11-29T18:48:45</SystemEntryDate>
+        <CustomerID>0004.514535423</CustomerID>
+        <ShipTo>
+          <Address>
+            <StreetName>RUA FRANCISCO S¡ CARNEIRO</StreetName>
+            <AddressDetail>O seu endereÁo RUA FRANCISCO S¡ CARNEIRO   2500-206 CALDAS DA RAINHA</AddressDetail>
+            <City>CALDAS DA RAINHA</City>
+            <PostalCode>2500-206</PostalCode>
+            <Region>Desconhecido</Region>
+            <Country>PT</Country>
+          </Address>
+        </ShipTo>
+        <ShipFrom>
+          <Address>
+            <StreetName>R. Dr. Roberto Frias, Porto</StreetName>
+            <AddressDetail>O Nosso EndereÁo R. Dr. Roberto Frias, Porto   4200 465</AddressDetail>
+            <City>465</City>
+            <PostalCode>4200</PostalCode>
+            <Region>Desconhecido</Region>
+            <Country>PT</Country>
+          </Address>
+        </ShipFrom>
+        <MovementStartTime>2020-11-29T18:49:46</MovementStartTime>
+        <Line>
+          <LineNumber>1</LineNumber>
+          <OrderReferences>
+            <OriginatingON>GR 2020/2</OriginatingON>
+          </OrderReferences>
+          <ProductCode>HOSSOMAKI</ProductCode>
+          <ProductDescription>Rolled rice in nori seaweed</ProductDescription>
+          <Quantity>50.000000</Quantity>
+          <UnitOfMeasure>UN</UnitOfMeasure>
+          <UnitPrice>1.990000</UnitPrice>
+          <TaxPointDate>2020-11-29</TaxPointDate>
+          <Description>Rolled rice in nori seaweed</Description>
+          <CreditAmount>99.500000</CreditAmount>
+          <Tax>
+            <TaxType>IVA</TaxType>
+            <TaxCountryRegion>PT</TaxCountryRegion>
+            <TaxCode>NOR</TaxCode>
+            <TaxPercentage>23.000000</TaxPercentage>
+          </Tax>
+          <SettlementAmount>0.000000</SettlementAmount>
+        </Line>
+        <Line>
+          <LineNumber>2</LineNumber>
+          <OrderReferences>
+            <OriginatingON>GR 2020/2</OriginatingON>
+          </OrderReferences>
+          <ProductCode>NIGUIRI</ProductCode>
+          <ProductDescription>Fish or shellfish placed on top of a rice block</ProductDescription>
+          <Quantity>50.000000</Quantity>
+          <UnitOfMeasure>UN</UnitOfMeasure>
+          <UnitPrice>2.990000</UnitPrice>
+          <TaxPointDate>2020-11-29</TaxPointDate>
+          <Description>Fish or shellfish placed on top of a rice block</Description>
+          <CreditAmount>149.500000</CreditAmount>
+          <Tax>
+            <TaxType>IVA</TaxType>
+            <TaxCountryRegion>PT</TaxCountryRegion>
+            <TaxCode>NOR</TaxCode>
+            <TaxPercentage>23.000000</TaxPercentage>
+          </Tax>
+          <SettlementAmount>0.000000</SettlementAmount>
+        </Line>
+        <Line>
+          <LineNumber>3</LineNumber>
+          <OrderReferences>
+            <OriginatingON>GR 2020/2</OriginatingON>
+          </OrderReferences>
+          <ProductCode>SASHIMI</ProductCode>
+          <ProductDescription>Thinly-sliced seafood or raw fish</ProductDescription>
+          <Quantity>50.000000</Quantity>
+          <UnitOfMeasure>UN</UnitOfMeasure>
+          <UnitPrice>2.990000</UnitPrice>
+          <TaxPointDate>2020-11-29</TaxPointDate>
+          <Description>Thinly-sliced seafood or raw fish</Description>
+          <CreditAmount>149.500000</CreditAmount>
+          <Tax>
+            <TaxType>IVA</TaxType>
+            <TaxCountryRegion>PT</TaxCountryRegion>
+            <TaxCode>NOR</TaxCode>
+            <TaxPercentage>23.000000</TaxPercentage>
+          </Tax>
+          <SettlementAmount>0.000000</SettlementAmount>
+        </Line>
+        <Line>
+          <LineNumber>4</LineNumber>
+          <OrderReferences>
+            <OriginatingON>GR 2020/2</OriginatingON>
+          </OrderReferences>
+          <ProductCode>SOYSAUCE</ProductCode>
+          <ProductDescription>Liquid condiment</ProductDescription>
+          <Quantity>100.000000</Quantity>
+          <UnitOfMeasure>UN</UnitOfMeasure>
+          <UnitPrice>1.490000</UnitPrice>
+          <TaxPointDate>2020-11-29</TaxPointDate>
+          <Description>Liquid condiment</Description>
+          <CreditAmount>149.000000</CreditAmount>
+          <Tax>
+            <TaxType>IVA</TaxType>
+            <TaxCountryRegion>PT</TaxCountryRegion>
+            <TaxCode>NOR</TaxCode>
+            <TaxPercentage>23.000000</TaxPercentage>
+          </Tax>
+          <SettlementAmount>0.000000</SettlementAmount>
+        </Line>
+        <Line>
+          <LineNumber>5</LineNumber>
+          <OrderReferences>
+            <OriginatingON>GR 2020/2</OriginatingON>
+          </OrderReferences>
+          <ProductCode>WASABI</ProductCode>
+          <ProductDescription>Japanese horseradish</ProductDescription>
+          <Quantity>100.000000</Quantity>
+          <UnitOfMeasure>UN</UnitOfMeasure>
+          <UnitPrice>2.990000</UnitPrice>
+          <TaxPointDate>2020-11-29</TaxPointDate>
+          <Description>Japanese horseradish</Description>
+          <CreditAmount>299.000000</CreditAmount>
+          <Tax>
+            <TaxType>IVA</TaxType>
+            <TaxCountryRegion>PT</TaxCountryRegion>
+            <TaxCode>NOR</TaxCode>
+            <TaxPercentage>23.000000</TaxPercentage>
+          </Tax>
+          <SettlementAmount>0.000000</SettlementAmount>
+        </Line>
+        <DocumentTotals>
+          <TaxPayable>194.70</TaxPayable>
+          <NetTotal>846.50</NetTotal>
+          <GrossTotal>1041.20</GrossTotal>
+        </DocumentTotals>
+        <WithholdingTax>
+          <WithholdingTaxAmount>0.000000</WithholdingTaxAmount>
+        </WithholdingTax>
+      </Invoice>
+      <Invoice>
+        <InvoiceNo>FA 2020/3</InvoiceNo>
+        <ATCUD>0</ATCUD>
+        <DocumentStatus>
+          <InvoiceStatus>N</InvoiceStatus>
+          <InvoiceStatusDate>2020-11-29T19:01:04</InvoiceStatusDate>
+          <SourceID>up201703878@fe.up.pt</SourceID>
+          <SourceBilling>P</SourceBilling>
+        </DocumentStatus>
+        <Hash>f2j/4/Ov/NRzFUYr+UV4PLiima9kNxTWEd2pbBz70LmdZ2iJJRtGUa+lJU73K81//QWpQWWNXP6IGD3hQdFuBZYguPYyc0zLT8onrXYeR7nK0tNThtcR7X9LLWF4pLRYA7cHLAGsUwYM+b5zePkvwTRe58Kv5RY3sl37YQ/iZj8=</Hash>
+        <HashControl>1</HashControl>
+        <Period>11</Period>
+        <InvoiceDate>2020-11-05</InvoiceDate>
+        <InvoiceType>FT</InvoiceType>
+        <SpecialRegimes>
+          <SelfBillingIndicator>0</SelfBillingIndicator>
+          <CashVATSchemeIndicator>0</CashVATSchemeIndicator>
+          <ThirdPartiesBillingIndicator>0</ThirdPartiesBillingIndicator>
+        </SpecialRegimes>
+        <SourceID>up201703878@fe.up.pt</SourceID>
+        <SystemEntryDate>2020-11-29T19:01:04</SystemEntryDate>
+        <CustomerID>0006.507753003</CustomerID>
+        <ShipTo>
+          <Address>
+            <StreetName>N√O ESPECIFICADO</StreetName>
+            <AddressDetail>O seu endereÁo N√O ESPECIFICADO   4450-000 MATOSINHOS</AddressDetail>
+            <City>MATOSINHOS</City>
+            <PostalCode>4450-000</PostalCode>
+            <Region>Desconhecido</Region>
+            <Country>PT</Country>
+          </Address>
+        </ShipTo>
+        <ShipFrom>
+          <Address>
+            <StreetName>R. Dr. Roberto Frias, Porto</StreetName>
+            <AddressDetail>O Nosso EndereÁo R. Dr. Roberto Frias, Porto   4200 465</AddressDetail>
+            <City>465</City>
+            <PostalCode>4200</PostalCode>
+            <Region>Desconhecido</Region>
+            <Country>PT</Country>
+          </Address>
+        </ShipFrom>
+        <MovementStartTime>2020-11-29T19:02:33</MovementStartTime>
+        <Line>
+          <LineNumber>1</LineNumber>
+          <OrderReferences>
+            <OriginatingON>GR 2020/3</OriginatingON>
+          </OrderReferences>
+          <ProductCode>HOSSOMAKI</ProductCode>
+          <ProductDescription>Rolled rice in nori seaweed</ProductDescription>
+          <Quantity>25.000000</Quantity>
+          <UnitOfMeasure>UN</UnitOfMeasure>
+          <UnitPrice>1.990000</UnitPrice>
+          <TaxPointDate>2020-11-29</TaxPointDate>
+          <Description>Rolled rice in nori seaweed</Description>
+          <CreditAmount>49.750000</CreditAmount>
+          <Tax>
+            <TaxType>IVA</TaxType>
+            <TaxCountryRegion>PT</TaxCountryRegion>
+            <TaxCode>NOR</TaxCode>
+            <TaxPercentage>23.000000</TaxPercentage>
+          </Tax>
+          <SettlementAmount>0.000000</SettlementAmount>
+        </Line>
+        <Line>
+          <LineNumber>2</LineNumber>
+          <OrderReferences>
+            <OriginatingON>GR 2020/3</OriginatingON>
+          </OrderReferences>
+          <ProductCode>NIGUIRI</ProductCode>
+          <ProductDescription>Fish or shellfish placed on top of a rice block</ProductDescription>
+          <Quantity>25.000000</Quantity>
+          <UnitOfMeasure>UN</UnitOfMeasure>
+          <UnitPrice>1.990000</UnitPrice>
+          <TaxPointDate>2020-11-29</TaxPointDate>
+          <Description>Fish or shellfish placed on top of a rice block</Description>
+          <CreditAmount>49.750000</CreditAmount>
+          <Tax>
+            <TaxType>IVA</TaxType>
+            <TaxCountryRegion>PT</TaxCountryRegion>
+            <TaxCode>NOR</TaxCode>
+            <TaxPercentage>23.000000</TaxPercentage>
+          </Tax>
+          <SettlementAmount>0.000000</SettlementAmount>
+        </Line>
+        <Line>
+          <LineNumber>3</LineNumber>
+          <OrderReferences>
+            <OriginatingON>GR 2020/3</OriginatingON>
+          </OrderReferences>
+          <ProductCode>SOYSAUCE</ProductCode>
+          <ProductDescription>Liquid condiment</ProductDescription>
+          <Quantity>100.000000</Quantity>
+          <UnitOfMeasure>UN</UnitOfMeasure>
+          <UnitPrice>1.490000</UnitPrice>
+          <TaxPointDate>2020-11-29</TaxPointDate>
+          <Description>Liquid condiment</Description>
+          <CreditAmount>149.000000</CreditAmount>
+          <Tax>
+            <TaxType>IVA</TaxType>
+            <TaxCountryRegion>PT</TaxCountryRegion>
+            <TaxCode>NOR</TaxCode>
+            <TaxPercentage>23.000000</TaxPercentage>
+          </Tax>
+          <SettlementAmount>0.000000</SettlementAmount>
+        </Line>
+        <Line>
+          <LineNumber>4</LineNumber>
+          <OrderReferences>
+            <OriginatingON>GR 2020/3</OriginatingON>
+          </OrderReferences>
+          <ProductCode>WASABI</ProductCode>
+          <ProductDescription>Japanese horseradish</ProductDescription>
+          <Quantity>50.000000</Quantity>
+          <UnitOfMeasure>UN</UnitOfMeasure>
+          <UnitPrice>2.990000</UnitPrice>
+          <TaxPointDate>2020-11-29</TaxPointDate>
+          <Description>Japanese horseradish</Description>
+          <CreditAmount>149.500000</CreditAmount>
+          <Tax>
+            <TaxType>IVA</TaxType>
+            <TaxCountryRegion>PT</TaxCountryRegion>
+            <TaxCode>NOR</TaxCode>
+            <TaxPercentage>23.000000</TaxPercentage>
+          </Tax>
+          <SettlementAmount>0.000000</SettlementAmount>
+        </Line>
+        <DocumentTotals>
+          <TaxPayable>91.54</TaxPayable>
+          <NetTotal>398.00</NetTotal>
+          <GrossTotal>489.54</GrossTotal>
+        </DocumentTotals>
+        <WithholdingTax>
+          <WithholdingTaxAmount>0.000000</WithholdingTaxAmount>
+        </WithholdingTax>
+      </Invoice>
+      <Invoice>
+        <InvoiceNo>FA 2020/4</InvoiceNo>
+        <ATCUD>0</ATCUD>
+        <DocumentStatus>
+          <InvoiceStatus>N</InvoiceStatus>
+          <InvoiceStatusDate>2020-11-29T21:39:06</InvoiceStatusDate>
+          <SourceID>up201703878@fe.up.pt</SourceID>
+          <SourceBilling>P</SourceBilling>
+        </DocumentStatus>
+        <Hash>g42wVqM0kUhslTrgDuAWjSrDDbG9Diq0VRJ0TmeUNPfLCXKhMY8Fbu2TzgLd9LpN0uV941Ggo7EL7ubjYQw41Szi28rT3zjRwi/lZIZEcIbaLwmbfMYHHzKYhyzJ183cefYGuY5deTwg1upGmXY/m6FWHxTeB9YtAsR+W9XmpuE=</Hash>
+        <HashControl>1</HashControl>
+        <Period>11</Period>
+        <InvoiceDate>2020-11-10</InvoiceDate>
+        <InvoiceType>FT</InvoiceType>
+        <SpecialRegimes>
+          <SelfBillingIndicator>0</SelfBillingIndicator>
+          <CashVATSchemeIndicator>0</CashVATSchemeIndicator>
+          <ThirdPartiesBillingIndicator>0</ThirdPartiesBillingIndicator>
+        </SpecialRegimes>
+        <SourceID>up201703878@fe.up.pt</SourceID>
+        <SystemEntryDate>2020-11-29T21:39:06</SystemEntryDate>
+        <CustomerID>0005.513873562</CustomerID>
+        <ShipTo>
+          <Address>
+            <StreetName>PRACETA PROFESSOR ALFREDO DE SOUSA</StreetName>
+            <AddressDetail>O seu endereÁo PRACETA PROFESSOR ALFREDO DE SOUSA 4B  1495-241 ALG…S</AddressDetail>
+            <City>ALG…S</City>
+            <PostalCode>1495-241</PostalCode>
+            <Region>Desconhecido</Region>
+            <Country>PT</Country>
+          </Address>
+        </ShipTo>
+        <ShipFrom>
+          <Address>
+            <StreetName>R. Dr. Roberto Frias, Porto</StreetName>
+            <AddressDetail>O Nosso EndereÁo R. Dr. Roberto Frias, Porto   4200 465</AddressDetail>
+            <City>465</City>
+            <PostalCode>4200</PostalCode>
+            <Region>Desconhecido</Region>
+            <Country>PT</Country>
+          </Address>
+        </ShipFrom>
+        <MovementStartTime>2020-11-29T21:40:43</MovementStartTime>
+        <Line>
+          <LineNumber>1</LineNumber>
+          <OrderReferences>
+            <OriginatingON>GR 2020/4</OriginatingON>
+          </OrderReferences>
+          <ProductCode>HOSSOMAKI</ProductCode>
+          <ProductDescription>Rolled rice in nori seaweed</ProductDescription>
+          <Quantity>25.000000</Quantity>
+          <UnitOfMeasure>UN</UnitOfMeasure>
+          <UnitPrice>1.990000</UnitPrice>
+          <TaxPointDate>2020-11-29</TaxPointDate>
+          <Description>Rolled rice in nori seaweed</Description>
+          <CreditAmount>49.750000</CreditAmount>
+          <Tax>
+            <TaxType>IVA</TaxType>
+            <TaxCountryRegion>PT</TaxCountryRegion>
+            <TaxCode>NOR</TaxCode>
+            <TaxPercentage>23.000000</TaxPercentage>
+          </Tax>
+          <SettlementAmount>0.000000</SettlementAmount>
+        </Line>
+        <Line>
+          <LineNumber>2</LineNumber>
+          <OrderReferences>
+            <OriginatingON>GR 2020/4</OriginatingON>
+          </OrderReferences>
+          <ProductCode>NIGUIRI</ProductCode>
+          <ProductDescription>Fish or shellfish placed on top of a rice block</ProductDescription>
+          <Quantity>25.000000</Quantity>
+          <UnitOfMeasure>UN</UnitOfMeasure>
+          <UnitPrice>2.990000</UnitPrice>
+          <TaxPointDate>2020-11-29</TaxPointDate>
+          <Description>Fish or shellfish placed on top of a rice block</Description>
+          <CreditAmount>74.750000</CreditAmount>
+          <Tax>
+            <TaxType>IVA</TaxType>
+            <TaxCountryRegion>PT</TaxCountryRegion>
+            <TaxCode>NOR</TaxCode>
+            <TaxPercentage>23.000000</TaxPercentage>
+          </Tax>
+          <SettlementAmount>0.000000</SettlementAmount>
+        </Line>
+        <Line>
+          <LineNumber>3</LineNumber>
+          <OrderReferences>
+            <OriginatingON>GR 2020/4</OriginatingON>
+          </OrderReferences>
+          <ProductCode>SASHIMI</ProductCode>
+          <ProductDescription>Thinly-sliced seafood or raw fish</ProductDescription>
+          <Quantity>25.000000</Quantity>
+          <UnitOfMeasure>UN</UnitOfMeasure>
+          <UnitPrice>2.990000</UnitPrice>
+          <TaxPointDate>2020-11-29</TaxPointDate>
+          <Description>Thinly-sliced seafood or raw fish</Description>
+          <CreditAmount>74.750000</CreditAmount>
+          <Tax>
+            <TaxType>IVA</TaxType>
+            <TaxCountryRegion>PT</TaxCountryRegion>
+            <TaxCode>NOR</TaxCode>
+            <TaxPercentage>23.000000</TaxPercentage>
+          </Tax>
+          <SettlementAmount>0.000000</SettlementAmount>
+        </Line>
+        <Line>
+          <LineNumber>4</LineNumber>
+          <OrderReferences>
+            <OriginatingON>GR 2020/4</OriginatingON>
+          </OrderReferences>
+          <ProductCode>SOYSAUCE</ProductCode>
+          <ProductDescription>Liquid condiment</ProductDescription>
+          <Quantity>100.000000</Quantity>
+          <UnitOfMeasure>UN</UnitOfMeasure>
+          <UnitPrice>1.490000</UnitPrice>
+          <TaxPointDate>2020-11-29</TaxPointDate>
+          <Description>Liquid condiment</Description>
+          <CreditAmount>149.000000</CreditAmount>
+          <Tax>
+            <TaxType>IVA</TaxType>
+            <TaxCountryRegion>PT</TaxCountryRegion>
+            <TaxCode>NOR</TaxCode>
+            <TaxPercentage>23.000000</TaxPercentage>
+          </Tax>
+          <SettlementAmount>0.000000</SettlementAmount>
+        </Line>
+        <DocumentTotals>
+          <TaxPayable>80.10</TaxPayable>
+          <NetTotal>348.25</NetTotal>
+          <GrossTotal>428.35</GrossTotal>
+        </DocumentTotals>
+        <WithholdingTax>
+          <WithholdingTaxAmount>0.000000</WithholdingTaxAmount>
+        </WithholdingTax>
+      </Invoice>
+      <Invoice>
+        <InvoiceNo>FA 2020/5</InvoiceNo>
+        <ATCUD>0</ATCUD>
+        <DocumentStatus>
+          <InvoiceStatus>N</InvoiceStatus>
+          <InvoiceStatusDate>2020-11-29T22:26:20</InvoiceStatusDate>
+          <SourceID>up201703878@fe.up.pt</SourceID>
+          <SourceBilling>P</SourceBilling>
+        </DocumentStatus>
+        <Hash>XwZ8IRiOPkSa6PeaZPrwf5k7DCGSHZIEX/mqkACpEDv/lj9dEY4LjGHxjNnp+mexSBXIxg6/JbJymRkDpx/bKqw+o6JSpG1xE7lH5MD8I4dmuAdEwJbe+h+C4kl0GTitjGKPWqIHZqq6GD+i7KqDSIteE3sZYZEWA/83hWqz/T8=</Hash>
+        <HashControl>1</HashControl>
+        <Period>11</Period>
+        <InvoiceDate>2020-11-10</InvoiceDate>
+        <InvoiceType>FT</InvoiceType>
+        <SpecialRegimes>
+          <SelfBillingIndicator>0</SelfBillingIndicator>
+          <CashVATSchemeIndicator>0</CashVATSchemeIndicator>
+          <ThirdPartiesBillingIndicator>0</ThirdPartiesBillingIndicator>
+        </SpecialRegimes>
+        <SourceID>up201703878@fe.up.pt</SourceID>
+        <SystemEntryDate>2020-11-29T22:26:20</SystemEntryDate>
+        <CustomerID>0007.502355883</CustomerID>
+        <ShipTo>
+          <Address>
+            <StreetName>OURA VILLAGE</StreetName>
+            <AddressDetail>O seu endereÁo OURA VILLAGE   8200-604 ALBUFEIRA</AddressDetail>
+            <City>ALBUFEIRA</City>
+            <PostalCode>8200-604</PostalCode>
+            <Region>Desconhecido</Region>
+            <Country>PT</Country>
+          </Address>
+        </ShipTo>
+        <ShipFrom>
+          <Address>
+            <StreetName>R. Dr. Roberto Frias, Porto</StreetName>
+            <AddressDetail>O Nosso EndereÁo R. Dr. Roberto Frias, Porto   4200 465</AddressDetail>
+            <City>465</City>
+            <PostalCode>4200</PostalCode>
+            <Region>Desconhecido</Region>
+            <Country>PT</Country>
+          </Address>
+        </ShipFrom>
+        <MovementStartTime>2020-11-29T22:27:40</MovementStartTime>
+        <Line>
+          <LineNumber>1</LineNumber>
+          <OrderReferences>
+            <OriginatingON>GR 2020/5</OriginatingON>
+          </OrderReferences>
+          <ProductCode>BAO</ProductCode>
+          <ProductDescription>Yeast-leavened filled bun</ProductDescription>
+          <Quantity>100.000000</Quantity>
+          <UnitOfMeasure>UN</UnitOfMeasure>
+          <UnitPrice>2.990000</UnitPrice>
+          <TaxPointDate>2020-11-29</TaxPointDate>
+          <Description>Yeast-leavened filled bun</Description>
+          <CreditAmount>299.000000</CreditAmount>
+          <Tax>
+            <TaxType>IVA</TaxType>
+            <TaxCountryRegion>PT</TaxCountryRegion>
+            <TaxCode>NOR</TaxCode>
+            <TaxPercentage>23.000000</TaxPercentage>
+          </Tax>
+          <SettlementAmount>0.000000</SettlementAmount>
+        </Line>
+        <Line>
+          <LineNumber>2</LineNumber>
+          <OrderReferences>
+            <OriginatingON>GR 2020/5</OriginatingON>
+          </OrderReferences>
+          <ProductCode>YAKISOBA</ProductCode>
+          <ProductDescription>Fried noodles</ProductDescription>
+          <Quantity>50.000000</Quantity>
+          <UnitOfMeasure>UN</UnitOfMeasure>
+          <UnitPrice>3.990000</UnitPrice>
+          <TaxPointDate>2020-11-29</TaxPointDate>
+          <Description>Fried noodles</Description>
+          <CreditAmount>199.500000</CreditAmount>
+          <Tax>
+            <TaxType>IVA</TaxType>
+            <TaxCountryRegion>PT</TaxCountryRegion>
+            <TaxCode>NOR</TaxCode>
+            <TaxPercentage>23.000000</TaxPercentage>
+          </Tax>
+          <SettlementAmount>0.000000</SettlementAmount>
+        </Line>
+        <DocumentTotals>
+          <TaxPayable>114.66</TaxPayable>
+          <NetTotal>498.50</NetTotal>
+          <GrossTotal>613.16</GrossTotal>
+        </DocumentTotals>
+        <WithholdingTax>
+          <WithholdingTaxAmount>0.000000</WithholdingTaxAmount>
+        </WithholdingTax>
+      </Invoice>
+    </SalesInvoices>
+  </SourceDocuments>
+</AuditFile>
