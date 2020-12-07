@@ -2,7 +2,7 @@ import express, { Request, Response } from 'express';
 import { User } from '../entity/User';
 import { getRepository } from 'typeorm';
 
-import authMiddleware from '../middleware/authMiddleware';
+import authMiddleware from '../middlewares/authMiddleware';
 
 const router = express.Router();
 
