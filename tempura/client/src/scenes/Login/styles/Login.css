@@ -5,7 +5,6 @@
     background-color: var(--card-background);
     border-radius: var(--border-radius);
     width: 30%;
-    font-size: 1.2em;
 
     display:flex;
     flex-direction: column;
@@ -31,7 +30,6 @@
     border-color: var(--red-color);
     background-color: var(--red-color);
     height: 5;
-    
 }
 
 #loginText{
@@ -78,10 +76,12 @@ input{
 
 .icon1{
     margin-right: 0.7em;
+    color: var(--white-color);
 }
 
 .icon2{
     margin-right: 0.5em;
+    color: var(--white-color);
 }
 
 
@@ -114,23 +114,25 @@ input:focus, textarea:focus, select:focus{
 
 
 /* add media queries*/
-@media(max-width:1230px)
+@media(max-width:1300px)
 {
     .loginContainer{
         width: 50%;
     }
 }
 
-@media(max-width:700px)
+@media(max-width:850px)
 {
     .loginContainer{
         width: 80%;
     }
 }
 
-@media(max-width:400px)
+@media(max-width:600px)
 {
     .loginContainer{
-        width: 95%;
+        width: 96%;
     }
 }
+
+
