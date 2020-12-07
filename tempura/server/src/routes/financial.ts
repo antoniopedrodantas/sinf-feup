@@ -7,7 +7,7 @@ import { Between, getRepository, MoreThanOrEqual } from "typeorm";
 import { Saft, TaxAccountingBasis } from "../entity/Saft";
 
 import fs from "fs";
-
+import getTaxonomyTotal from "../lib/saft";
 
 const router = express.Router();
 
@@ -46,9 +46,10 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
 
         const json = JSON.parse(fs.readFileSync(saft.path).toString());
 
-        
+        // change 1 to desired taxonomyCodes
+        const total = getTaxonomyTotal(json, "3");
 
-        console.log(json);
+        console.log("TaxonomyTotal: ", total);
     });
 
 
