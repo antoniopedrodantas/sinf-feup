@@ -2,14 +2,14 @@ import React from 'react';
 import { Line } from 'react-chartjs-2';
 import './styles/Charts.css';
 
-interface PieChartProps{
+interface LineChartProps{
     title: String;
     labels: String[];
     data: String[];
     data2?: String[];
 }
 
-const LineChart: React.FC<PieChartProps> = ({title, labels, data, data2}) => {
+const LineChart: React.FC<LineChartProps> = ({title, labels, data, data2}) => {
 
     return(
         <>
