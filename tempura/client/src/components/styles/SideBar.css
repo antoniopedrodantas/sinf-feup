@@ -185,7 +185,7 @@
 
     animation: linear; 
     animation-name: bounce;
-    animation-duration: 2.5s;  
+    animation-duration: 1.2s;  
   }
 
   #left-logo{
@@ -292,7 +292,7 @@
 
 @keyframes bounce {
   0%        { left:100%;    opacity: 0;   }
-  40%       { left:   0;    opacity: 0.5; }
-  50%       { left: 5%;    opacity: 0.7; }
+  40%       { left:   0;    opacity: 0.8; }
+  /* 50%       { left: 5%;    opacity: 0.7; } */
   100%      { left:   0;    opacity: 1;   }
 } 
