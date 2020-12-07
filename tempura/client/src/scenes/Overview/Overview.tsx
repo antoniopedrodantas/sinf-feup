@@ -6,7 +6,7 @@ import CustomTable from '../../components/CustomTable/CustomTable';
 import './styles/Overview.css';
 import '../../common.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faTimes} from '@fortawesome/free-solid-svg-icons'
+import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 import { useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
@@ -117,17 +117,6 @@ const Overview: React.FC = () => {
       </div>
       </div>
     
-      {/* <div className="tb1">
-        <CustomTable title="Product Listing" columns={columns1} type={types1} values={values1} />
-      </div>
-      
-      <div className="tb2">
-        <CustomTable title="Top Products Sold" columns={columns2} type={types2} values={values2} /> 
-      </div>
-
-      <div className="tb3">
-        <CustomTable title="Top Purchased Products" columns={columns3} type={types3} values={values3} />  
-      </div> */}
     </>
   );
 };
