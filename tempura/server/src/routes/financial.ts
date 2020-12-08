@@ -7,7 +7,7 @@ import { Between, getRepository, MoreThanOrEqual } from "typeorm";
 import { Saft, TaxAccountingBasis } from "../entity/Saft";
 
 import fs from "fs";
-import getTaxonomyTotal from "../lib/saft";
+import { getCodeOne, getExcedents, getSubscribedCapital, getTestValue } from "../lib/saft";
 
 const router = express.Router();
 
@@ -41,15 +41,35 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         }
     });
 
+    // may not be needed anymore (?)
+    var total = 0;
+
+    // balance sheet fields
+    let codeOne;
+    let excedents;
+    let subscribedCapital;
+    let testValue;
+
     safts.forEach(saft => {
         console.log(saft.path);
 
         const json = JSON.parse(fs.readFileSync(saft.path).toString());
 
         // change 1 to desired taxonomyCodes
-        const total = getTaxonomyTotal(json, "3");
+        // total += getTaxonomyTotal(json, "1");
+        
+        // gets "Vendas e Serviços Prestados"
+        codeOne = getCodeOne(json);
 
-        console.log("TaxonomyTotal: ", total);
+        // gets "Excedentes de revalorização"
+        excedents = getExcedents(json);
+
+        // gets "Capital subscrito"
+        subscribedCapital = getSubscribedCapital(json);
+
+        // get test value
+        testValue = getTestValue(json);
+
     });
 
 
@@ -57,7 +77,11 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
     response
         .status(200)
         .send({
-            error: false
+            error: false,
+            salesAndServices: codeOne,
+            excedents: excedents,
+            subscribedCapital: subscribedCapital,
+            testValue: testValue
         });
 }
 
