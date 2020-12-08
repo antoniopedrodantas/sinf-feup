@@ -7,10 +7,11 @@ import Calendar from '../../components/Calendar/Calendar';
 import './styles/Stock.css';
 import '../../common.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faTimes, faCalendar } from '@fortawesome/free-solid-svg-icons'
 
 import { useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
+import { Button } from 'react-bootstrap';
 
 interface TokenPayload {
   id: string;
@@ -98,7 +99,7 @@ const Stock: React.FC = () => {
           <div className="stock-content">
                 {/* apenas para simular date-selection component */}
                 <div className="date-selection">
-                  <Calendar />
+                  <Button className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon"/> Date Picker</Button>
                 </div>
                 <div className="top-cards">
                   <SingleValueCard type="money" title="Total assets in Stock" value={52500}/>

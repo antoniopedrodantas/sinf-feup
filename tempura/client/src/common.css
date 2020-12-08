@@ -11,6 +11,40 @@
   height: 100vh;
 }
 
+ .date-selection{
+  background-color: transparent;
+  border-radius: 8px;
+
+  margin-bottom: 1em;
+  margin-top: 1em;
+  margin-left: auto;
+
+  width: fit-content;
+  font-weight: 600;
+  font-size: 1.4em;
+} 
+
+
+.date-btn{
+  background-color: var(--red-color) !important;
+  color: var(--white-color) !important;
+  font-weight: 600 !important;
+  outline: none;
+  border-radius: 8px !important;
+}
+
+.date-btn:hover{
+  color: var(--red-color) !important;
+  background-color: var(--white-color) !important;
+  font-weight: 600 !important;
+  outline: none !important;
+  border-radius: 8px !important;
+}
+
+.calendar-icon{
+  margin-right: 0.2em;
+}
+
 .toggle-menu{
     display: none;
   }

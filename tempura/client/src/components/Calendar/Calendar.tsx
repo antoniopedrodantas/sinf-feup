@@ -1,20 +1,17 @@
-import React from "react";
-
+import React, { useState } from "react";
+import 'react-dates/initialize';
+import { DateRangePicker, SingleDatePicker, DayPickerRangeController } from 'react-dates';
+import 'react-dates/lib/css/_datepicker.css';
 import './styles/Calendar.css';
 
-interface CalendarProps{
-    
-}
+function Calendar(){
 
-const Calendar: React.FC<CalendarProps> = () => {
-  
     return (
         <>
-            <div className="calendar">
-             # 2019 ?
-            </div>
+            
         </>
     );
+    
 };
 
 export default Calendar;
