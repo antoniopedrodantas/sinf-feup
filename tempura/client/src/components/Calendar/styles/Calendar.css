@@ -12,6 +12,7 @@
 
     background-color: var(--card-background);
     border-radius: 8px;
+
 }
 
 .dateSubmitButton{
@@ -32,4 +33,21 @@
 
 div.rdrDefinedRangesWrapper{
     display: none;
+}
+
+@media(max-width: 400px){
+    .date-form{
+        padding-top: 0.3em;
+        padding-left: 0;
+        padding-right: 0;
+        padding-bottom: 0;
+        width: 100%;
+        background-color:transparent;
+    }
+
+    .date-selection{
+        width: 100%;
+        margin:0;
+        padding:0;
+    }
 }

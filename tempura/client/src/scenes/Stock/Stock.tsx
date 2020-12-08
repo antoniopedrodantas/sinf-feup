@@ -92,18 +92,19 @@ const Stock: React.FC = () => {
             <label htmlFor="menu" className="menu-close"><FontAwesomeIcon icon={faTimes} className="toggle-icon"/></label>
             <SideBar coreview="stock"/>
           </div>
+
           <div className="right-side col-md-10">
-          <div className="toggle-menu">
-          <div className="tempura"> Tempura</div>
-          <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon"/></label>
-        </div>
-        <div className="right-body">
-          <div className="stock-content">
+            <div className="toggle-menu">
+              <div className="tempura"> Tempura</div>
+              <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon"/></label>
+            </div>
+            <div className="right-body">
+              <div className="stock-content">
                 <div className="date-selection">
                   <Button onClick={()=> setShowDatePicker(!showDatePicker)}className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon"/> 
                     {showDatePicker ? "Hide" : "Date Picker"}
                   </Button>
-                  {showDatePicker && <Calendar start={new Date()} end={new Date(2021,0,30)}/>}
+                  {showDatePicker && <Calendar start={new Date()} end={new Date(2021,0,30)}/>} 
                 </div>
                 <div className="top-cards">
                   <SingleValueCard type="money" title="Total assets in Stock" value={52500}/>
@@ -121,8 +122,6 @@ const Stock: React.FC = () => {
           </div>
         </div>
       </div>
-
-
     </>
   );
 };

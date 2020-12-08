@@ -19,6 +19,7 @@ const Calendar: React.FC<CalendarProps> = ({start, end}) => {
         key: "selection",
     };
 
+    const red = 'ff55ff';
     function handleSelect(ranges:any){
         setStartDate(ranges.selection.startDate);
         setEndDate(ranges.selection.endDate);
@@ -35,6 +36,7 @@ const Calendar: React.FC<CalendarProps> = ({start, end}) => {
                 <form className="date-form" onSubmit={submit}>
 
                     <DateRangePicker 
+                        color={red}
                         ranges={[selectionRange]}
                         onChange={handleSelect}
                         minDate={start}
