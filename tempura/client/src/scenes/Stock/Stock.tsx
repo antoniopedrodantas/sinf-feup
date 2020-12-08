@@ -2,10 +2,9 @@ import React, { useEffect } from 'react';
 
 import SingleValueCard from 'src/components/SingleValueCard/SingleValueCard';
 import CustomTable from '../../components/CustomTable/CustomTable';
-import './styles/Stock.css';
-
-
 import SideBar from '../../components/SideBar';
+import Calendar from '../../components/Calendar/Calendar';
+import './styles/Stock.css';
 import '../../common.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -81,10 +80,6 @@ const Stock: React.FC = () => {
   ];
   return (
     <>
-
-
-
-
       <div className="frame"> 
 
         <input type="checkbox" id="menu" defaultChecked={true}></input>
@@ -103,7 +98,7 @@ const Stock: React.FC = () => {
           <div className="stock-content">
                 {/* apenas para simular date-selection component */}
                 <div className="date-selection">
-                  # 2019 ?
+                  <Calendar />
                 </div>
                 <div className="top-cards">
                   <SingleValueCard type="money" title="Total assets in Stock" value={52500}/>
