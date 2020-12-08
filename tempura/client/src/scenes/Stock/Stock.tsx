@@ -5,7 +5,7 @@ import CustomTable from '../../components/CustomTable/CustomTable';
 import './styles/Stock.css';
 
 
-import SideBar from '../../components/SideBar';
+import SideBar from '../../components/SideBar/SideBar';
 import '../../common.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import SideBar from '../../components/SideBar';
+import SideBar from '../../components/SideBar/SideBar';
 import './styles/Purchases.css';
 import PieChart from '../../components/Charts/PieChart';
 import LineChart from '../../components/Charts/LineChart';
