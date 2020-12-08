@@ -22,6 +22,9 @@
   width: fit-content;
   font-weight: 600;
   font-size: 1.4em;
+
+  display: flex;
+  flex-direction: column;
 } 
 
 

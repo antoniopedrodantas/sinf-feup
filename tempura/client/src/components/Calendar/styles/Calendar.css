@@ -1,2 +1,9 @@
 @import '../../../index.css';
 
+.date-picker{
+   
+}
+
+div.rdrDefinedRangesWrapper{
+    display: none;
+}

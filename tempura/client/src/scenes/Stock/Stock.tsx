@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import SingleValueCard from 'src/components/SingleValueCard/SingleValueCard';
 import CustomTable from '../../components/CustomTable/CustomTable';
@@ -79,6 +79,8 @@ const Stock: React.FC = () => {
     ["0009", "Wasabi", "550", "345", "10.2", "10.9"]
 
   ];
+
+  const [showDatePicker, setShowDatePicker] = useState(false);
   return (
     <>
       <div className="frame"> 
@@ -87,8 +89,8 @@ const Stock: React.FC = () => {
 
         <div className="row h-100">
           <div className="left-side col-md-2">
-          <label htmlFor="menu" className="menu-close"><FontAwesomeIcon icon={faTimes} className="toggle-icon"/></label>
-              <SideBar coreview="stock"/>
+            <label htmlFor="menu" className="menu-close"><FontAwesomeIcon icon={faTimes} className="toggle-icon"/></label>
+            <SideBar coreview="stock"/>
           </div>
           <div className="right-side col-md-10">
           <div className="toggle-menu">
@@ -97,9 +99,9 @@ const Stock: React.FC = () => {
         </div>
         <div className="right-body">
           <div className="stock-content">
-                {/* apenas para simular date-selection component */}
                 <div className="date-selection">
-                  <Button className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon"/> Date Picker</Button>
+                  <Button onClick={()=> setShowDatePicker(!showDatePicker)}className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon"/> Date Picker</Button>
+                  {showDatePicker && <Calendar />}
                 </div>
                 <div className="top-cards">
                   <SingleValueCard type="money" title="Total assets in Stock" value={52500}/>
@@ -124,8 +126,3 @@ const Stock: React.FC = () => {
 };
 
 export default Stock;
-
-/*
-TODO
-- scroll after certain products
-*/
