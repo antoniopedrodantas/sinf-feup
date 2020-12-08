@@ -11,7 +11,7 @@
   height: 100vh;
 }
 
- .date-selection{
+.date-selection{
   background-color: transparent;
   border-radius: 8px;
 
@@ -138,5 +138,4 @@
     overflow-x: hidden;
   }
 
-  
 }

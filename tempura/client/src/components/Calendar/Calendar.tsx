@@ -4,10 +4,14 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRangePicker } from 'react-date-range';
 import './styles/Calendar.css';
 
-function Calendar(){
+interface CalendarProps{
+    start: Date;
+    end : Date;
+}
+const Calendar: React.FC<CalendarProps> = ({start, end}) => {
 
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(start);
+    const [endDate, setEndDate] = useState(start);
 
     const selectionRange = {
         startDate: startDate,
@@ -20,14 +24,28 @@ function Calendar(){
         setEndDate(ranges.selection.endDate);
     }
 
+    /*TODO: process dates BACKEND */
+    const submit = async (event: any) => {
+        event.preventDefault();
+    };
+
     return (
         <>
             <div className="date-picker">
-                <DateRangePicker 
-                    ranges={[selectionRange]}
-                    onChange={handleSelect}
-                    minDate={new Date()}
-                />
+                <form className="date-form" onSubmit={submit}>
+
+                    <DateRangePicker 
+                        ranges={[selectionRange]}
+                        onChange={handleSelect}
+                        minDate={start}
+                        maxDate={end}
+                    />
+
+                    <button className="dateSubmitButton" type="submit"> 
+                        <span> Apply</span>
+                    </button>
+
+                </form>
             </div>
         </>
     );

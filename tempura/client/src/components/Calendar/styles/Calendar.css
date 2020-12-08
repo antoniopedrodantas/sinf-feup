@@ -1,7 +1,33 @@
 @import '../../../index.css';
 
-.date-picker{
-   
+.date-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+
+    background-color: var(--card-background);
+    border-radius: 8px;
+}
+
+.dateSubmitButton{
+    color: var(--white-color);
+    background-color: var(--red-color);
+    border-radius: 8px;
+    border: none;
+    margin-top:0.5em;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.dateSubmitButton:hover{
+    color: var(--red-color);
+    background-color: var(--white-color);
+    cursor: pointer;
 }
 
 div.rdrDefinedRangesWrapper{

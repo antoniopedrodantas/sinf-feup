@@ -100,8 +100,10 @@ const Stock: React.FC = () => {
         <div className="right-body">
           <div className="stock-content">
                 <div className="date-selection">
-                  <Button onClick={()=> setShowDatePicker(!showDatePicker)}className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon"/> Date Picker</Button>
-                  {showDatePicker && <Calendar />}
+                  <Button onClick={()=> setShowDatePicker(!showDatePicker)}className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon"/> 
+                    {showDatePicker ? "Hide" : "Date Picker"}
+                  </Button>
+                  {showDatePicker && <Calendar start={new Date()} end={new Date(2021,0,30)}/>}
                 </div>
                 <div className="top-cards">
                   <SingleValueCard type="money" title="Total assets in Stock" value={52500}/>
