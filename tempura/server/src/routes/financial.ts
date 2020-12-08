@@ -7,7 +7,7 @@ import { Between, getRepository, MoreThanOrEqual } from "typeorm";
 import { Saft, TaxAccountingBasis } from "../entity/Saft";
 
 import fs from "fs";
-import { getCodeOne, getExcedents, getSubscribedCapital, getTestValue } from "../lib/saft";
+import { getCodeOne, getExcedents, getSubscribedCapital, getNetIncome, getFinancialPassives, getInventory, getCashEquivalents, getIntangibleAssets } from "../lib/saft";
 
 const router = express.Router();
 
@@ -48,7 +48,11 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
     let codeOne;
     let excedents;
     let subscribedCapital;
-    let testValue;
+    let netIncome;
+    let financialPassives;
+    let inventory;
+    let cashEquivalents;
+    let intangibleAssets;
 
     safts.forEach(saft => {
         console.log(saft.path);
@@ -67,8 +71,20 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         // gets "Capital subscrito"
         subscribedCapital = getSubscribedCapital(json);
 
-        // get test value
-        testValue = getTestValue(json);
+        // gets "Resultado líquido do perídod"
+        netIncome = getNetIncome(json);
+
+        // gets "Passivos financeiros detidos para negociação"
+        financialPassives = getFinancialPassives(json);
+
+        // gets "Inventários"
+        inventory = getInventory(json);
+
+        // gets "Participações financeiras - método da equivalência patrimonial" (?)
+        cashEquivalents = getCashEquivalents(json);
+
+        // gets "Ativos intangiveis"
+        intangibleAssets = getIntangibleAssets(json);
 
     });
 
@@ -81,7 +97,11 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
             salesAndServices: codeOne,
             excedents: excedents,
             subscribedCapital: subscribedCapital,
-            testValue: testValue
+            netIncome: netIncome,
+            financialPassives: financialPassives,
+            inventory: inventory ,
+            cashEquivalents: cashEquivalents,
+            intangibleAssets: intangibleAssets,
         });
 }
 
