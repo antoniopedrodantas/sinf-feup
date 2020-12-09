@@ -3,7 +3,7 @@ import { User } from '../entity/User';
 import { getRepository } from 'typeorm';
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
-import { maxHeaderSize } from "http";
+import HttpException from "../exceptions/HttpException";
 
 const router = express.Router();
 
@@ -25,8 +25,7 @@ async function login(request: Request, response: Response, next: NextFunction) {
 
     // fails to get desired user
     if(!user){
-        response.status(401);
-        response.json("Invalid username or password!").send();
+        return next(new HttpException(401, "Invalid username or password."));
     }
 
     if(user != undefined){
@@ -36,8 +35,7 @@ async function login(request: Request, response: Response, next: NextFunction) {
 
         // fails to provide correct password
         if(!isValidPassword){
-            response.status(401);
-            response.json("Invalid username or password!").send();
+        return next(new HttpException(401, "Invalid username or password."));
         }
 
         // creates token
@@ -53,10 +51,7 @@ async function login(request: Request, response: Response, next: NextFunction) {
 
     } 
     else {
-
-        response.status(401);
-        response.json("Invalid username or password!").send();
-
+        return next(new HttpException(401, "Invalid username or password."));
     }
 
 }
