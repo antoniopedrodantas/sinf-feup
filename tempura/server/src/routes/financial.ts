@@ -587,6 +587,12 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
             ["647"]
         );
 
+        // Total Equity
+        totalEquity = subscribedCapital + shares + otherEquityInstruments + issuePremiums + legalReserves + otherReserves + transitedResults + revaluationSurpluses + adjustments + netIncome + anticipatedDividends; 
+
+        // SAFT CHECK
+        const check = totalAssets - (totalEquity + totalLiabilities);
+        console.log("CHECK RESULTS: ", check);
     });
 
     // ----------------------------------- JSON Response ------------------------------------
@@ -710,7 +716,7 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
 
     const equity = {
         "Equity": eq,
-        "Total Equity": "?",
+        "Total Equity": totalEquity,
     }
 
     // creates response
