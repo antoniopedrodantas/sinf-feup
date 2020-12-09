@@ -1,35 +1,27 @@
 @import '../../../index.css';
 
-.overview{
-    background-color: var(--menu-selection);
+.overview-content{
+    padding-left: 3em;
+    padding-right: 3em;
+    overflow: hidden;
 }
 
-.tb1, .tb2, .tb3{
-    margin-top: 1em;
-}
 
-.tb1 > .table-div{
-    width: 45% !important;
-}
 
-.tb2 > .table-div{
-    width: 18% !important;
-}
-
-.tb3 > .table-div{
-    width: 22% !important;
+@media(max-width: 1560px){
+    
 }
 
 @media(max-width: 1100px){
-    .tb1 > .table-div{
-        width: 100% !important;
-    }
     
-    .tb2 > .table-div{
-        width: 50% !important;
-    }
+
+}
+
+@media(max-width: 620px){
     
-    .tb3 > .table-div{
-        width: 50% !important;
+
+    .overview-content{
+        padding-left: 1em;
+        padding-right: 1em;
     }
 }
