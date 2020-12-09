@@ -64,6 +64,7 @@ const Overview: React.FC = () => {
       ["Sashimi", "150", "17.8"],
       ["Tempura", "121", "18.8"],
       ["Sushi", "103", "20.0"],
+      ["Robata", "89", "9.2"],
       ["Robata", "89", "9.2"]
   ];
 
@@ -96,6 +97,7 @@ const Overview: React.FC = () => {
                   {showDatePicker && <Calendar start={new Date()} end={new Date(2021,0,30)}/>} 
                 </div>
 
+              
                 <div className="frame-top">
 
                   <div className="left-frame-top">
@@ -111,8 +113,9 @@ const Overview: React.FC = () => {
 
                 </div>
 
-                <LineChart title="Revenue Growth" labels={labels2} data={values2}/>
+                <LineChart title="Revenue Growth" labels={labels2} data={values2} width={600}/>
                 
+
               </div>
             </div>
           </div>

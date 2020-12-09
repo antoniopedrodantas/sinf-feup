@@ -1,12 +1,20 @@
 @import '../../../index.css';
 
+.all-components{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
 .overview-content{
     padding-left: 3em;
     padding-right: 3em;
     overflow: hidden;
 }
 
-.card{
+.card-value{
+    margin-left: 1.5em;
+    margin-right: 1.5em;
 }
 
 .table{
@@ -29,6 +37,11 @@
     justify-content: space-between;
 }
 
+.line-chart{
+    width: 100%;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
 
 @media(max-width: 1560px){
     
