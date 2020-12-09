@@ -4,15 +4,8 @@
     border: none;
 }
 
-.assets-header{
-    border-bottom: solid 1px white;
-}
 
-.liabilities-header{
-    border-bottom: solid 1px white;
-}
-
-.balance-sheet-div{
+.income-loss-div{
     background-color: var(--card-background);
     border-radius: 8px;
     display: inline-block;
@@ -31,12 +24,6 @@
     background-color: transparent !important;
 }
 
-
-.space {
-    height: 1em;
-}
-
-
 .text-left{
     font-weight: 100;
 }
@@ -46,21 +33,6 @@
     font-size: 0.95em;
 }
 
-.table-body {
-    padding-top: 4em;
+tbody > tr:last-child > td:first-child{
+    font-weight: 500;
 }
-
-.equity {
-    border-top: solid 1px white;
-}
-
- .equity > .total{
-    padding-top: 25px !important;
-    font-size: large;
-} 
-
- .equity > .number-total{
-    padding-top: 25px !important;
-    font-size: large;
-} 
-
