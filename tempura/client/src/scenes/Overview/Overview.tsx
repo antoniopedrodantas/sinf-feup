@@ -59,7 +59,7 @@ const Overview: React.FC = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const columns1 = ["Name", "Sold Units", "Price"];
-  const types1 = ["text", "number", "number"];
+  const types1 = ["text", "number", "money"];
   const values1 = [
       ["Sashimi", "150", "17.8"],
       ["Tempura", "121", "18.8"],
@@ -96,11 +96,21 @@ const Overview: React.FC = () => {
                   {showDatePicker && <Calendar start={new Date()} end={new Date(2021,0,30)}/>} 
                 </div>
 
-                <SingleValueCard type="money" title="Total Profit" value={352100}/>
-                <SingleValueCard type="money" title="Total Revenue" value={500309}/>
-                <SingleValueCard type="percentage" title="Liquidity" value={67.3}/>
-                <SingleValueCard type="money" title="Total Costs" value={148209}/>
-                <CustomTable title="Top Selling Products" columns={columns1} type={types1} values={values1} />
+                <div className="frame-top">
+
+                  <div className="left-frame-top">
+                    <SingleValueCard type="money" title="Total Profit" value={352100}/>
+                    <SingleValueCard type="percentage" title="Liquidity" value={67.3}/>
+                  </div>
+                  
+                  <div className="mid-frame-top">
+                    <SingleValueCard type="money" title="Total Revenue" value={500309}/>
+                    <SingleValueCard type="money" title="Total Costs" value={148209}/>
+                  </div>
+                  <CustomTable title="Top Selling Products" columns={columns1} type={types1} values={values1} />
+
+                </div>
+
                 <LineChart title="Revenue Growth" labels={labels2} data={values2}/>
                 
               </div>

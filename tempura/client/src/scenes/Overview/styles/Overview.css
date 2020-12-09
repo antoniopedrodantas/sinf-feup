@@ -6,6 +6,28 @@
     overflow: hidden;
 }
 
+.card{
+}
+
+.table{
+    margin-bottom: 0 !important;
+}
+
+.table-div{
+    width: 30% !important;
+}
+
+.frame-top{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.left-frame-top, .mid-frame-top{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
 
 @media(max-width: 1560px){
@@ -19,7 +41,6 @@
 
 @media(max-width: 620px){
     
-
     .overview-content{
         padding-left: 1em;
         padding-right: 1em;
