@@ -1,3 +1,11 @@
+
+function getLineTotal(generalLedgerAccounts: any, pos: Array<string>, neg: Array<string>) {
+
+    
+
+}
+
+
 function getTaxonomyTotal(generalLedgerAccounts: any, taxonomyCode: string) {
 
     const taxCodes: any = generalLedgerAccounts["MasterFiles"]["GeneralLedgerAccounts"]["TaxonomyCodes"];
@@ -18,11 +26,7 @@ function getTaxonomyTotal(generalLedgerAccounts: any, taxonomyCode: string) {
 
 
 function getAccountTotal(accountInfo: any): number {
-
-    // accumulator
-    let acc = 0;
-        
-    // gets values
+    
     const ODB = accountInfo["OpeningDebitBalance"];
     const OCB = accountInfo["OpeningCreditBalance"];
     const CDB = accountInfo["ClosingDebitBalance"];
