@@ -8,7 +8,7 @@ import authMiddleware from '../middlewares/authMiddleware';
 import fs from "fs";
 import { getLineTotal, getCodeOne, getExcedents, getSubscribedCapital, getNetIncome, getFinancialPassives, getInventory, getCashEquivalents, getIntangibleAssets } from "../lib/financial";
 import { getSaftFiles } from "../lib/saft";
-import { TaxAccountingBasis } from "@/entity/Saft";
+import { TaxAccountingBasis } from "../entity/Saft";
 
 const router = express.Router();
 
