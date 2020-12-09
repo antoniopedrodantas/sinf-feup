@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileImport, faSignOutAlt} from '@fortawesome/free-solid-svg-icons'
 import { faChartLine, faCashRegister, faShoppingCart, faCoins, faWarehouse} from '@fortawesome/free-solid-svg-icons'
 import { Redirect } from 'react-router-dom';
-const logo =  require("../assets/logo.svg")
+const logo =  require("../../assets/logo.svg")
 
 
 interface SideProps {

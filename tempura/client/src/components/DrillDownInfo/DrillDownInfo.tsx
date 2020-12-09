@@ -10,7 +10,7 @@ interface InfoProps{
 const DrillDownInfo: React.FC<InfoProps> = ({title,fields, values}) => {
   
     const retrieveValue = (i: any) =>{
-        if(values[i]!= null)
+        if(values[i] != null && values[i] != "")
             return values[i]
         else
             return <i>no information</i>

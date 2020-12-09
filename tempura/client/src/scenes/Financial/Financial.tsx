@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import SideBar from '../../components/SideBar';
+import SideBar from '../../components/SideBar/SideBar';
 import './styles/Financial.css';
 import '../../common.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'

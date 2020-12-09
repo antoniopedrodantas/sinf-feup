@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import SingleValueCard from 'src/components/SingleValueCard/SingleValueCard';
 import CustomTable from '../../components/CustomTable/CustomTable';
-import SideBar from '../../components/SideBar';
+import SideBar from '../../components/SideBar/SideBar';
 import Calendar from '../../components/Calendar/Calendar';
 import './styles/Stock.css';
 import '../../common.css';
