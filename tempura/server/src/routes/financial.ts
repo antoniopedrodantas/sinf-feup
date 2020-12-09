@@ -93,6 +93,32 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
     // Total Assets
     let totalAssets;
 
+    // Liabilities
+
+    // Non Current Liabilities
+    let provisions;
+    let financingObtained;
+    let responsabilities;
+    let deferredTaxLiabilities;
+    let accountsPayable;
+    let sum3;
+
+    // Current Liabilities
+    let suppliers;
+    let clientAdvances;
+    let governmentAndOtherPublic;
+    let financingObtained2;
+    let otherAccountsPayable;
+    let deferrals2;
+    let financialLiabilities;
+    let otherFinancialLiabilities;
+    let nonCurrentLiabilitiesHeldForSale;
+    let otherCurrentLiabilities;
+    let sum4;
+
+    // Total Liabilities
+    let totalLiabilities;
+
 
 
     safts.forEach(saft => {
@@ -380,7 +406,106 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         // Sum
         sum2 = inventory + biologicalAssets2 + clients + governmentAndOther + subscribedAndUnpaidCapital + otherAccountsReceivable + deferrals + financialAssets + otherFinancialAssets + nonCurrentAssetsHeldForSale + otherCurrentAssets + cashAndBankDeposits;
 
+        // ----------------------------------- gets "Non Current Liabilities" ------------------------------------
+
+        // Provisions
+        provisions = getLineTotal(json,
+            ["148","149","150","151","152","153","154","155"],
+            []
+        );
+
+        // Financing Obtained
+        financingObtained = getLineTotal(json,
+            ["87","89","91","93","95","97","99","101","103","105"],
+            []
+        );
+
+        // Responsibilities for Post-Employment Benefits
+        responsabilities = getLineTotal(json,
+            ["132"],
+            []
+        );
+
+        // Deferred Tax Liabilities
+        deferredTaxLiabilities = getLineTotal(json,
+            ["134"],
+            []
+        );
+
+        // Accounts Payable
+        accountsPayable = getLineTotal(json,
+            ["58","60","62","64","114","125","127","136","139"],
+            []
+        );
+
+        // Sum
+        sum3 = provisions + financingObtained + responsabilities + deferredTaxLiabilities + accountsPayable;
+
+        // ----------------------------------- gets "Current Liabilities" ------------------------------------
+
+        // Suppliers
+        suppliers = getLineTotal(json,
+            ["37","38","39","40","41","42","43","44","45","46","47","48","49","50"],
+            []
+        );
+
+        // Client Advances
+        clientAdvances = getLineTotal(json,
+            ["10","11","12","13","14","15","16","17","18","19","20","21","22","23","137"],
+            []
+        );
+
+        // Government and Other Public Entities
+        governmentAndOtherPublic = getLineTotal(json,
+            ["71","72","75","76","77","78","81","82","83","84","85"],
+            []
+        );
+
+        // Financing Obtained
+        financingObtained2 = getLineTotal(json,
+            ["2","3","86","88","90","92","94","96","98","100","102","104"],
+            []
+        );
+
+        // Other Accounts Payable
+        otherAccountsPayable = getLineTotal(json,
+            ["53","54","57","59","61","63","109","110","113","124","126","131","135","138"],
+            []
+        );
+
+        // Deferrals
+        deferrals2 = getLineTotal(json,
+            ["147"],
+            []
+        );
+
+        // Financial Liabilities Held for Trading
+        financialLiabilities = getLineTotal(json,
+            ["5", "7"],
+            []
+        );
+
+        // Other Financial Liabilities
+        otherFinancialLiabilities = getLineTotal(json,
+            ["9"],
+            []
+        );
+
+        // Non-Current Liabilities Held for Sale
+        nonCurrentLiabilitiesHeldForSale = getLineTotal(json,
+            ["325"],
+            []
+        );
+
+        // Other Current Liabilities
+        otherCurrentLiabilities = 0;
+
+        // Sum
+        sum4 = suppliers + clientAdvances + governmentAndOtherPublic + financingObtained2 + otherAccountsPayable + deferrals2 + financialLiabilities + otherFinancialLiabilities + nonCurrentLiabilitiesHeldForSale + otherCurrentLiabilities;
+
     });
+
+    // ----------------------------------- JSON Response ------------------------------------
 
     // "Rendimentos e Gastos"
     const incomeAndExpenses = {
@@ -446,13 +571,42 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         "Sum": sum2,
     }
 
-    const Assets = {
+    const assets = {
         "Non Current Assets": nonCurrentAssets,
         "Current Assets": currentAssets,
         "Total Assets": "?",
     };
 
     // Liabilities
+
+    const nonCurrentLiabilities = {
+        "Provisions": provisions,
+        "Financing Obtained": financingObtained,
+        "Responsibilities for Post-Employment Benefits": responsabilities,
+        "Deferred Tax Liabilities": deferredTaxLiabilities,
+        "Accounts Payable": accountsPayable,
+        "Sum": sum3,
+    }
+
+    const currentLiabilities = {
+        "Suppliers": suppliers,
+        "Client Advances": clientAdvances,
+        "Government and Other Public Entities": governmentAndOtherPublic,
+        "Financing Obtained": financingObtained2,
+        "Other Accounts Payable": otherAccountsPayable,
+        "Deferrals": deferrals2,
+        "Financial Liabilities Held for Trading": financialLiabilities,
+        "Other Financial Liabilities": otherFinancialLiabilities,
+        "Non-Current Liabilities Held for Sale": nonCurrentLiabilitiesHeldForSale,
+        "Other Current Liabilities": otherCurrentLiabilities,
+        "Sum": sum4,
+    }
+
+    const liabilities = {
+        "Non Current Liabilities": nonCurrentLiabilities,
+        "Current Liabilities": currentLiabilities,
+        "Total Liabilities": "?",
+    }
 
     // Equity
 
@@ -462,7 +616,8 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         .send({
             error: false,
             "Income and Expenses": incomeAndExpenses,
-            "Assets": Assets,
+            "Assets": assets,
+            "Liabilities": liabilities,
         });
 }
 
