@@ -7,7 +7,7 @@ import { Between, getRepository, MoreThanOrEqual } from "typeorm";
 import { Saft, TaxAccountingBasis } from "../entity/Saft";
 
 import fs from "fs";
-import { getCodeOne, getExcedents, getSubscribedCapital, getNetIncome, getFinancialPassives, getInventory, getCashEquivalents, getIntangibleAssets } from "../lib/saft";
+import { getLineTotal, getCodeOne, getExcedents, getSubscribedCapital, getNetIncome, getFinancialPassives, getInventory, getCashEquivalents, getIntangibleAssets } from "../lib/saft";
 
 const router = express.Router();
 
@@ -51,6 +51,7 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
     let netIncome;
     let financialPassives;
     let inventory;
+    let inventory2;
     let cashEquivalents;
     let intangibleAssets;
 
@@ -79,6 +80,12 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
 
         // gets "Inventários"
         inventory = getInventory(json);
+        inventory2 = getLineTotal(json,
+                               ["165", "166", "167", "171", "172", "173", "174", "175", "176", "183", "184", "187", "188", "189", "193", "209", "210", "211", "212", "213"],
+                               ["168", "169", "170", "177", "178", "179", "180", "181", "182", "185", "186", "190", "191", "192", "194"]);
+        
+        console.log("1: ", inventory);
+        console.log("2: ", inventory2);
 
         // gets "Participações financeiras - método da equivalência patrimonial" (?)
         cashEquivalents = getCashEquivalents(json);
@@ -99,7 +106,8 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
             subscribedCapital: subscribedCapital,
             netIncome: netIncome,
             financialPassives: financialPassives,
-            inventory: inventory ,
+            inventory: inventory,
+            inventory2: inventory2,
             cashEquivalents: cashEquivalents,
             intangibleAssets: intangibleAssets,
         });

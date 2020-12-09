@@ -1,7 +1,17 @@
 
-function getLineTotal(generalLedgerAccounts: any, pos: Array<string>, neg: Array<string>) {
+export function getLineTotal(generalLedgerAccounts: any, pos: Array<string>, neg: Array<string>) {
 
-    
+    let result = 0;
+
+    pos.forEach(code => {
+        result += getTaxonomyTotal(generalLedgerAccounts, code);
+    });
+
+    neg.forEach(code => {
+        result -= getTaxonomyTotal(generalLedgerAccounts, code);
+    });
+
+    return result;
 
 }
 
