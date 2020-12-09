@@ -3,11 +3,11 @@ import express, { NextFunction, Request, Response } from "express";
 import asyncMiddleware from '../middlewares/asyncMiddleware';
 import authMiddleware from '../middlewares/authMiddleware';
 
-import { Between, getRepository, MoreThanOrEqual } from "typeorm";
-import { Saft, TaxAccountingBasis } from "../entity/Saft";
+
 
 import fs from "fs";
-import { getLineTotal, getCodeOne, getExcedents, getSubscribedCapital, getNetIncome, getFinancialPassives, getInventory, getCashEquivalents, getIntangibleAssets } from "../lib/saft";
+import { getLineTotal, getCodeOne, getExcedents, getSubscribedCapital, getNetIncome, getFinancialPassives, getInventory, getCashEquivalents, getIntangibleAssets } from "../lib/financial";
+import { getSaftFiles } from "../lib/saft";
 
 const router = express.Router();
 
@@ -18,28 +18,11 @@ router.get('/results_demonstration', authMiddleware, asyncMiddleware(resultsDemo
 
 async function balanceSheet(request: Request, response: Response, next: NextFunction) {
 
-    const saftRepository = getRepository(Saft);
-
     const start = request.query.start_date;
     const end = request.query.end_date;
 
     // TODO: add user param to query
-    const safts = await saftRepository.find({
-        select: ["path"],
-        where: [
-            {
-                start_date: Between(start, end),
-                tax_accounting_basis: TaxAccountingBasis.ACCOUNTING
-            },
-            {
-                end_date: Between(start, end),
-                tax_accounting_basis: TaxAccountingBasis.ACCOUNTING
-            }
-        ],
-        order: {
-            created_at: "DESC",
-        }
-    });
+    const safts = await getSaftFiles(start, end);
 
     // may not be needed anymore (?)
     var total = 0;
