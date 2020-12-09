@@ -8,6 +8,7 @@ import authMiddleware from '../middlewares/authMiddleware';
 import fs from "fs";
 import { getLineTotal, getCodeOne, getExcedents, getSubscribedCapital, getNetIncome, getFinancialPassives, getInventory, getCashEquivalents, getIntangibleAssets } from "../lib/financial";
 import { getSaftFiles } from "../lib/saft";
+import { setupMaster } from "cluster";
 
 const router = express.Router();
 
@@ -58,14 +59,41 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
     let codeTwentySix;
     let codeTwentySeven;
 
-    let excedents;
-    let subscribedCapital;
-    let netIncome;
-    let financialPassives;
-    let inventory;
-    let inventory2;
-    let cashEquivalents;
+    // Assets
+
+    // Non Current Assets
+    let tangibleFixedAssets;
+    let investmentProperties;
+    let goodwill;
     let intangibleAssets;
+    let biologicalAssets;
+    let financialHoldings;
+    let otherFinancialInvestments;
+    let accountsReceivable;
+    let deferredTaxAssets;
+    let financialInvestments;
+    let creditsAndOther;
+    let sum;
+
+    // Current Assets
+    let inventory;
+    let biologicalAssets2;
+    let clients;
+    let governmentAndOther;
+    let subscribedAndUnpaidCapital;
+    let otherAccountsReceivable;
+    let deferrals;
+    let financialAssets;
+    let otherFinancialAssets;
+    let nonCurrentAssetsHeldForSale;
+    let otherCurrentAssets;
+    let cashAndBankDeposits;
+    let sum2;
+
+    // Total Assets
+    let totalAssets;
+
+
 
     safts.forEach(saft => {
         console.log(saft.path);
@@ -214,33 +242,143 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         // 27.
         codeTwentySeven = codeTwentySix;
 
-        
+        // ----------------------------------- gets "Non Current Assets" ------------------------------------
 
-        // ----------------------------------- gets "Balanço" ------------------------------------
+        // Tangible Fixed Assets.
+        tangibleFixedAssets = getLineTotal(json,
+            ["268","269","270","271","272","273", "274", "306", "310"],
+            ["275","276","277","278","279","280","281","282","283","284","285","286","287","288", "314", "318"]
+        );
 
-        // gets "Excedentes de revalorização"
-        excedents = getExcedents(json);
+        // Investment Properties
+        investmentProperties = getLineTotal(json,
+            ["259","260","261","305","309"],
+            ["262","263","264","265","266","267","313","317"]
+        );
 
-        // gets "Capital subscrito"
-        subscribedCapital = getSubscribedCapital(json);
+        // Goodwill
+        goodwill = getLineTotal(json,
+            ["217","222","227","289"],
+            ["236","237","238","240","245","250","294","299"]
+        );
 
-        // gets "Resultado líquido do perídod"
-        netIncome = getNetIncome(json);
+        // Intagible Assets
+        intangibleAssets = getLineTotal(json,
+            ["290","291","292","293","307","311"],
+            ["295","296","297","298","300","301","302","303","315","319"]
+        );
 
-        // gets "Passivos financeiros detidos para negociação"
-        financialPassives = getFinancialPassives(json);
+        // Biological Assets
+        biologicalAssets = getLineTotal(json,
+            ["197","198","215"],
+            ["200","202"]
+        );
 
-        // gets "Inventários"
-        inventory = getInventory(json);
-        inventory2 = getLineTotal(json,
-                               ["165", "166", "167", "171", "172", "173", "174", "175", "176", "183", "184", "187", "188", "189", "193", "209", "210", "211", "212", "213"],
-                               ["168", "169", "170", "177", "178", "179", "180", "181", "182", "185", "186", "190", "191", "192", "194"]);
+        // Financial Holdings
+        financialHoldings = getLineTotal(json,
+            ["216","221","226"],
+            ["239","244","249"]
+        );
 
-        // gets "Participações financeiras - método da equivalência patrimonial" (?)
-        cashEquivalents = getCashEquivalents(json);
+        // Other Financial Investments
+        otherFinancialInvestments = getLineTotal(json,
+            ["218","219","220","223","224","225","228","229","230","231","232","233","234","304","308"],
+            ["235","241","242","243","246","247","248","251","252","253","254","255","256","257","258","312","316"]
+        );
 
-        // gets "Ativos intangiveis"
-        intangibleAssets = getIntangibleAssets(json);
+        // Accounts Receivable
+        accountsReceivable = getLineTotal(json,
+            ["62","64", "112","114","125","127","129","139"],
+            ["68","70","121","123","141","145"]
+        );
+
+        // Deferred Tax Assets
+        deferredTaxAssets = getLineTotal(json,
+            ["133"],
+            ["143"]
+        );
+
+        // Financial Investments
+        financialInvestments = 0;
+
+        // Credits and Other Non-Current Assets
+        creditsAndOther = 0;
+
+        sum = tangibleFixedAssets + investmentProperties + goodwill + intangibleAssets + biologicalAssets + financialHoldings + otherFinancialInvestments + accountsReceivable + deferredTaxAssets + financialInvestments + creditsAndOther;
+
+        // ----------------------------------- gets "Non Current Assets" ------------------------------------
+
+        // Inventory
+        inventory = getLineTotal(json,
+            ["165", "166", "167", "171", "172", "173", "174", "175", "176", "183", "184", "187", "188", "189", "193", "209", "210", "211", "212", "213"],
+            ["168", "169", "170", "177", "178", "179", "180", "181", "182", "185", "186", "190", "191", "192", "194"]
+        );
+
+        // Biological Assets
+        biologicalAssets2 = getLineTotal(json,
+            ["195", "196", "214"],
+            ["199","201"]
+        );
+
+        // Clients
+        clients = getLineTotal(json,
+            ["10","11","12","13","14","15","16","17","18","19","20","21"],
+            ["22","24","25","26","27","28","29","30","31","32","33","34","35","36"]
+        );
+
+        // Government and Other Public Entities
+        governmentAndOther = getLineTotal(json,
+            ["71","73","74","76","77","79","80","81","82","83","84","85"],
+            []
+        );
+
+        // Subscribed and Unpaid Capital
+        subscribedAndUnpaidCapital = getLineTotal(json,
+            ["106","107"],
+            ["115","116"]
+        );
+
+        // Other Accounts Receivable
+        otherAccountsReceivable = getLineTotal(json,
+            ["37","38","39","40","41","42","43","44","45","46","47","48","49","50","55","56","61","63","108","109","110","111","113","124","126","128","130","138"],
+            ["51","52","65","66","67","69","117","118","119","120","122","140","142","144"]
+        );
+
+        // Deferrals
+        deferrals = getLineTotal(json,
+            ["146"],
+            []
+        );
+
+        // Financial Assets Held for Trading
+        financialAssets = getLineTotal(json,
+            ["4", "6"],
+            []
+        );
+
+        // Other Financial Assets
+        otherFinancialAssets = getLineTotal(json,
+            ["8"],
+            []
+        );
+
+        // Non-Current Assets Held for Sale
+        nonCurrentAssetsHeldForSale = getLineTotal(json,
+            ["320","321","322","323","324"],
+            ["326","327","328","329","330"]
+        );
+
+        // Other Current Assets
+        otherCurrentAssets = 0;
+
+        // Cash and Bank Deposits
+        cashAndBankDeposits = getLineTotal(json,
+            ["1", "2", "3"],
+            []
+        );
+
+        // Sum
+        sum2 = inventory + biologicalAssets2 + clients + governmentAndOther + subscribedAndUnpaidCapital + otherAccountsReceivable + deferrals + financialAssets + otherFinancialAssets + nonCurrentAssetsHeldForSale + otherCurrentAssets + cashAndBankDeposits;
 
     });
 
@@ -277,6 +415,43 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
 
     // Assets
 
+    const nonCurrentAssets = {
+        "Tangible Fixed Assets": tangibleFixedAssets,
+        "Investment Properties": investmentProperties,
+        "Goodwill": goodwill,
+        "Intangible Assets": intangibleAssets,
+        "Biologic Assets": biologicalAssets,
+        "Financial Holdings": financialHoldings,
+        "Other Financial Investments": otherFinancialInvestments,
+        "Accounts Receivable": accountsReceivable,
+        "Deferred Tax Assets": deferredTaxAssets,
+        "Financial Investments": financialInvestments,
+        "Credits and Other Non-Current Assets": creditsAndOther,
+        "Sum": sum
+    }
+
+    const currentAssets = {
+        "Inventory": inventory,
+        "Biologic Assets": biologicalAssets2,
+        "Clients": clients,
+        "Government and Other Public Entities": governmentAndOther,
+        "Subscribed and Unpaid Capital": subscribedAndUnpaidCapital,
+        "Other Accounts Receivable": otherAccountsReceivable,
+        "Deferrals": deferrals,
+        "Financial Assets Held for Trading": financialAssets,
+        "Other Financial Assets": otherFinancialAssets,
+        "Non-Current Assets Held for Sale": nonCurrentAssetsHeldForSale,
+        "Other Current Assets": otherCurrentAssets,
+        "Cash and Bank Deposits": cashAndBankDeposits,
+        "Sum": sum2,
+    }
+
+    const Assets = {
+        "Non Current Assets": nonCurrentAssets,
+        "Current Assets": currentAssets,
+        "Total Assets": "?",
+    };
+
     // Liabilities
 
     // Equity
@@ -287,14 +462,7 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         .send({
             error: false,
             "Income and Expenses": incomeAndExpenses,
-            excedents: excedents,
-            subscribedCapital: subscribedCapital,
-            netIncome: netIncome,
-            financialPassives: financialPassives,
-            inventory: inventory,
-            inventory2: inventory2,
-            cashEquivalents: cashEquivalents,
-            intangibleAssets: intangibleAssets,
+            "Assets": Assets,
         });
 }
 
