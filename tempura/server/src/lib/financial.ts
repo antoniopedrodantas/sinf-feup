@@ -48,6 +48,8 @@ function getAccountTotal(accountInfo: any): number {
 
 }
 
+// may not be needed anymore
+/*
 export function getCodeOne(generalLedgerAccounts: any): number {
 
     // gets taxTotal from 506
@@ -336,3 +338,4 @@ export function getIntangibleAssets(generalLedgerAccounts: any): number {
 
     return result;
 }
+*/

@@ -6,16 +6,14 @@ import authMiddleware from '../middlewares/authMiddleware';
 
 
 import fs from "fs";
-import { getLineTotal, getCodeOne, getExcedents, getSubscribedCapital, getNetIncome, getFinancialPassives, getInventory, getCashEquivalents, getIntangibleAssets } from "../lib/financial";
+import { getLineTotal } from "../lib/financial";
 import { getSaftFiles } from "../lib/saft";
 import { setupMaster } from "cluster";
 
 const router = express.Router();
 
-
 router.get('/balance_sheet', authMiddleware, asyncMiddleware(balanceSheet));
 router.get('/results_demonstration', authMiddleware, asyncMiddleware(resultsDemonstration));
-
 
 async function balanceSheet(request: Request, response: Response, next: NextFunction) {
 
@@ -24,9 +22,6 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
 
     // TODO: add user param to query
     const safts = await getSaftFiles(start, end);
-
-    // may not be needed anymore (?)
-    var total = 0;
 
     // balance sheet fields
 
@@ -119,8 +114,25 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
     // Total Liabilities
     let totalLiabilities;
 
+    // Equity
 
+    // Equity
+    let subscribedCapital;
+    let shares;
+    let otherEquityInstruments;
+    let issuePremiums;
+    let legalReserves;
+    let otherReserves;
+    let transitedResults;
+    let revaluationSurpluses;
+    let adjustments;
+    let netIncome;
+    let anticipatedDividends;
 
+    // Total Equity
+    let totalEquity;
+
+    // iterates through SAFT
     safts.forEach(saft => {
         console.log(saft.path);
 
@@ -332,7 +344,7 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
 
         sum = tangibleFixedAssets + investmentProperties + goodwill + intangibleAssets + biologicalAssets + financialHoldings + otherFinancialInvestments + accountsReceivable + deferredTaxAssets + financialInvestments + creditsAndOther;
 
-        // ----------------------------------- gets "Non Current Assets" ------------------------------------
+        // ----------------------------------- gets "Current Assets" ------------------------------------
 
         // Inventory
         inventory = getLineTotal(json,
@@ -405,6 +417,8 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
 
         // Sum
         sum2 = inventory + biologicalAssets2 + clients + governmentAndOther + subscribedAndUnpaidCapital + otherAccountsReceivable + deferrals + financialAssets + otherFinancialAssets + nonCurrentAssetsHeldForSale + otherCurrentAssets + cashAndBankDeposits;
+
+        totalAssets = sum + sum2;
 
         // ----------------------------------- gets "Non Current Liabilities" ------------------------------------
 
@@ -503,6 +517,76 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         // Sum
         sum4 = suppliers + clientAdvances + governmentAndOtherPublic + financingObtained2 + otherAccountsPayable + deferrals2 + financialLiabilities + otherFinancialLiabilities + nonCurrentLiabilitiesHeldForSale + otherCurrentLiabilities;
 
+        totalLiabilities = sum3 + sum4;
+
+        // ----------------------------------- gets "Equity" ------------------------------------
+
+        // Subscribed Capital
+        subscribedCapital = getLineTotal(json,
+            ["331"],
+            []
+        );
+
+        // Shares
+        shares = getLineTotal(json,
+            [],
+            ["332","333"]
+        );
+
+        // Other Equity Instruments
+        otherEquityInstruments = getLineTotal(json,
+            ["334"],
+            []
+        );
+
+        // Issue Premiums
+        issuePremiums = getLineTotal(json,
+            ["335"],
+            []
+        );
+
+        // Legal Reserves
+        legalReserves = getLineTotal(json,
+            ["336"],
+            []
+        );
+
+        // Other Reserves
+        otherReserves = getLineTotal(json,
+            ["337"],
+            []
+        );
+
+        // Transited Results
+        transitedResults = getLineTotal(json,
+            ["338"],
+            []
+        );
+
+        // Revaluation Surpluses
+        revaluationSurpluses = getLineTotal(json,
+            ["343","345"],
+            ["344","346"]
+        );
+
+        // Adjustments/Other Changes in Equity
+        adjustments = getLineTotal(json,
+            ["339","340","341","342","347","348","342","351","352"],
+            ["350"]
+        );
+
+        // Net Income for the Period
+        netIncome = getLineTotal(json,
+            ["646"],
+            []
+        );
+
+        // Anticipated Dividends
+        anticipatedDividends = getLineTotal(json,
+            [],
+            ["647"]
+        );
+
     });
 
     // ----------------------------------- JSON Response ------------------------------------
@@ -574,7 +658,7 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
     const assets = {
         "Non Current Assets": nonCurrentAssets,
         "Current Assets": currentAssets,
-        "Total Assets": "?",
+        "Total Assets": totalAssets,
     };
 
     // Liabilities
@@ -605,12 +689,31 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
     const liabilities = {
         "Non Current Liabilities": nonCurrentLiabilities,
         "Current Liabilities": currentLiabilities,
-        "Total Liabilities": "?",
+        "Total Liabilities": totalLiabilities,
     }
 
     // Equity
 
+    const eq = {
+        "Subscribed Capital": subscribedCapital,
+        "Shares": shares,
+        "Other Equity Instruments": otherEquityInstruments,
+        "Issue Premiums": issuePremiums,
+        "Legal Reserves": legalReserves,
+        "Other Reserves": otherReserves,
+        "Transited Results": transitedResults,
+        "Revaluation Surpluses": revaluationSurpluses,
+        "Adjustments/Other Changes in Equity": adjustments,
+        "Net Income for the Period": netIncome,
+        "Anticipated Dividends": anticipatedDividends,
+    }
 
+    const equity = {
+        "Equity": eq,
+        "Total Equity": "?",
+    }
+
+    // creates response
     response
         .status(200)
         .send({
@@ -618,6 +721,7 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
             "Income and Expenses": incomeAndExpenses,
             "Assets": assets,
             "Liabilities": liabilities,
+            "Equity": equity,
         });
 }
 
