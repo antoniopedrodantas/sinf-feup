@@ -14,6 +14,10 @@ div.frame-top > div.mid-frame-top > div:nth-child(1), div.frame-top > div.mid-fr
     width: 70%;
 }
 
+.frame-top .card-value{
+    font-size: 1.8vmax;
+}
+
 .table{
     margin-bottom: 0;
 }
@@ -26,6 +30,8 @@ div.frame-top > div.mid-frame-top > div:nth-child(1), div.frame-top > div.mid-fr
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-top: 2em;
+    margin-bottom: 2em;
 } 
 
 .left-frame-top, .mid-frame-top{
@@ -37,23 +43,84 @@ div.frame-top > div.mid-frame-top > div:nth-child(1), div.frame-top > div.mid-fr
 
 .line-chart{
     width: 100%;
-    margin-top: 2em;
+    margin-top: 4em;
     margin-bottom: 2em;
 }
 
-@media(max-width: 1560px){
-    
+@media(max-width: 1300px){
+    .overview-content{
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+
+    .frame-top .card-title{
+        font-size: 1.5em;
+    }
 }
 
 @media(max-width: 1100px){
     
+    .frame-top{
+        display: flex;
+        flex-direction: column;
+    }
 
+    .left-frame-top, .mid-frame-top{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .top-selling{
+        margin-top: 2em;
+    }
+
+    div.frame-top > div.left-frame-top > .card-money, div.frame-top > div.left-frame-top > div.card.card-percentage{
+        width: 40%;
+    }
+    
+    div.frame-top > div.mid-frame-top > div:nth-child(1), div.frame-top > div.mid-frame-top > div:nth-child(2){
+        width: 40%;
+    }
+
+    .frame-top .card-value{
+        font-size: 2.3vmax;
+    }
 }
 
-@media(max-width: 620px){
+@media(max-width: 650px){
     
     .overview-content{
         padding-left: 1em;
         padding-right: 1em;
+    }
+
+    .left-frame-top, .mid-frame-top{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .top-selling{
+        margin-top: 2em;
+    }
+
+    div.frame-top > div.left-frame-top > .card-money, div.frame-top > div.left-frame-top > div.card.card-percentage{
+        width: 80%;
+    }
+    
+    div.frame-top > div.mid-frame-top > div:nth-child(1), div.frame-top > div.mid-frame-top > div:nth-child(2){
+        width: 80%;
+    }
+
+    .frame-top .card-value{
+        font-size: 3vmax;
+    }
+}
+
+@media(max-width: 450px){
+    .overview-content{
+        padding-left: 0.3em;
+        padding-right: 0.3em;
     }
 }
