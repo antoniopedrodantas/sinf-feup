@@ -18,9 +18,14 @@ const IncomeLossStatement: React.FC<IncomeLossStatementProps> = ({accounts, type
         }
     }
 
-    const generateClassName = (i:any) =>{
+    const generateClassName = (i:any,value:any) =>{
+        let final = "";
+
+        if(value=="Result of Discontinued Activities (Net of Taxes) Included in Net Income for the Period" || value=="Net Income for the Period" || value=="Income Before Taxes" || value=="Operating Income (Before Financing Expenses and taxes)" || value=="Income Before Depreciation, Financing Expenses and Taxes")
+         final = "bold-type";
+
         switch(types[i]){
-            case 'text': default: return "text-left";
+            case 'text': default: return final.concat("text-left");
             case 'money': return "text-right";
         }
     }
@@ -36,7 +41,7 @@ const IncomeLossStatement: React.FC<IncomeLossStatementProps> = ({accounts, type
                                 <tr>
                                 {  
                                     account.map((elem, i) => {     
-                                        return (<td className={generateClassName(i)}>{elem}{renderType(i)}</td> ) 
+                                        return (<td className={generateClassName(i,elem)}>{elem}{renderType(i)}</td> ) 
                                     }) 
                                 }
                                 </tr>

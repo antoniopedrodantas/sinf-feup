@@ -12,7 +12,17 @@
 
     padding-left: 1em;
     padding-right: 1em;
+    margin-bottom: 1em;
+
+    overflow-y: scroll;
+    height: 90vh;
 }
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; 
+    scrollbar-width: none;
+  }
 
 .title{
     margin-left: 0.5em;
@@ -33,6 +43,6 @@
     font-size: 0.95em;
 }
 
-tbody > tr:last-child > td:first-child{
-    font-weight: 500;
+.bold-type {
+    font-weight: 900;
 }

@@ -4,11 +4,7 @@
     border: none;
 }
 
-.assets-header{
-    border-bottom: solid 1px white;
-}
-
-.liabilities-header{
+.table-header{
     border-bottom: solid 1px white;
 }
 
@@ -19,7 +15,16 @@
 
     padding-left: 1em;
     padding-right: 1em;
+
+    overflow-y: scroll;
+    height: 90vh;
 }
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; 
+    scrollbar-width: none;
+  }
 
 .title{
     margin-left: 0.5em;
@@ -50,17 +55,17 @@
     padding-top: 4em;
 }
 
-.equity {
-    border-top: solid 1px white;
+.total{
+    text-align: justify;
 }
 
- .equity > .total{
-    padding-top: 25px !important;
-    font-size: large;
-} 
+.bold-type {
+    font-weight: 900;
+}
 
- .equity > .number-total{
-    padding-top: 25px !important;
-    font-size: large;
-} 
+.general-title {
+    padding-left: 0.7em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}
 
