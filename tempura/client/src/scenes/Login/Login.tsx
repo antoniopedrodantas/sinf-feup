@@ -60,7 +60,6 @@ const Login: React.FC = () => {
               </div>
             </div>
 
-            {/*TODO: add onclick event later */}
             <button className="loginButton" type="submit"> 
               <span> Log in</span>
             </button>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import SideBar from '../../components/SideBar';
+import SideBar from '../../components/SideBar/SideBar';
 import SingleValueCard from 'src/components/SingleValueCard/SingleValueCard';
 import CustomTable from '../../components/CustomTable/CustomTable';
 import './styles/Overview.css';
