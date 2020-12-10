@@ -12,13 +12,7 @@
     justify-content: space-between;
 }
 
-.top-elements{
-    display:flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-
-.bot-elements{
+.top-elements, .bot-elements{
     display:flex;
     flex-direction: row;
     justify-content: space-evenly;

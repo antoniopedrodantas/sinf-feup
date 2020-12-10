@@ -81,7 +81,7 @@ const Client: React.FC = () => {
                 <div className="row h-100">
                     <div className="left-side col-md-2">
                         <label htmlFor="menu" className="menu-close"><FontAwesomeIcon icon={faTimes} className="toggle-icon"/></label>
-                        <SideBar coreview="stock"/>
+                        <SideBar coreview="drill"/>
                     </div>
 
                     <div className="right-side col-md-10">
@@ -104,7 +104,6 @@ const Client: React.FC = () => {
                                         <DrillInfo title="Client Info" fields={titles} values={values}/>
                                         <CustomTable title="Top Products Purchased" columns={columns1} type={types1} values={values1} />
                                     </div>
-
                                     <div className="bot-elements"> 
                                         <SingleValueCard type="money" title="Total Sales" value={9435}/>
                                         <SingleValueCard type="money" title="Accounts Receivable" value={2294}/>
