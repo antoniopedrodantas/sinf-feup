@@ -1,7 +1,5 @@
 @import '../../../index.css';
 
-
-/*remove this rules after certain max-width*/
 .date-form{
     display: flex;
     flex-direction: column;
@@ -49,6 +47,7 @@ div.rdrDefinedRangesWrapper{
         background-color: var(--menu-selection);
     }
 }
+
 @media(max-width: 400px){
     .date-form{
         padding-top: 0.3em;
