@@ -48,17 +48,17 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
                     <thead>
                         <tr className="table-header">
                         {columns.map((header_elem, i) => {     
-                            return (<th scope="col" className={generateHeaderClassName(i)}>{header_elem}</th>) 
+                            return (<th scope="col" key={i} className={generateHeaderClassName(i)}>{header_elem}</th>) 
                         })}
                         </tr>
                     </thead>
                     <tbody>
-                        {values.map((value) => {     
+                        {values.map((value, i) => {     
                             return( 
-                            <tr className={classType}>
+                            <tr key={i} className={classType}>
                             {  
                                 value.map((elem, i) => {     
-                                    return (<td className={generateClassName(i)}>{elem}{renderType(i)}</td> ) 
+                                    return (<td key={i} className={generateClassName(i)}>{elem}{renderType(i)}</td> ) 
                                 }) 
                             }
                             </tr>
