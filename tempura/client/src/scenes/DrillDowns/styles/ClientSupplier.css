@@ -6,7 +6,31 @@
     overflow: hidden;
 }
 
+.all-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 
+.top-elements{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.bot-elements{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+div.top-elements > div.table-div.table-responsive{
+    width: 40%;
+}
+
+div.top-elements > div.info-drill{
+    width: 40%;
+}
 
 @media(max-width: 1560px){
     

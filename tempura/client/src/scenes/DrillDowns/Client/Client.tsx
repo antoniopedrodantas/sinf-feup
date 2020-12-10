@@ -66,6 +66,7 @@ const Client: React.FC = () => {
         ["Sushi", "550"],
         ["Hossomakis", "550"],
         ["Sashimi", "5150"],
+        ["Yakisoba", "550"],
         ["Yakisoba", "550"]
     ];
 
@@ -97,11 +98,19 @@ const Client: React.FC = () => {
                                     {showDatePicker && <Calendar start={new Date()} end={new Date(2021,0,30)}/>} 
                                 </div>
                                 
-                                <DrillInfo title="Client Info" fields={titles} values={values}/>
-                                <SingleValueCard type="money" title="Total Sales" value={9435}/>
-                                <SingleValueCard type="money" title="Accounts Receivable" value={2294}/>
-                                <CustomTable title="Top Products Purchased" columns={columns1} type={types1} values={values1} />
+                                
+                                <div className="all-info">
+                                    <div className="top-elements">
+                                        <DrillInfo title="Client Info" fields={titles} values={values}/>
+                                        <CustomTable title="Top Products Purchased" columns={columns1} type={types1} values={values1} />
+                                    </div>
 
+                                    <div className="bot-elements"> 
+                                        <SingleValueCard type="money" title="Total Sales" value={9435}/>
+                                        <SingleValueCard type="money" title="Accounts Receivable" value={2294}/>
+                                    </div>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
