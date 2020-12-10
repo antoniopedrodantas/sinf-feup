@@ -85,9 +85,9 @@ const Purchases: React.FC = () => {
             <div className="right-body">
               <PieChart title="Supplier Region" labels={lables} data={values}/>
               <p></p>
-              <LineChart title="Revenue Growth" labels={lables2} data={values2}/>
+              <LineChart title="Revenue Growth" labels={lables2} data={values2} width={600}/>
               <p></p>
-              <LineChart title="Cost of Goods Sold vs Sales Revenue" labels={lables2} data={values2} data2={values3}/>
+              <LineChart title="Cost of Goods Sold vs Sales Revenue" labels={lables2} data={values2} data2={values3} width={600}/>
             </div>
           </div>
         </div>
