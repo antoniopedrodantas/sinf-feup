@@ -17,6 +17,7 @@ router.get('/:id/accounts_receivable', authMiddleware, asyncMiddleware(accounts_
 router.get('/:id/top_products_purchased', authMiddleware, asyncMiddleware(top_products_purchased))
 
 
+// TODO: maybe this should be done via jasmin
 async function info(request: Request, response: Response, next: NextFunction) {
     // TODO: implement this endpoint
 
@@ -32,6 +33,7 @@ async function info(request: Request, response: Response, next: NextFunction) {
         return next(new HttpException(500, "Internal server error."))
     }
 
+    // TODO: getting the first saft of the list is temporary
     const customers = JSON.parse(fs.readFileSync(safts[0].path).toString())["MasterFiles"]["Customer"];
 
     if (!customers.hasOwnProperty(clientID)) {
@@ -41,21 +43,52 @@ async function info(request: Request, response: Response, next: NextFunction) {
 
     const customer = customers[clientID];
     
-    // TODO: change "Desconhecido" to "no information"
     response
         .status(200)
         .send({
             "name": customer.CompanyName,
             "country": customer.BillingAddress.Country,
             "taxID": customer.CustomerTaxID,
-            "email": customer.Email,
-            "phone": customer.Telephone
+            "email": (customer.Email === "Desconhecido")? "no information" : customer.Email,
+            "phone": (customer.Telephone === "Desconhecido")? "no information" : customer.Telephone
         })
 }
 
 async function total_sales(request: Request, response: Response, next: NextFunction) {
-    // TODO: implement this endpoint
-    response.send('NOT IMPLEMENTED');
+
+    const clientID: string = request.params.id;
+    const start = request.query.start_date;
+    const end = request.query.end_date;
+
+    // TODO: add user param to this query
+    const safts = await getSaftFiles(TaxAccountingBasis.BILLING, start, end);
+
+    let totalSales = 0;
+    safts.forEach(saft => {
+        const jsonObj = JSON.parse(fs.readFileSync(saft.path).toString());
+
+        const salesInvoices = jsonObj.SourceDocuments.SalesInvoices;
+        
+        if (!salesInvoices.CustomerInvoice.hasOwnProperty(clientID)) {
+            return;
+        }
+
+        const customerInvoices: Array<string> = salesInvoices.CustomerInvoice[clientID];
+        customerInvoices.forEach(invoiceID => {
+
+            if (!salesInvoices.Invoice.hasOwnProperty(invoiceID)) {
+                return;
+            }
+
+            totalSales += parseInt(salesInvoices.Invoice[invoiceID].DocumentTotals.GrossTotal, 10)
+        });
+    });
+
+    response
+        .status(200)
+        .send({
+            total_sales: totalSales
+        });
 }
 
 async function accounts_receivable(request: Request, response: Response, next: NextFunction) {
