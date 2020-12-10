@@ -1,0 +1,53 @@
+@import '../../../index.css';
+
+.line-chart{
+    background-color: var(--card-background);
+    border-radius: 8px;
+    width: 30%;
+    overflow: hidden;
+}
+
+.pie-chart{
+    background-color: var(--card-background);
+    border-radius: 8px;
+    width: 30%;
+    overflow: hidden;
+}
+
+.chart-title{
+    margin-left: 1em;
+    margin-top: 0.2em;
+}
+
+.chart-values{
+    align-items: center !important;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.line-values{
+    padding:2em;
+}
+
+@media(max-width: 1050px){
+    .line-chart, .pie-chart{
+        width: 50%;
+    }
+}
+
+@media(max-width: 930px){
+    .line-chart, .pie-chart{
+        width: 100%;
+    }
+}
+
+@media(max-width: 700px){
+    .line-chart, .pie-chart{
+        width: 100%;
+    }
+
+    .line-values{
+        padding: 0;
+        margin:0;
+    }
+}

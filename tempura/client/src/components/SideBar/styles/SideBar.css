@@ -1,0 +1,298 @@
+@import '../../../index.css';
+
+.left-side{
+  background-color: var(--card-background);
+
+  position: fixed;
+  top: 0;
+  margin: 0;
+
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  align-items: center;
+
+
+  /*width: 300px;*/
+  position: fixed;
+  overflow-y: scroll;
+  top: 0;
+  left: 0;
+  z-index: 999; 
+  height: 100vh;
+
+} 
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; 
+  scrollbar-width: none;
+}
+
+#left-logo{
+  width: 50%;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  margin-left: 0.5em;
+}
+
+.left-buttons{
+  color: var(--white-color);
+  background-color: var(--red-color);
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 1.2em;
+
+  margin-bottom: 2em;
+  
+  padding-right: 1.2em;
+  padding-left: 1.2em;
+  padding-bottom: 0.4em;
+  padding-top: 0.4em;
+}
+
+.logout{
+  margin-top: auto;
+}
+
+.left-buttons:hover{
+  color: var(--red-color);
+  background-color: var(--white-color);
+  cursor: pointer;
+}
+
+.import{
+  margin-right: 0.2em;
+}
+
+.nav-items{
+  display: flex;
+  flex-direction: column;
+  margin-top: 5vh;
+  margin-bottom: 1em;
+}
+
+.nav-item{
+  text-decoration: none;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+
+  color: var(--white-color);
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.selected-item{
+  text-decoration: none;
+  margin-top: 0.7em;
+  margin-bottom: 0.7em;
+
+  color: var(--red-color);
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.nav-item:hover{
+  color: var(--red-color);
+  text-decoration: none;
+}
+
+.selected-item:hover{
+  color: var(--red-color);
+  text-decoration: none;
+}
+
+.nav-icon{
+  margin-right: 1em;
+}
+
+@media(max-width:1450px)
+{
+  .left-side{
+    font-size:0.8em;
+    overflow-x: hidden;
+  }
+
+  .nav-items{
+    margin-top: 5vh;
+  }
+
+  .left-buttons{
+    margin-left: 1.2em;
+  }
+  #left-logo{
+    width: 80%;
+    margin-left:1.2em;
+  }
+}
+
+@media(max-width:1250px)
+{
+  
+  .left-buttons{
+    margin-left: 1em;
+  }
+  .nav-items{
+    margin-top: 5vh;
+    margin-left: 1em;
+  }
+
+  #left-logo{
+    width: 100%;
+    margin-left:1.2em;
+  }
+}
+
+@media(max-width: 1100px){
+  .spanText{
+    display: none;
+  }
+
+  .nav-items{
+    font-size: 1.5em;
+    margin-left: 5vw;
+    margin-top: 5vh;
+  }
+
+  #left-logo{
+    width: 100%;
+    margin-left: 1.5em;
+  }
+}
+
+@media(max-width: 768px)
+{
+
+  .left-side{
+    /* display: none; */
+    background-color: var(--card-background);
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    left: 0;
+    top: 0;
+    /* transform: translate3d(0vw, 0, 0); */
+    height: 100vh;
+    /* align-items: center; */
+    overflow-y: hidden;
+    overflow-x: hidden;
+
+    animation: linear; 
+    animation-name: bounce;
+    animation-duration: 1.2s;  
+  }
+
+  #left-logo{
+    width: 15vh;
+    margin-left: 0;
+    align-self: center;
+    margin-bottom: 0;
+  }
+
+  .spanText{
+    display: inline;
+  }
+
+  
+  .nav-items{
+    width: 70vw;
+    margin-top: 5vh;
+    margin-bottom: 10vh;
+    margin-left: 0vw;
+    /* position: relative; 
+    float: right !important; */
+    align-self: center;
+  }
+
+  .nav-item, .selected-item{
+    width: 70vw;
+    font-size: 1em;
+    margin-left: 25vw;
+  }
+
+  .left-buttons{
+    margin-left: 0;
+  }
+  
+  .import{
+    margin-top:3em;
+    margin-bottom: 1em;
+  }
+
+  .logout{
+    position: fixed;
+    bottom: 0;
+    margin-top: 1em;
+    margin-bottom: 2em;
+  }
+
+  @media(max-height: 620px){
+    .nav-items{
+      font-size: 1.3em;
+      margin-top: 3vh;
+    }
+
+  }
+
+  @media(max-height: 575px){
+    .logout{
+      position: relative;
+    }
+
+    .left-side{
+      overflow-y: scroll;
+    }
+
+  }
+
+
+
+}
+
+
+
+@media(max-width: 560px)
+{
+  .nav-item, .selected-item{
+    margin-left: 20vw;
+  }
+
+}
+
+@media(max-width: 400px)
+{
+  .nav-item, .selected-item{
+    margin-left: 15vw;
+  }
+
+}
+
+@media(max-width: 300px)
+{
+  .nav-item, .selected-item{
+    margin-left: 10vw;
+  }
+
+}
+
+@media(max-height: 300px)
+{
+  .nav-item, .selected-item{
+    margin-left: 10vw;
+  }
+
+}
+
+
+@keyframes bounce {
+  0%        { left:100%;    opacity: 0;   }
+  40%       { left:   0;    opacity: 0.8; }
+  /* 50%       { left: 5%;    opacity: 0.7; } */
+  100%      { left:   0;    opacity: 1;   }
+} 

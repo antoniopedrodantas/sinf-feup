@@ -4,11 +4,12 @@
   --card-background: #0D1B2A;
   --core-background: #142231;
   --menu-selection: #384753;
-  --border-radius: 10px;
+  --border-radius: 8px;
 }
 
 html, body{
   color: var(--white-color);
+  background-color: var(--core-background);
 }
 
 body {
@@ -22,6 +23,7 @@ body {
   background-color: var(--core-background);
   width: 100vw; 
   height: 100vh;
+  overflow: hidden;
 }
 
 code {

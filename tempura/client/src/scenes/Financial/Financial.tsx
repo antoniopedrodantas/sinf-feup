@@ -1,7 +1,21 @@
-import React from 'react';
 import BalanceSheet from '../../components/BalanceSheet/BalanceSheet';
 import IncomeLossStatement from '../../components/IncomeLossStatement/IncomeLossStatement';
+import React, { useEffect } from 'react';
+
+import SideBar from '../../components/SideBar/SideBar';
 import './styles/Financial.css';
+import '../../common.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faTimes} from '@fortawesome/free-solid-svg-icons'
+
+import { useHistory } from 'react-router-dom';
+import jwt from 'jsonwebtoken';
+
+interface TokenPayload {
+  id: string;
+  iat: number;
+  exp: number;
+}
 
 export const Financial: React.FC = () => {
 
@@ -68,9 +82,62 @@ export const Financial: React.FC = () => {
 
                   ];
 
+  const history = useHistory();
+
+  // checks for authentication
+  useEffect(() => {
+
+    // gets auth-token from the local storage
+    const token = localStorage.getItem("auth-token");
+
+    // token is not null
+    if(token != null){
+
+      try{
+
+        // gets data from token
+        // TODO: change secret and add to a .env file possibly
+        const data = jwt.verify(token, 'secret');
+
+        // gets user id from user
+        const { id } = data as TokenPayload;
+
+        // TODO: maybe do something with id later on
+        console.log("User ID: ", id);
+
+      } catch(err) {
+        history.push('/login');
+      }
+
+    }
+    else{
+      // redirects to login
+      history.push('/login');
+    }
+
+  }, []);
+
+  // Frontend
+
   return (
     <>
-    <div className = "row h-100">
+      <div className="frame"> 
+
+        <input type="checkbox" id="menu" defaultChecked={true}></input>
+        
+
+        <div className="row h-100">
+          <div className="left-side col-md-2">
+              <label htmlFor="menu" className="menu-close"><FontAwesomeIcon icon={faTimes} className="toggle-icon"/></label>
+              <SideBar coreview="financial"/>
+          </div>
+          <div className="right-side col-md-10">
+            <div className="toggle-menu">
+              <div className="tempura"> Tempura</div>
+              <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon"/></label>
+            </div>
+            <div className="right-body">
+            <div className = "row h-100">
       <div className="tb1 col-md-6">
         <BalanceSheet currentAssets={currentassets1} nonCurrentAssets={noncurrentassets1} currentLiabilities={currentliabilities1} nonCurrentLiabilities={noncurrentliabilities1} assetsTotal={assetsTotal1} liabilitiesTotal={liabilitiesTotal1} equity={equity1} equityTotal={equityTotal1} types={types1}/>
       </div>
@@ -78,6 +145,10 @@ export const Financial: React.FC = () => {
         <IncomeLossStatement accounts={accounts1} types={types1}/>
       </div>
     </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   ); 
 };

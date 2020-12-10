@@ -1,0 +1,141 @@
+@import './index.css';
+
+.right-side{
+  background-color: var(--core-background);
+
+  color: var(--white-color);
+  overflow-y: scroll;
+  top: 0;
+  left: 0;
+  z-index: 999; 
+  height: 100vh;
+}
+
+.date-selection{
+  background-color: transparent;
+  border-radius: 8px;
+
+  margin-bottom: 1em;
+  margin-top: 1em;
+  margin-left: auto;
+
+  width: fit-content;
+  font-weight: 600;
+  font-size: 1.4em;
+
+  display: flex;
+  flex-direction: column;
+} 
+
+
+.date-btn{
+  background-color: var(--red-color) !important;
+  color: var(--white-color) !important;
+  font-weight: 600 !important;
+  outline: none;
+  border-radius: 8px !important;
+}
+
+.date-btn:hover{
+  color: var(--red-color) !important;
+  background-color: var(--white-color) !important;
+  font-weight: 600 !important;
+  outline: none !important;
+  border-radius: 8px !important;
+}
+
+.calendar-icon{
+  margin-right: 0.2em;
+}
+
+.toggle-menu{
+    display: none;
+  }
+
+.menu-close{
+  display: none;
+}
+
+#menu{
+  display: none;
+}
+
+.menu-bar{
+  cursor: pointer;
+}
+
+.menu-close{
+  cursor: pointer;
+}
+
+@media(max-width: 768px)
+{
+
+  .right-side{
+    display: none;
+  }
+
+  .row{
+    height: 100vh !important;
+    margin-left: 0 !important;
+    margin-right: 0!important;
+    overflow: hidden;
+
+  }
+
+  .toggle-menu{
+    font-size: 1.2em;
+    padding: 0.5em 1em 0em 1em;
+    background-color: var(--card-background);
+    width: 100vw;
+    left: 0;
+
+    /* position: fixed !important;
+    top:0;
+    width: 90%; */
+
+    display: flex !important;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .tempura{
+    color: var(--red-color);
+    font-weight: 600;
+  }
+
+  .toggle-icon{
+    color: var(--red-color);
+    font-size: 1.1em;
+  }
+
+  .menu-close{
+    display: inline;
+    font-size: 2em;
+    position: fixed;
+    right: 0.5em;
+    padding-top: 0.3em;
+  }
+
+  .right-body{
+    padding-left: 1em;
+    padding-top: 1em;
+  }
+
+  input[type=checkbox]:checked ~ .row > .left-side{
+    /* transform: translate3d(100vw, 0, 0) !important; */
+    display: none !important;
+  }
+
+  input[type=checkbox]:checked ~ .row > .right-side{
+    display: block;
+    margin-left: 0em;
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100vw !important;
+    padding-left: 0em !important;
+    overflow-x: hidden;
+  }
+
+}
