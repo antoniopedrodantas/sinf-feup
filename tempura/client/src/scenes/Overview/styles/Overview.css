@@ -1,40 +1,38 @@
 @import '../../../index.css';
 
-.all-components{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
 .overview-content{
     padding-left: 3em;
     padding-right: 3em;
     overflow: hidden;
 }
 
-.card-value{
-    margin-left: 1.5em;
-    margin-right: 1.5em;
+div.frame-top > div.left-frame-top > .card-money, div.frame-top > div.left-frame-top > div.card.card-percentage{
+    width: 70%;
+}
+
+div.frame-top > div.mid-frame-top > div:nth-child(1), div.frame-top > div.mid-frame-top > div:nth-child(2){
+    width: 70%;
 }
 
 .table{
-    margin-bottom: 0 !important;
+    margin-bottom: 0;
 }
 
-.table-div{
-    width: 30% !important;
-}
+.top-selling{
+    width: 100%;
+} 
 
 .frame-top{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-}
+} 
 
 .left-frame-top, .mid-frame-top{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    width: 100%;
 }
 
 .line-chart{

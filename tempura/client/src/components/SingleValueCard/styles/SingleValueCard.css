@@ -8,6 +8,7 @@
   overflow: hidden;
   justify-content: flex-start;
   margin-top: 1em;
+  width: 30%;
 }
 
 .card-title{

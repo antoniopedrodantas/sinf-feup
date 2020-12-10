@@ -89,7 +89,9 @@ const Overview: React.FC = () => {
               <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon"/></label>
             </div>
             <div className="right-body">
+
               <div className="overview-content">
+
                 <div className="date-selection">
                   <Button onClick={()=> setShowDatePicker(!showDatePicker)}className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon"/> 
                     {showDatePicker ? "Hide" : "Date Picker"}
@@ -99,23 +101,21 @@ const Overview: React.FC = () => {
 
               
                 <div className="frame-top">
-
                   <div className="left-frame-top">
                     <SingleValueCard type="money" title="Total Profit" value={352100}/>
                     <SingleValueCard type="percentage" title="Liquidity" value={67.3}/>
                   </div>
-                  
                   <div className="mid-frame-top">
                     <SingleValueCard type="money" title="Total Revenue" value={500309}/>
                     <SingleValueCard type="money" title="Total Costs" value={148209}/>
                   </div>
-                  <CustomTable title="Top Selling Products" columns={columns1} type={types1} values={values1} />
-
+                  <div className="top-selling">
+                    <CustomTable title="Top Selling Products" columns={columns1} type={types1} values={values1} />
+                  </div>
                 </div>
 
                 <LineChart title="Revenue Growth" labels={labels2} data={values2} width={600}/>
                 
-
               </div>
             </div>
           </div>
