@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import SingleValueCard from 'src/components/SingleValueCard/SingleValueCard';
 import CustomTable from '../../../components/CustomTable/CustomTable';
+import DrillInfo from '../../../components/DrillDownInfo/DrillDownInfo';
 import SideBar from '../../../components/SideBar/SideBar';
 import Calendar from '../../../components/Calendar/Calendar';
 import '../styles/ClientSupplier.css';
@@ -58,8 +59,18 @@ const Client: React.FC = () => {
 
     const titles=["Entity", "Name", "Country", "Tax ID", "Email", "Phone"];
     const values=["LRLDA", "L. Ribeiro, Lda.", "Portugal", "502607564", "geral@lribeiro.pt", "+351 253 534 890"];
+
+    const columns1 = ["Name", "Purchased Units"];
+    const types1 = ["text", "number"];
+    const values1 = [
+        ["Sushi", "550"],
+        ["Hossomakis", "550"],
+        ["Sashimi", "5150"],
+        ["Yakisoba", "550"]
+    ];
+
     const [showDatePicker, setShowDatePicker] = useState(false);
-    
+
     return (
         <>
             <div className="frame"> 
@@ -86,6 +97,11 @@ const Client: React.FC = () => {
                                     {showDatePicker && <Calendar start={new Date()} end={new Date(2021,0,30)}/>} 
                                 </div>
                                 
+                                <DrillInfo title="Client Info" fields={titles} values={values}/>
+                                <SingleValueCard type="money" title="Total Sales" value={9435}/>
+                                <SingleValueCard type="money" title="Accounts Receivable" value={2294}/>
+                                <CustomTable title="Top Products Purchased" columns={columns1} type={types1} values={values1} />
+
                             </div>
                         </div>
                     </div>
