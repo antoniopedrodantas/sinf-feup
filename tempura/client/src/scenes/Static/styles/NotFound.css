@@ -1,5 +1,51 @@
 @import '../../../index.css';
 
-.not_found{
-    background-color: var(--red-color);
+.error-div{
+
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.error-404{
+    margin-top: 1.1em;
+    font-weight: 600;
+    color:  #eeeeee;;
+}
+
+.error-404-p{
+    color: #222222;
+    font-weight: 300;
+
+    display: inline-block;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#logo{
+    width: 100%;
+    height: 100%;
+}
+
+@media(max-width:600px)
+{
+
+    .wrapper {
+        width: auto;
+    }
+ .error-404 {
+    font-size: 5vw;
+ }
+
+ .error-404-p {
+    font-size: 4vw;
+ }
 }
