@@ -88,7 +88,33 @@ const BalanceSheet: React.FC<BalanceSheetProps> = ({currentAssets,nonCurrentAsse
                             <td className="total">Total Assets:</td>
                             <td className="number-total text-right">{assetsTotal} €</td>
                         </tr>
-                        <tr className="space"></tr> 
+                    </tbody>
+                </table>    
+                <h4 className="general-title">Equity</h4>                   
+                <table id="equity" className="table table-dark table-borderless table-sm">
+                    <thead>
+                        <tr className="table-header">
+                            <th scope="col" className="table-title">Equity</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {equity.map((eq) => { 
+                            return( 
+                                <tr className="">
+                                {  
+                                    eq.map((elem,i) => {     
+                                        return (<td className={generateClassName(i,elem)}>{elem}{renderType(i)}</td> ) 
+                                    }) 
+                                }
+                                </tr>
+                                )
+                        })}
+                        <tr className="space"></tr>
+                        <tr className="equity-total">
+                            <td className="total">Total Equity:</td>
+                            <td className="number-total text-right">{equityTotal} €</td>
+                        </tr>                        
                     </tbody>
                 </table>
                 <h4 className="general-title">Liabilities</h4>
@@ -138,33 +164,6 @@ const BalanceSheet: React.FC<BalanceSheetProps> = ({currentAssets,nonCurrentAsse
                             <td className="number-total text-right">{liabilitiesTotal} €</td>
                         </tr>
                         <tr className="space"></tr> 
-                    </tbody>
-                </table>    
-                <h4 className="general-title">Equity</h4>                   
-                <table id="equity" className="table table-dark table-borderless table-sm">
-                    <thead>
-                        <tr className="table-header">
-                            <th scope="col" className="table-title">Equity</th>
-                            <th scope="col"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {equity.map((eq) => { 
-                            return( 
-                                <tr className="">
-                                {  
-                                    eq.map((elem,i) => {     
-                                        return (<td className={generateClassName(i,elem)}>{elem}{renderType(i)}</td> ) 
-                                    }) 
-                                }
-                                </tr>
-                                )
-                        })}
-                        <tr className="space"></tr>
-                        <tr className="equity-total">
-                            <td className="total">Total Equity:</td>
-                            <td className="number-total text-right">{equityTotal} €</td>
-                        </tr>                        
                     </tbody>
                 </table>
             </div>
