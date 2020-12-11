@@ -4,22 +4,148 @@
     background-color: orange;
 } */
 
+.bs-title{
+    padding-top: 0.5em;
+}
+
+.ils-title {
+    padding-top: 0.5em;
+}
+
 .right-financial{
-    width: 75vw;
+    width: 75vw !important;
     height: 95vh;
+    padding-right: 2em;
 }
 
 .tb1 {
     width: 100vw;
     height: 100vh;
+    padding-right: 0.5em;
 }
 
 .balance-sheet-div {
     width: 40vw;
-    height: 85vh;
+    height: 80vh;
+    padding-right: 15px;
 }
 
 .income-loss-div {
     width: 40vw;
-    height: 85vh;
+    height: 80vh;
+    padding-right: 15px;
+    /* padding-left: 0 !important; */
+}
+
+.tb-ils {
+    padding-left: 0 !important;
+}
+
+.date-selection-financial {
+    padding-right: 30px;
+}
+
+@media(max-width: 966px){
+
+    .balance-sheet-div {
+        width: 38vw;
+    }
+
+    .income-loss-div {
+        width: 38vw;
+    }
+
+}
+
+@media(max-width: 768px){
+    .balance-sheet-div {
+        width: 80vw;
+        height: 55vh;
+        align-self: center;
+    }
+
+    .income-loss-div {
+        width: 80vw;
+        height: 55vh;
+        align-self: center;
+    }
+
+    .tb-bs {
+        width: 80vw !important;
+        align-self: center;
+        padding-left: 8vw !important;
+    }
+
+    .tb-ils {
+        width: 80vw !important;
+        align-self: center;
+        padding-left: 8vw !important;
+    }
+
+    .date-selection-financial {
+        margin-bottom: 0;
+    }
+
+    .components-fin {
+        height: 120vh !important;
+    }
+}
+
+@media(max-width: 525px){
+    .tb-bs {
+        width: 82vw !important;
+        align-self: center;
+        padding-left: 6vw !important;
+    }
+
+    .tb-ils {
+        width: 82vw !important;
+        align-self: center;
+        padding-left: 6vw !important;
+    }
+
+}
+
+@media(max-width: 400px){
+    .bs-title{
+        font-size: 1.5em;
+        padding-top: 0.5em;
+    }
+
+    .general-title{
+        font-size: 1.2em;
+        margin-bottom: 0;
+    }
+
+    .ils-title {
+        font-size: 1.5em;
+        padding-top: 0.5em;
+        padding-left: 0.3em;
+    }
+
+    .balance-sheet-div {
+        width: 86vw;
+    }
+
+    .income-loss-div {
+        width: 86vw;
+    }
+
+    .tb-bs {
+        width: 86vw !important;
+        align-self: center;
+        padding-left: 3vw !important;
+    }
+
+    .tb-ils {
+        width: 86vw !important;
+        align-self: center;
+        padding-left: 3vw !important;
+    }
+
+    .date-selection-financial {
+        padding-right: 0; 
+        padding-left: 5vw;
+    }
+
 }

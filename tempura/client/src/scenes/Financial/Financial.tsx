@@ -89,37 +89,37 @@ export const Financial: React.FC = () => {
   const history = useHistory();
 
   // checks for authentication
-  useEffect(() => {
+  // useEffect(() => {
 
-    // gets auth-token from the local storage
-    const token = localStorage.getItem("auth-token");
+  //   // gets auth-token from the local storage
+  //   const token = localStorage.getItem("auth-token");
 
-    // token is not null
-    if(token != null){
+  //   // token is not null
+  //   if(token != null){
 
-      try{
+  //     try{
 
-        // gets data from token
-        // TODO: change secret and add to a .env file possibly
-        const data = jwt.verify(token, 'secret');
+  //       // gets data from token
+  //       // TODO: change secret and add to a .env file possibly
+  //       const data = jwt.verify(token, 'secret');
 
-        // gets user id from user
-        const { id } = data as TokenPayload;
+  //       // gets user id from user
+  //       const { id } = data as TokenPayload;
 
-        // TODO: maybe do something with id later on
-        console.log("User ID: ", id);
+  //       // TODO: maybe do something with id later on
+  //       console.log("User ID: ", id);
 
-      } catch(err) {
-        history.push('/login');
-      }
+  //     } catch(err) {
+  //       history.push('/login');
+  //     }
 
-    }
-    else{
-      // redirects to login
-      history.push('/login');
-    }
+  //   }
+  //   else{
+  //     // redirects to login
+  //     history.push('/login');
+  //   }
 
-  }, []);
+  // }, []);
 
   // Frontend
 
@@ -140,18 +140,18 @@ export const Financial: React.FC = () => {
               <div className="tempura"> Tempura</div>
               <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon"/></label>
             </div>
-            <div className="date-selection">
+            <div className="date-selection date-selection-financial">
                   <Button onClick={()=> setShowDatePicker(!showDatePicker)}className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon"/> 
                     {showDatePicker ? "Hide" : "Date Picker"}
                   </Button>
                   {showDatePicker && <Calendar start={new Date()} end={new Date(2021,0,30)}/>} 
                 </div>
             <div className="right-body">
-            <div className = "row h-90">
-      <div className="tb1 col-md-6">
+            <div className = "components-fin row h-90">
+      <div className="tb-bs col-md-6">
         <BalanceSheet currentAssets={currentassets1} nonCurrentAssets={noncurrentassets1} currentLiabilities={currentliabilities1} nonCurrentLiabilities={noncurrentliabilities1} assetsTotal={assetsTotal1} liabilitiesTotal={liabilitiesTotal1} equity={equity1} equityTotal={equityTotal1} types={types1}/>
       </div>
-      <div className="tb1 col-md-6">
+      <div className="tb-ils col-md-6">
         <IncomeLossStatement accounts={accounts1} types={types1}/>
       </div>
     </div>

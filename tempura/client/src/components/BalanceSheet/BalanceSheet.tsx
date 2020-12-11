@@ -41,7 +41,7 @@ const BalanceSheet: React.FC<BalanceSheetProps> = ({currentAssets,nonCurrentAsse
     return(
         <>
             <div className="balance-sheet-div">
-            <h3 className="title">Balance Sheet</h3>
+            <h3 className="bs-title">Balance Sheet</h3>
                 <h4 className="general-title">Assets</h4>
                 <table id="current-assets" className="table table-dark table-borderless table-sm">
                     <thead>
