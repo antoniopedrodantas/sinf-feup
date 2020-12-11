@@ -1,4 +1,4 @@
-@import '../../index.css';
+@import '../../../index.css';
 
 .left-side{
   background-color: var(--card-background);

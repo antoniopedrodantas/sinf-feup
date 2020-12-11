@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import SideBar from '../../components/SideBar';
+import SideBar from '../../components/SideBar/SideBar';
 import './styles/Purchases.css';
 import PieChart from '../../components/Charts/PieChart';
 import LineChart from '../../components/Charts/LineChart';
@@ -85,9 +85,9 @@ const Purchases: React.FC = () => {
             <div className="right-body">
               <PieChart title="Supplier Region" labels={lables} data={values}/>
               <p></p>
-              <LineChart title="Revenue Growth" labels={lables2} data={values2}/>
+              <LineChart title="Revenue Growth" labels={lables2} data={values2} width={600}/>
               <p></p>
-              <LineChart title="Cost of Goods Sold vs Sales Revenue" labels={lables2} data={values2} data2={values3}/>
+              <LineChart title="Cost of Goods Sold vs Sales Revenue" labels={lables2} data={values2} data2={values3} width={600}/>
             </div>
           </div>
         </div>

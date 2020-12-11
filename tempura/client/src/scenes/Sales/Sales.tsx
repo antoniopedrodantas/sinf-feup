@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import './styles/Sales.css';
-import SideBar from '../../components/SideBar';
+import SideBar from '../../components/SideBar/SideBar';
 import '../../common.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faTimes} from '@fortawesome/free-solid-svg-icons'

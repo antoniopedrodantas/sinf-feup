@@ -1,14 +1,14 @@
 @import '../../../index.css';
 
 .card{
-  border-radius: var(--border-radius);
-  width: 30%;
+  border-radius: var(--border-radius) !important;
   display: flex;
   flex-direction: column;
   background-color: var(--card-background) !important;
   overflow: hidden;
   justify-content: flex-start;
   margin-top: 1em;
+  width: 30%;
 }
 
 .card-title{
