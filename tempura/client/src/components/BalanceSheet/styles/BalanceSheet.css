@@ -42,11 +42,11 @@
 }
 
 
-.text-left{
+.elem-bs.text-left{
     font-weight: 100;
 }
 
-.text-right {
+.elem-bs.text-right {
     color: var(--red-color);
     font-size: 0.95em;
 }

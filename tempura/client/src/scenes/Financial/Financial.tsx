@@ -1,12 +1,14 @@
 import BalanceSheet from '../../components/BalanceSheet/BalanceSheet';
 import IncomeLossStatement from '../../components/IncomeLossStatement/IncomeLossStatement';
-import React, { useEffect } from 'react';
+import Calendar from '../../components/Calendar/Calendar';
+import React, { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 
 import SideBar from '../../components/SideBar/SideBar';
 import './styles/Financial.css';
 import '../../common.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faTimes} from '@fortawesome/free-solid-svg-icons'
+import { faBars, faTimes, faCalendar} from '@fortawesome/free-solid-svg-icons'
 
 import { useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
@@ -18,6 +20,8 @@ interface TokenPayload {
 }
 
 export const Financial: React.FC = () => {
+
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   const currentassets1 = [
                   ["Cash","1,235"],
@@ -131,13 +135,19 @@ export const Financial: React.FC = () => {
               <label htmlFor="menu" className="menu-close"><FontAwesomeIcon icon={faTimes} className="toggle-icon"/></label>
               <SideBar coreview="financial"/>
           </div>
-          <div className="right-side col-md-10">
+          <div className="right-side col-md-10 right-financial">
             <div className="toggle-menu">
               <div className="tempura"> Tempura</div>
               <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon"/></label>
             </div>
+            <div className="date-selection">
+                  <Button onClick={()=> setShowDatePicker(!showDatePicker)}className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon"/> 
+                    {showDatePicker ? "Hide" : "Date Picker"}
+                  </Button>
+                  {showDatePicker && <Calendar start={new Date()} end={new Date(2021,0,30)}/>} 
+                </div>
             <div className="right-body">
-            <div className = "row h-100">
+            <div className = "row h-90">
       <div className="tb1 col-md-6">
         <BalanceSheet currentAssets={currentassets1} nonCurrentAssets={noncurrentassets1} currentLiabilities={currentliabilities1} nonCurrentLiabilities={noncurrentliabilities1} assetsTotal={assetsTotal1} liabilitiesTotal={liabilitiesTotal1} equity={equity1} equityTotal={equityTotal1} types={types1}/>
       </div>
