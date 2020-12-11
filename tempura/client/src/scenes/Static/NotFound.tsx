@@ -4,6 +4,9 @@ import jwt from 'jsonwebtoken';
 const logo =  require("../../assets/cry.gif")
 import './styles/NotFound.css';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUndo } from '@fortawesome/free-solid-svg-icons'
+
 interface TokenPayload {
   id: string;
   iat: number;
@@ -50,8 +53,8 @@ const NotFound: React.FC = () => {
       <div className="error-div">
         <img id="gif" src={logo} alt="logo" />
         <h3 className="error-404">404 Page not found!</h3>
-        <button className="dateSubmitButton" onClick={() => {history.goBack()}}> 
-          <span> Apply</span>
+        <button className="returnBtn" onClick={() => {history.goBack()}}> 
+          <span><FontAwesomeIcon className="returnIcon" icon={faUndo} /> Return</span>
         </button>
       </div>
 
@@ -60,8 +63,3 @@ const NotFound: React.FC = () => {
 };
 
 export default NotFound;
-
-/*
-TODO
-- meter botao e apagar texto
-*/
