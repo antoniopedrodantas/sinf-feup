@@ -48,11 +48,11 @@ const NotFound: React.FC = () => {
     <>
 
       <div className="error-div">
-        <img id="logo" src={logo} alt="logo" />
+        <img id="gif" src={logo} alt="logo" />
         <h3 className="error-404">404 Page not found!</h3>
-        <p className="error-404-p">
-          The page you are looking for does not exist...
-        </p>
+        <button className="dateSubmitButton" onClick={() => {history.goBack()}}> 
+          <span> Apply</span>
+        </button>
       </div>
 
     </>
@@ -60,3 +60,8 @@ const NotFound: React.FC = () => {
 };
 
 export default NotFound;
+
+/*
+TODO
+- meter botao e apagar texto
+*/

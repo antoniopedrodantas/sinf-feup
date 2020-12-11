@@ -17,11 +17,11 @@
 .error-404{
     margin-top: 1.1em;
     font-weight: 600;
-    color:  #eeeeee;;
+    color:  var(--white-color);
 }
 
 .error-404-p{
-    color: #222222;
+    color: var(--red-color);
     font-weight: 300;
 
     display: inline-block;
@@ -30,7 +30,7 @@
     text-align: center;
 }
 
-#logo{
+#gif{
     width: 100%;
     height: 100%;
 }
@@ -41,11 +41,11 @@
     .wrapper {
         width: auto;
     }
- .error-404 {
-    font-size: 5vw;
- }
+    .error-404 {
+        font-size: 5vw;
+    }
 
- .error-404-p {
-    font-size: 4vw;
- }
+    .error-404-p {
+        font-size: 4vw;
+    }
 }
