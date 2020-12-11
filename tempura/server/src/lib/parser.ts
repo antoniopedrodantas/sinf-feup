@@ -127,7 +127,7 @@ function parseSalesInvoices(old: any) {
         if (customers.hasOwnProperty(customerID)) {
             customers[customerID].push(id);
         } else {
-            customers[customerID] = [customerID];
+            customers[customerID] = [id];
         }
 
         let lines: Array<any> = element["Line"];

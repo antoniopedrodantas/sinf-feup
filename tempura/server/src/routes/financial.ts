@@ -8,7 +8,8 @@ import authMiddleware from '../middlewares/authMiddleware';
 import fs from "fs";
 import { getLineTotal } from "../lib/financial";
 import { getSaftFiles } from "../lib/saft";
-import { setupMaster } from "cluster";
+import { TaxAccountingBasis } from "../entity/Saft";
+
 
 const router = express.Router();
 
@@ -21,7 +22,7 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
     const end = request.query.end_date;
 
     // TODO: add user param to query
-    const safts = await getSaftFiles(start, end);
+    const safts = await getSaftFiles(TaxAccountingBasis.ACCOUNTING, start, end);
 
     // balance sheet fields
 
