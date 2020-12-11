@@ -8,6 +8,7 @@ import router from "./routes";
 import { Saft } from "./entity/Saft";
 import cors from "cors";
 import morgan from "morgan";
+import dotenv, { DotenvConfigOptions } from 'dotenv';
 
 import errorMiddleware from "./middlewares/errorMiddleware";
 
@@ -27,9 +28,14 @@ const corsOptions = {
     "optionsSuccessStatus": 200
 }
 
+const dotenvOptions: DotenvConfigOptions = {
+    path: `${root}/.env`
+}
+
 createConnection(options)
     .then(async connection => {
 
+        dotenv.config(dotenvOptions);        
         // create express app
         const app = express();
         
