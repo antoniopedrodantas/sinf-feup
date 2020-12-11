@@ -3,7 +3,7 @@ import { getSaftFiles } from "../lib/saft";
 import HttpException from "../exceptions/HttpException";
 import fs from "fs";
 import { TaxAccountingBasis } from "../entity/Saft";
-import { getMainSupplier } from "../lib/product";
+import { getUnitsSold } from "../lib/product";
 
 import authMiddleware from "../middlewares/authMiddleware";
 import asyncMiddleware from "../middlewares/asyncMiddleware";
@@ -58,18 +58,48 @@ async function info(request: Request, response: Response, next: NextFunction) {
     }
 
     response
-    .status(200)
-    .send({
-        "name": productID,
-        "description": product.ProductDescription,
-        "main_supplier": mainSupplier,
-        "bar_code": product.ProductNumberCode,
-    })
+        .status(200)
+        .send({
+            "name": productID,
+            "description": product.ProductDescription,
+            "main_supplier": mainSupplier,
+            "bar_code": product.ProductNumberCode,
+        });
 }
 
 async function total_units_sold(request: Request, response: Response, next: NextFunction) {
-    // TODO: implement this endpoint
-    response.send('NOT IMPLEMENTED');
+    
+    // gets params
+    const productID = request.params.id;
+    const start = request.query.start_date;
+    const end = request.query.end_date;
+
+    // TODO: add user parameter to query
+    const safts = await getSaftFiles(TaxAccountingBasis.BILLING, start, end);
+
+    if (safts.length == 0) {
+        // TODO: add descriptive error message and status code
+        return next(new HttpException(500, "Internal server error."))
+    }
+
+    // TODO: getting the first saft of the list is temporary
+    const products = JSON.parse(fs.readFileSync(safts[0].path).toString())["MasterFiles"]["Product"];
+
+    if (!products.hasOwnProperty(productID)) {
+        // TODO: add descriptive error message and status code
+        return next(new HttpException(500, "Client with specified id not found."))
+    }
+    
+    // gets the sold units
+    const invoices = JSON.parse(fs.readFileSync(safts[0].path).toString())["SourceDocuments"]["SalesInvoices"]["Invoice"];
+    const productInvoice = JSON.parse(fs.readFileSync(safts[0].path).toString())["SourceDocuments"]["SalesInvoices"]["ProductInvoice"][productID];
+    const totalUnitsSold = getUnitsSold(invoices, productInvoice);
+
+    response
+    .status(200)
+    .send({
+        "units": totalUnitsSold,
+    });
 }
 
 async function units_in_stock(request: Request, response: Response, next: NextFunction) {
