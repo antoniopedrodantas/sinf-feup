@@ -8,8 +8,19 @@ function parseJSON(jsonObj: any) {
         let masterFiles = jsonObj["MasterFiles"];
 
         if (masterFiles.hasOwnProperty("GeneralLedgerAccounts")) {
-            let accounts = parseGeneralLedgerAccounts(masterFiles["GeneralLedgerAccounts"]);
-            masterFiles["GeneralLedgerAccounts"] = accounts;
+            let generalLedgerAccounts = parseGeneralLedgerAccounts(masterFiles["GeneralLedgerAccounts"]);
+
+            if (jsonObj.hasOwnProperty("GeneralLedgerEntries")) {
+                let generalLedgerEntries = jsonObj["GeneralLedgerEntries"];
+
+                if (generalLedgerEntries.hasOwnProperty("Journal")) {
+                    let accounts = parseJournal(generalLedgerEntries["Journal"], generalLedgerAccounts.Accounts);
+
+                    generalLedgerAccounts.Accounts = accounts;
+                }
+            }
+
+            masterFiles["GeneralLedgerAccounts"] = generalLedgerAccounts;
         }
 
         if (masterFiles.hasOwnProperty("Customer")) {
@@ -36,8 +47,6 @@ function parseJSON(jsonObj: any) {
             sourceDocuments["SalesInvoices"] = salesInvoices;
         }
     }
-
-    
 
 }
 
@@ -159,6 +168,84 @@ function parseSalesInvoices(old: any) {
         "CustomerInvoice": customers,
         "ProductInvoice": products
     }
+}
+
+
+
+function parseJournal(journals: Array<any>, accounts: any) {
+    // console.log(accounts)
+    // console.log("inside journal func")
+    journals.forEach(journalEntry => {
+        // console.log("inside journal loop")
+        let transactions: Array<any> = journalEntry["Transaction"];
+
+        transactions.forEach(transaction => {
+
+            if (transaction.Lines.hasOwnProperty("CreditLine")) {
+                let creditLines = transaction.Lines.CreditLine;
+                // 622613
+                if (Array.isArray(creditLines)) {
+                    creditLines.forEach(line => {
+                        // console.log("inside credit lines loop")
+                        let accountID = line.AccountID;
+
+                        if (accountID.charAt(0) !== "6" && accountID.charAt(0) !== "7") {
+                            return;
+                        }
+
+                        let amount = parseFloat(accounts[accountID].ClosingCreditBalance);
+                        amount += parseFloat(line.CreditAmount);
+                        accounts[accountID].ClosingCreditBalance = `${amount}`;
+
+                        // console.log(`ACCOUNT: ${accountID}\t\tTOTAL: ${amount}`)
+                    });
+                } else {
+                    let accountID = creditLines.AccountID;
+
+                    if (accountID.charAt(0) !== "6" && accountID.charAt(0) !== "7") {
+                        return;
+                    }
+
+                    let amount = parseFloat(accounts[accountID].ClosingCreditBalance);
+                    amount += parseFloat(creditLines.CreditAmount);
+                    accounts[accountID].ClosingCreditBalance = `${amount}`;
+                }
+            }
+
+            if (transaction.Lines.hasOwnProperty("DebitLine")) {
+                let debitLines = transaction.Lines.DebitLine
+
+                if (Array.isArray(debitLines)) {
+                    debitLines.forEach(line => {
+                        let accountID = line.AccountID;
+
+                        if (accountID.charAt(0) !== "6" && accountID.charAt(0) !== "7") {
+                            return;
+                        }
+
+                        let amount = parseFloat(accounts[accountID].ClosingDebitBalance);
+                        amount += parseFloat(line.DebitAmount);
+                        accounts[accountID].ClosingDebitBalance = `${amount}`;
+                    });
+                } else {
+                    let accountID = debitLines.AccountID;
+
+                    if (accountID.charAt(0) !== "6" && accountID.charAt(0) !== "7") {
+                        return;
+                    }
+
+                    let amount = parseFloat(accounts[accountID].ClosingDebitBalance);
+                    amount += parseFloat(debitLines.DebitAmount);
+                    accounts[accountID].ClosingDebitBalance = `${amount}`;
+                }
+            }
+
+        });
+
+    });
+
+
+    return accounts;
 }
 
 
