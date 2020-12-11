@@ -65,6 +65,10 @@ div.top-elements > div.info-drill{
         padding-left: 1em;
         padding-right: 1em;
     }
+
+    .all-info{
+        margin-top: 0;
+    }
 }
 
 @media(max-width: 800px){
