@@ -73,8 +73,3 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
 
 export default CustomTable;
 
-/*
-TODO
-- meter scroll vertical quando houver demasiados items
-- adicionar media queries ao cartoes
-*/

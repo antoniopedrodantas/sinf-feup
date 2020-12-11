@@ -5,8 +5,8 @@ import CustomTable from '../../../components/CustomTable/CustomTable';
 import DrillInfo from '../../../components/DrillDownInfo/DrillDownInfo';
 import SideBar from '../../../components/SideBar/SideBar';
 import Calendar from '../../../components/Calendar/Calendar';
-import '../styles/ClientSupplier.css';
 import '../../../common.css';
+import '../styles/ClientSupplier.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faTimes, faCalendar } from '@fortawesome/free-solid-svg-icons'
 
