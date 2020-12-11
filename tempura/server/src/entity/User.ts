@@ -14,6 +14,9 @@ export class User {
     @Column()
     password!: string;
 
+    @Column({nullable: true})
+    jasmin_token!: string;
+
     @BeforeInsert()
     @BeforeUpdate()
     hashPassword() {

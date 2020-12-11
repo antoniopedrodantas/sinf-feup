@@ -9,6 +9,7 @@ import { Saft } from "./entity/Saft";
 import cors from "cors";
 import morgan from "morgan";
 import dotenv, { DotenvConfigOptions } from 'dotenv';
+import JasminRequester from "./JasminRequester";
 
 import errorMiddleware from "./middlewares/errorMiddleware";
 
@@ -57,10 +58,14 @@ createConnection(options)
 
         console.log("Express server has started on port 8000. Open http://localhost:8000/ to see results");
 
+        JasminRequester.getToken();
+
         app.use(errorMiddleware);
 
         // start express server
         app.listen(8000);
+
+
     })
     .catch((error) => {
         console.error(error)
