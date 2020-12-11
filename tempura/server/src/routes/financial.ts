@@ -535,7 +535,7 @@ async function resultsDemonstration(request: Request, response: Response, next: 
     const end = request.query.end_date;
 
     // TODO: add user param to query
-    const safts = await getSaftFiles(start, end);
+    const safts = await getSaftFiles(TaxAccountingBasis.ACCOUNTING, start, end);
 
     // balance sheet fields
 
