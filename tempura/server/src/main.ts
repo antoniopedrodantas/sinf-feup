@@ -1,6 +1,6 @@
 import "reflect-metadata";
-import { ConnectionOptions, createConnection } from "typeorm";
-import express, { NextFunction } from "express";
+import { ConnectionOptions, createConnection, getRepository } from "typeorm";
+import express, { NextFunction, response } from "express";
 import * as bodyParser from "body-parser";
 import { User } from "./entity/User";
 import { root } from "./path";
@@ -9,9 +9,9 @@ import { Saft } from "./entity/Saft";
 import cors from "cors";
 import morgan from "morgan";
 import dotenv, { DotenvConfigOptions } from 'dotenv';
-import JasminRequester from "./JasminRequester";
 
 import errorMiddleware from "./middlewares/errorMiddleware";
+import JasminRequester from "./JasminRequester";
 
 const options: ConnectionOptions = {
     type: "sqlite",
@@ -52,13 +52,22 @@ createConnection(options)
 
         app.use(router);
 
-        app.get("/", (req, res) => {
-            res.send("Hello World")
-        })
-
+			app.get("/", async (req, res) => {
+					let repo = getRepository(User);
+					let user = await repo.findOne({ where: { id: "1" } });
+					if (!user) {
+						res.statusCode = 300;
+						res.send("lol");
+						return;
+					}
+					let requester = new JasminRequester(user);
+					res.statusCode = 300;
+					res.send("limoes");
+				})
+			
+				
         console.log("Express server has started on port 8000. Open http://localhost:8000/ to see results");
 
-        JasminRequester.getToken();
 
         app.use(errorMiddleware);
 

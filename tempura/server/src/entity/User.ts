@@ -17,6 +17,9 @@ export class User {
     @Column({nullable: true})
     jasmin_token!: string;
 
+    @Column({ nullable: true })
+    jasmin_token_time!: Date;
+
     @BeforeInsert()
     @BeforeUpdate()
     hashPassword() {
