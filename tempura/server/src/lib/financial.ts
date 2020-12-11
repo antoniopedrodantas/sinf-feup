@@ -69,8 +69,7 @@ export function getAccountTotal(accountInfo: any): number {
     const CCB = accountInfo["ClosingCreditBalance"];
 
     // TODO: check this formula
-    // returns opening balance
-    // return (CDB - ODB) + (CCB - OCB);
+    // returns ClosingDebit - ClosingCredit 
     return CDB - CCB;
 
 }

@@ -352,67 +352,67 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         // ----------------------------------- gets "Equity" ------------------------------------
 
         // Subscribed Capital
-        subscribedCapital = getLineTotal(json,
+        subscribedCapital = getLiabilities(json,
             ["331"],
             []
         );
 
         // Shares
-        shares = getLineTotal(json,
-            [],
-            ["332","333"]
+        shares = getLiabilities(json,
+            ["333"],
+            ["332"]
         );
 
         // Other Equity Instruments
-        otherEquityInstruments = getLineTotal(json,
+        otherEquityInstruments = getLiabilities(json,
             ["334"],
             []
         );
 
         // Issue Premiums
-        issuePremiums = getLineTotal(json,
+        issuePremiums = getLiabilities(json,
             ["335"],
             []
         );
 
         // Legal Reserves
-        legalReserves = getLineTotal(json,
+        legalReserves = getLiabilities(json,
             ["336"],
             []
         );
 
         // Other Reserves
-        otherReserves = getLineTotal(json,
+        otherReserves = getLiabilities(json,
             ["337"],
             []
         );
 
         // Transited Results
-        transitedResults = getLineTotal(json,
+        transitedResults = getLiabilities(json,
             ["338"],
             []
         );
 
         // Revaluation Surpluses
-        revaluationSurpluses = getLineTotal(json,
+        revaluationSurpluses = getLiabilities(json,
             ["343","345"],
             ["344","346"]
         );
 
         // Adjustments/Other Changes in Equity
-        adjustments = getLineTotal(json,
-            ["339","340","341","342","347","348","342","351","352"],
+        adjustments = getLiabilities(json,
+            ["339","340","341","342","347","348","349","351","352"],
             ["350"]
         );
 
         // Net Income for the Period
-        netIncome = getLineTotal(json,
+        netIncome = getLiabilities(json,
             ["646"],
             []
         );
 
         // Anticipated Dividends
-        anticipatedDividends = getLineTotal(json,
+        anticipatedDividends = getLiabilities(json,
             [],
             ["647"]
         );
@@ -427,7 +427,7 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         console.log("Get line total: ", getLineTotal(json, ["1"], ["2"]));
 
         // SAFT CHECK
-        const check = totalAssets - (Math.abs(totalEquity) + Math.abs(totalLiabilities));
+        const check = totalAssets - (totalEquity + totalLiabilities);
         console.log("CHECK RESULTS: ", check);
     });
 
