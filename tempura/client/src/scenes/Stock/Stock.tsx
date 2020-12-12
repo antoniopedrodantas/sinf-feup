@@ -113,7 +113,7 @@ const Stock: React.FC = () => {
                   <SingleValueCard type="text" title="Inventory Turnover" value="3.4"/>
                 </div>
                 <div className="bottom-cards">
-                  <SingleValueCard type="text" title="Average Sales quantity" value="80"/>
+                  <SingleValueCard type="text" title="Average Sales quantity" value="80" />
                   <SingleValueCard type="text" title="Inventory Period" value="107.4"/>
                 </div>
                 <div className="product-listing">

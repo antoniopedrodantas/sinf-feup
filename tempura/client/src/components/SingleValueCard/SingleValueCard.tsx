@@ -1,10 +1,14 @@
 import React from "react";
 import { SVCNumberProp, SVCTextProp } from "./SVCMoneyProp";
 import './styles/SingleValueCard.css';
+import {
+  BrowserRouter as Router,
+  Link
+} from "react-router-dom";
 
 type SingleValueCardProps = SVCNumberProp  | SVCTextProp;
 
-const SingleValueCard: React.FC<SingleValueCardProps> = ({ type, title, value }) => {
+const SingleValueCard: React.FC<SingleValueCardProps> = ({ type, title, value, supplierID}) => {
   const classNames = `card card-${type}`;
 
   const suffixedValue = () => {
