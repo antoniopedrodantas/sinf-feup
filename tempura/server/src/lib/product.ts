@@ -1,3 +1,5 @@
+import { json } from "body-parser";
+
 export function getUnitsSold(invoices: any, productInvoices: Array<any>) {
 
     // instanciates quantity
@@ -49,6 +51,38 @@ export function getAverageSalesPrice(invoices: any, productInvoices: Array<any>)
 
 }
 
+export function getUnitsSoldPerDay(invoices: any, productInvoices: Array<any>, daysArray: Array<any>){
+
+    let jsonArray: { day: string, quantity: number; }[] = [];
+
+    daysArray.forEach(day => {
+        
+        let quantity = 0;
+
+        productInvoices.forEach(bill => {
+        
+            // gets its invoice and desired line
+            const billInvoice = bill["Invoice"];
+            const billLine = bill["Line"];
+
+            const billDate = invoices[billInvoice]["InvoiceDate"];
+    
+            if(invoices.hasOwnProperty(billInvoice) && billDate == day){
+                
+                quantity += getQuantityWithDate(invoices[billInvoice]["Line"], billLine);
+
+            }
+    
+        });
+
+        jsonArray.push({"day": day, "quantity": quantity});
+
+    });
+
+    return jsonArray;
+
+}
+
 function getQuantity(lines: Array<any>, billLine: any) {
 
     let quantityAcc = 0;
@@ -75,4 +109,16 @@ function getSalesPrice(lines: Array<any>, billLine: any): number {
 
     return unitPrice;
 
+}
+
+function getQuantityWithDate(lines: Array<any>, billLine: any){
+    let quantityAcc = 0;
+
+    lines.forEach(line => {
+        if(line["LineNumber"] == billLine){
+            quantityAcc += parseInt(line["Quantity"], 10);
+        }
+    });
+
+    return quantityAcc;
 }
