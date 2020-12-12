@@ -17,7 +17,13 @@ const SingleValueCard: React.FC<SingleValueCardProps> = ({ type, title, value, s
       case 'percentage': return value + ' %';
       case 'unit': return value + ' unit' + (value != 1 ? 's' : '');
       case 'date': return value + ' day' + (value != 1 ? 's' : '');
-      case 'text': default: return value;
+      case 'text': default: 
+        if(title == "Largest Margin Supplier"){
+          return <Link  className="link2" to={"/supplier/" + supplierID}>{value}</Link>;
+        }
+        else{
+          return value;
+        }
     }
   }
 
