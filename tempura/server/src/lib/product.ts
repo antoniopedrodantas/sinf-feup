@@ -75,7 +75,9 @@ export function getUnitsSoldPerDay(invoices: any, productInvoices: Array<any>, d
     
         });
 
-        jsonArray.push({"day": day, "quantity": quantity});
+        if(quantity > 0){
+            jsonArray.push({"day": day, "quantity": quantity});
+        }
 
     });
 
