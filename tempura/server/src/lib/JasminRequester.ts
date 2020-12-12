@@ -1,8 +1,8 @@
-import axios, { AxiosInstance} from 'axios';
+import axios, { AxiosInstance } from 'axios';
 import { resolve } from 'path';
 import Querystring from "querystring";
 import { getRepository } from 'typeorm';
-import { User } from './entity/User';
+import { User } from '../entity/User';
 
 type JasminToken = {
   access_token: string,
@@ -12,18 +12,18 @@ type JasminToken = {
 };
 
 
-class JasminRequester{
+class JasminRequester {
   protected readonly instance: AxiosInstance;
-  protected user: User;
-  
+  protected userID: number;
+
   public constructor(user: User) {
-    this.user = user;
+    this.userID = user.id;
     this.instance = axios.create({
       baseURL: `https://my.jasminsoftware.com/api/${process.env.ACCOUNT}/${process.env.SUBSCRIPTION}`
     }
     );
 
-    if (!user.jasmin_token_time || user.jasmin_token_time <= new Date()) {
+    if (!user.jasmin_token_time || !user.jasmin_token || user.jasmin_token_time <= new Date()) {
       this.getToken();
     }
 
@@ -34,9 +34,9 @@ class JasminRequester{
       client_id: process.env.CLIENT_ID,
       client_secret: process.env.CLIENT_SECRET,
       scope: "application",
-      grant_type: "client_credentials" 
+      grant_type: "client_credentials"
     };
-    
+
     try {
       const response = await axios.post(
         "https://identity.primaverabss.com/connect/token",
@@ -46,14 +46,15 @@ class JasminRequester{
       if (response.status == 200) {
         let now = new Date();
         let json: JasminToken = response.data;
-        console.log(now.toISOString());
         now.setSeconds(now.getSeconds() + json.expires_in);
-        console.log(now.toISOString());
-        this.user.jasmin_token = json.access_token;
-        this.user.jasmin_token_time = now;
+        let jasmin_token = json.access_token;
+        let jasmin_token_time = now;
         await getRepository(User).update(
-          { id: this.user.id },
-          this.user
+          { id: this.userID },
+          {
+            jasmin_token,
+            jasmin_token_time
+          }
         )
       }
 
@@ -62,7 +63,7 @@ class JasminRequester{
     }
   }
 
-  
+
 }
 
 export default JasminRequester;

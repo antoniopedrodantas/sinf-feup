@@ -6,6 +6,9 @@ import { getSaftFiles } from "../lib/saft";
 import { TaxAccountingBasis } from "../entity/Saft";
 import HttpException from "../exceptions/HttpException";
 import fs from "fs";
+import JasminRequester from "../lib/JasminRequester";
+import { getRepository } from "typeorm";
+import { User } from "../entity/User";
 
 
 const router = express.Router();
@@ -13,7 +16,7 @@ const router = express.Router();
 
 router.get('/:id/info', authMiddleware, asyncMiddleware(info));
 router.get('/:id/total_sales', authMiddleware, asyncMiddleware(total_sales))
-router.get('/:id/accounts_receivable', authMiddleware, asyncMiddleware(accounts_receivable))
+router.post('/:id/accounts_receivable', authMiddleware, asyncMiddleware(accounts_receivable))
 router.get('/:id/top_products_purchased', authMiddleware, asyncMiddleware(top_products_purchased))
 
 
@@ -93,7 +96,21 @@ async function total_sales(request: Request, response: Response, next: NextFunct
 
 async function accounts_receivable(request: Request, response: Response, next: NextFunction) {
     // TODO: implement this endpoint
-    response.send('NOT IMPLEMENTED');
+
+    // TODO validar data
+
+
+    let user = await getRepository(User).findOne({ where: { id: request.user } });
+    if (!user) {
+        response.statusCode = 500;
+        response.send({ error: true, message: "User is missing" });
+        return next();
+    }
+
+    let jasminRequest = new JasminRequester(user);
+
+    response.statusCode = 200;
+    response.send({ message: request.user});
 }
 
 async function top_products_purchased(request: Request, response: Response, next: NextFunction) {

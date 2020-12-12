@@ -35,7 +35,7 @@ async function login(request: Request, response: Response, next: NextFunction) {
 
         // fails to provide correct password
         if(!isValidPassword){
-        return next(new HttpException(401, "Invalid username or password."));
+            return next(new HttpException(401, "Invalid username or password."));
         }
 
         let secret = process.env.TOKEN_SECRET ?? 'secret';
