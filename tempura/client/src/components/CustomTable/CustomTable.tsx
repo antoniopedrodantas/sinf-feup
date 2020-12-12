@@ -2,11 +2,9 @@ import React from "react";
 import CSS from 'csstype';
 import {
     BrowserRouter as Router,
-    Switch,
-    Route,
-    Link,
-    useParams
-  } from "react-router-dom";
+    Link
+} from "react-router-dom";
+
 import './styles/CustomTable.css';
 
 interface TableProps{
