@@ -25,8 +25,8 @@ const IncomeLossStatement: React.FC<IncomeLossStatementProps> = ({accounts, type
          final = "bold-type";
 
         switch(types[i]){
-            case 'text': default: return final.concat("text-left");
-            case 'money': return "text-right";
+            case 'text': default: return final.concat("elem-bs text-left");
+            case 'money': return "elem-bs text-right";
         }
     }
 

@@ -39,7 +39,7 @@ class SideBar extends Component<SideProps> {
     else if(!core.localeCompare("financial")){
       financialItem="selected-item"
     }
-    else{
+    else if(!core.localeCompare("stock")){
       stockItem="selected-item"
     }
 
