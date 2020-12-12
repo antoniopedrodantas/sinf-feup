@@ -22,7 +22,7 @@ const DrillDownInfo: React.FC<InfoProps> = ({title,fields, values}) => {
             <h3 className="drill-title">{title}</h3>
             <div className="info-values">
                 {fields.map((field, i) => {     
-                    return (<p className="info-p"><span className="info-field">{field}:</span><span className="info-value">{retrieveValue(i)}</span></p>) 
+                    return (<p key={i} className="info-p"><span className="info-field">{field}:</span><span className="info-value">{retrieveValue(i)}</span></p>) 
                 })}
             </div>
         </div>

@@ -1,0 +1,70 @@
+@import '../../../index.css';
+
+.borderless tr {
+    border: none;
+}
+
+.table-header{
+    border-bottom: solid 1px white;
+}
+
+.balance-sheet-div{
+    background-color: var(--card-background);
+    border-radius: 8px;
+    display: inline-block;
+
+    padding-left: 1em;
+    padding-right: 1em;
+
+    overflow-y: scroll;
+    height: 90vh;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; 
+    scrollbar-width: none;
+  }
+
+.title{
+    margin-left: 0.5em;
+    margin-top: 0.2em;
+    margin-right: 1em;
+}
+
+.table{
+    background-color: transparent !important;
+}
+
+
+.space {
+    height: 1em;
+}
+
+
+.elem-bs.text-left{
+    font-weight: 100;
+}
+
+.elem-bs.text-right {
+    color: var(--red-color);
+    font-size: 0.95em;
+}
+
+.table-body {
+    padding-top: 4em;
+}
+
+.total{
+    text-align: justify;
+}
+
+.bold-type {
+    font-weight: 900;
+}
+
+.general-title {
+    padding-left: 0.7em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+}

@@ -1,0 +1,49 @@
+
+@import '../../../index.css';
+
+.borderless tr {
+    border: none;
+}
+
+
+.income-loss-div{
+    background-color: var(--card-background);
+    border-radius: 8px;
+    display: inline-block;
+
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-bottom: 1em;
+
+    overflow-y: scroll;
+    height: 90vh;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; 
+    scrollbar-width: none;
+  }
+
+.title{
+    margin-left: 0.5em;
+    margin-top: 0.2em;
+    margin-right: 1em;
+}
+
+.table{
+    background-color: transparent !important;
+}
+
+.elem-bs .text-left{
+    font-weight: 100;
+}
+
+.elem-bs .text-right {
+    color: var(--red-color);
+    font-size: 0.95em;
+}
+
+.bold-type {
+    font-weight: 900;
+}

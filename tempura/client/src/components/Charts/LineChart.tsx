@@ -7,9 +7,10 @@ interface LineChartProps{
     labels: String[];
     data: String[];
     data2?: String[];
+    width: number;
 }
 
-const LineChart: React.FC<LineChartProps> = ({title, labels, data, data2}) => {
+const LineChart: React.FC<LineChartProps> = ({title, labels, data, data2, width}) => {
 
     return(
         <>
@@ -17,7 +18,7 @@ const LineChart: React.FC<LineChartProps> = ({title, labels, data, data2}) => {
                 <h3 className="chart-title">{title}</h3>
                 <div className="chart-values line-values">
                     <Line 
-                        width={300}
+                        width={width}
                         data={{
                             labels:labels,
                             datasets: [

@@ -1,6 +1,6 @@
 @import '../../../index.css';
 
-.client-content{
+.client-content, .supplier-content{
     padding-left: 3em;
     padding-right: 3em;
     overflow: hidden;
@@ -61,7 +61,7 @@ div.top-elements > div.info-drill{
         width: 60%;
     }
 
-    .client-content{
+    .client-content, .supplier-content{
         padding-left: 1em;
         padding-right: 1em;
     }
@@ -103,4 +103,3 @@ div.top-elements > div.info-drill{
     }
 
 }
-
