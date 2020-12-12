@@ -1,6 +1,12 @@
 import React from "react";
 import CSS from 'csstype';
-
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useParams
+  } from "react-router-dom";
 import './styles/CustomTable.css';
 
 interface TableProps{
@@ -9,9 +15,10 @@ interface TableProps{
     type: String[];
     values: String[][];
     drilldown: String;
+    ids: String[];
 }
 
-const CustomTable: React.FC<TableProps> = ({title,columns, type, values, drilldown}) => {
+const CustomTable: React.FC<TableProps> = ({title,columns, type, values, drilldown, ids}) => {
 
     const renderType = (i:any) =>{
         switch(type[i]){
@@ -39,12 +46,12 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values, drilldo
         }
     }
 
-    const generateElement = (elem: any, i: any) =>{
+    const generateElement = (elem: any, i: any, j: any) =>{
         if(columns[i] == "Name"){
             switch(drilldown){
-                case 'product': return elem;
-                case 'client': return elem;
-                case 'supplier': return elem;
+                case 'product': return <Link  className="link" to={"/product/" + ids[j]}>{elem}</Link>;
+                case 'client': return <Link  className="link" to={"/client/" + ids[j]}>{elem}</Link>;
+                case 'supplier': return <Link  className="link" to={"/supplier/" + ids[j]}>{elem}</Link>;
             }
         }
         else{
@@ -66,12 +73,12 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values, drilldo
                         </tr>
                     </thead>
                     <tbody>
-                        {values.map((value, i) => {     
+                        {values.map((value, j) => {     
                             return( 
-                            <tr key={i} className={classType}>
+                            <tr key={j} className={classType}>
                             {  
                                 value.map((elem, i) => {     
-                                    return (<td key={i} className={generateClassName(i)}>{generateElement(elem,i)}{renderType(i)}</td> ) 
+                                    return (<td key={i} className={generateClassName(i)}>{generateElement(elem,i, j)}{renderType(i)}</td> ) 
                                 }) 
                             }
                             </tr>

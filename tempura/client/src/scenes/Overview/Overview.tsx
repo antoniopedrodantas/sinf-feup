@@ -68,6 +68,8 @@ const Overview: React.FC = () => {
       ["Robata", "89", "9.2"]
   ];
 
+  const ids = ["001", "002", "003", "004", "005"];
+
   const labels2 = ["Jan", "Feb", "Mar", "Apr", "May", "June"];
   const values2 = ["50", "40", "45", "30", "52", "30"];
 
@@ -110,7 +112,7 @@ const Overview: React.FC = () => {
                     <SingleValueCard type="money" title="Total Costs" value={148209}/>
                   </div>
                   <div className="top-selling">
-                    <CustomTable title="Top Selling Products" columns={columns1} type={types1} values={values1} drilldown="product"/>
+                    <CustomTable title="Top Selling Products" columns={columns1} type={types1} values={values1} drilldown="product" ids={ids}/>
                   </div>
                 </div>
 
