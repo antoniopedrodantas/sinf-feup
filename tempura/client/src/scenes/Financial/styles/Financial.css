@@ -1,2 +1,25 @@
 @import '../../../index.css';
 
+/* .financial{
+    background-color: orange;
+} */
+
+.right-financial{
+    width: 75vw;
+    height: 95vh;
+}
+
+.tb1 {
+    width: 100vw;
+    height: 100vh;
+}
+
+.balance-sheet-div {
+    width: 40vw;
+    height: 85vh;
+}
+
+.income-loss-div {
+    width: 40vw;
+    height: 85vh;
+}
