@@ -46,6 +46,13 @@ const Client: React.FC = () => {
             total_sales: 0,
         }
     );
+    const [topProducts, setTopProducts] = useState([
+        {
+            id: '',
+            name: '',
+            units: '',
+        }
+    ])
 
     // checks for authentication
     useEffect(() => {
@@ -97,6 +104,16 @@ const Client: React.FC = () => {
                         console.log(err);
                 });
 
+            // gets client's top products purchased
+            await axios.get(`http://localhost:8000/client/${clientID}/top_products_purchased?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+                        headers: { 'authorization': token },
+                    }).then((res) => {
+                        setTopProducts(res.data.products);
+                        console.log(res.data.products);
+                    }).catch((err) => {
+                        console.log(err);
+                });
+
 
 
         })();
@@ -104,18 +121,19 @@ const Client: React.FC = () => {
     }, []);
 
 
-    let titles=["Name", "Country", "Tax ID", "Email", "Phone"];
-    let values=[infoResults.name, infoResults.country, infoResults.taxID, infoResults.email, infoResults.phone];
+    let titles=["ID", "Name", "Country", "Tax ID", "Email", "Phone"];
+    let values=[clientID, infoResults.name, infoResults.country, infoResults.taxID, infoResults.email, infoResults.phone];
 
     const columns1 = ["Name", "Purchased Units"];
     const types1 = ["text", "number"];
-    const values1 = [
-        ["Sushi", "550"],
-        ["Hossomakis", "550"],
-        ["Sashimi", "5150"],
-        ["Yakisoba", "550"],
-        ["Yakisoba", "550"]
-    ];
+
+    let values1:Array<any> = [];
+
+    topProducts.map((product) => {
+        values1.push([product.name, parseInt(product.units)]);
+    });
+
+    // const values1 = valuesTmp;
 
     const ids = ["001", "002", "003", "004", "005"];
     const [showDatePicker, setShowDatePicker] = useState(false);
