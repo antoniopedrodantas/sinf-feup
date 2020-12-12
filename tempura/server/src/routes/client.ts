@@ -116,13 +116,13 @@ async function accounts_receivable(request: Request, response: Response, next: N
                     accumulator += accounts_receivable.grossValue.amount;
                 }
                 return accumulator;
-            }, 0);
+            },
+            0);
         
         response.statusCode = 200;
         response.send({ error: false, data: value });
     } catch (error) {
-        response.statusCode = 500;
-        response.send({ message : "Server Error"});
+        return next(new HttpException(500, "Server Error")); 
     }
 
     
