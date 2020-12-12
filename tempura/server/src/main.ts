@@ -55,20 +55,6 @@ createConnection(options)
 
         app.use(router);
 
-        app.get("/", async (req, res) => {
-            let repo = getRepository(User);
-            let user = await repo.findOne({ where: { id: "1" } });
-            if (!user) {
-                res.statusCode = 300;
-                res.send("lol");
-                return;
-            }
-            let requester = new JasminRequester(user);
-            res.statusCode = 300;
-            res.send("limoes");
-        })
-
-
         console.log("Express server has started on port 8000. Open http://localhost:8000/ to see results");
 
 

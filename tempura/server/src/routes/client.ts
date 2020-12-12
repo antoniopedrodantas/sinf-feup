@@ -110,9 +110,16 @@ async function accounts_receivable(request: Request, response: Response, next: N
     let jasminRequest = new JasminRequester(user);
     try {
         let jasminResponse = (await jasminRequest.getAccountsReceivable()).data;
-
-        jasminResponse.filter((accounts_receivable) => accounts_receivable.accountingParty === request.params.id);
+        let value = jasminResponse.reduce(
+            (accumulator, accounts_receivable) => {
+                if (accounts_receivable.accountingParty === request.params.id) {
+                    accumulator += accounts_receivable.grossValue.amount;
+                }
+                return accumulator;
+            }, 0);
         
+        response.statusCode = 200;
+        response.send({ error: false, data: value });
     } catch (error) {
         response.statusCode = 500;
         response.send({ message : "Server Error"});

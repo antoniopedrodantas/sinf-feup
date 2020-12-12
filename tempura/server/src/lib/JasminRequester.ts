@@ -39,9 +39,9 @@ class JasminRequester {
         throw new Error("User does not exist in database");
       }
 
-      // if (user.jasmin_token_time && user.jasmin_token && user.jasmin_token_time > new Date()) {
-      //   return user.jasmin_token;
-      // }
+      if (user.jasmin_token_time && user.jasmin_token && user.jasmin_token_time > new Date()) {
+        return user.jasmin_token;
+      }
 
       const response = await axios.post(
         "https://identity.primaverabss.com/connect/token",
@@ -75,9 +75,6 @@ class JasminRequester {
   private _handleRequest = async (config: AxiosRequestConfig) => {
     config.headers["Authorization"] = "Bearer " + await this.getToken();
     config.headers["Content-Type"] = "application/json";
-    // config.headers["Connection"] = "keep-alive";
-    // config.headers['Access-Control-Allow-Origin'] = "https://my.jasminsoftware.com/api/*";
-
     return config;
   }
 
