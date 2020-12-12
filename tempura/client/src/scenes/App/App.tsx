@@ -25,9 +25,9 @@ const App : React.FC = () => {
         <Route path="/purchases" exact component={Purchases} />
         <Route path="/financial" exact component={Financial} />
         <Route path="/stock" exact component={Stock} />
-        <Route path="/client" exact component={Client} />
-        <Route path="/supplier" exact component={Supplier} />
-        <Route path="/product" exact component={Product} />
+        <Route path="/client/:id" exact component={Client} />
+        <Route path="/supplier/:id" exact component={Supplier} />
+        <Route path="/product/:id" exact component={Product} />
         <Route component={NotFound} />
       </Switch>
     </Router>
