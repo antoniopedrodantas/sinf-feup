@@ -102,7 +102,7 @@ const Client: React.FC = () => {
                                 <div className="all-info">
                                     <div className="top-elements">
                                         <DrillInfo title="Client Info" fields={titles} values={values}/>
-                                        <CustomTable title="Top Products Purchased" columns={columns1} type={types1} values={values1} />
+                                        <CustomTable title="Top Products Purchased" columns={columns1} type={types1} values={values1} drilldown="product"/>
                                     </div>
                                     <div className="bot-elements"> 
                                         <SingleValueCard type="money" title="Total Sales" value={9435}/>

@@ -8,9 +8,10 @@ interface TableProps{
     columns: String[]; 
     type: String[];
     values: String[][];
+    drilldown: String;
 }
 
-const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
+const CustomTable: React.FC<TableProps> = ({title,columns, type, values, drilldown}) => {
 
     const renderType = (i:any) =>{
         switch(type[i]){
@@ -29,13 +30,25 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
         }
     }
 
-    /* previously were all text-center */
     const generateHeaderClassName = (i:any) =>{
         switch(type[i]){
             case 'text': default: return "header-elem text-left";
             case 'money': return "header-elem text-right";
             case 'percentage': return "header-elem text-right";
             case 'number': return "header-elem text-right";
+        }
+    }
+
+    const generateElement = (elem: any, i: any) =>{
+        if(columns[i] == "Name"){
+            switch(drilldown){
+                case 'product': return elem;
+                case 'client': return elem;
+                case 'supplier': return elem;
+            }
+        }
+        else{
+            return elem;
         }
     }
 
@@ -58,7 +71,7 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
                             <tr key={i} className={classType}>
                             {  
                                 value.map((elem, i) => {     
-                                    return (<td key={i} className={generateClassName(i)}>{elem}{renderType(i)}</td> ) 
+                                    return (<td key={i} className={generateClassName(i)}>{generateElement(elem,i)}{renderType(i)}</td> ) 
                                 }) 
                             }
                             </tr>

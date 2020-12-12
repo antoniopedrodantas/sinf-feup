@@ -110,7 +110,7 @@ const Overview: React.FC = () => {
                     <SingleValueCard type="money" title="Total Costs" value={148209}/>
                   </div>
                   <div className="top-selling">
-                    <CustomTable title="Top Selling Products" columns={columns1} type={types1} values={values1} />
+                    <CustomTable title="Top Selling Products" columns={columns1} type={types1} values={values1} drilldown="product"/>
                   </div>
                 </div>
 

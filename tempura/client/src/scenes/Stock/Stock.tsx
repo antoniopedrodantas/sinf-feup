@@ -115,7 +115,7 @@ const Stock: React.FC = () => {
                   <SingleValueCard type="text" title="Inventory Period" value="107.4"/>
                 </div>
                 <div className="product-listing">
-                  <CustomTable title="Product Listing" columns={columns1} type={types1} values={values1} />
+                  <CustomTable title="Product Listing" columns={columns1} type={types1} values={values1} drilldown="product" />
                 </div>
               </div>
             </div>
