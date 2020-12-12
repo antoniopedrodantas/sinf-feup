@@ -155,7 +155,6 @@ export const Financial: React.FC = () => {
 
   function getTotalLiabilitiesFromJSON(json_data: any){
     var totalLiabilities =  json_data["Liabilities"]["Total Liabilities"];
-    console.log(totalLiabilities);
     return totalLiabilities;
   }
 
@@ -166,7 +165,6 @@ export const Financial: React.FC = () => {
 
   function getTotalEquityFromJSON(json_data: any){
     var totalLiabilities =  json_data["Equity"]["Total Equity"];
-    console.log(totalLiabilities);
     return totalLiabilities;
   }
 
@@ -257,7 +255,9 @@ export const Financial: React.FC = () => {
               <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon"/></label>
             </div>
             
-            <div className="right-body">
+            <div className="right-body right-div">
+
+            <div className="financial-content">
 
               <div className="date-selection date-selection-financial">
                   <Button onClick={()=> setShowDatePicker(!showDatePicker)}className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon"/> 
@@ -266,7 +266,7 @@ export const Financial: React.FC = () => {
                   {showDatePicker && <Calendar start={new Date()} end={new Date(2021,0,30)}/>} 
               </div>
 
-            <div className = "financial-content row h-90">
+            <div className = "row h-90 row-financial">
                 <div className="tb-bs col-md-6">
                   <BalanceSheet currentAssets={infoCurrentAssets} nonCurrentAssets={infoNonCurrentAssets} currentLiabilities={infoCurrentLiabilities} nonCurrentLiabilities={infoNonCurrentLiabilities} assetsTotal={infoTotalAssets} liabilitiesTotal={infoTotalLiabilities} equity={infoEquity} equityTotal={infoTotalEquity} types={types}/>
                 </div>
@@ -275,6 +275,7 @@ export const Financial: React.FC = () => {
                 </div>
             </div>
             </div>
+          </div>
           </div>
         </div>
       </div>

@@ -34,6 +34,10 @@
     background-color: transparent !important;
 }
 
+#statement{
+    table-layout: fixed;
+}
+
 .elem-bs .text-left{
     font-weight: 100;
 }
