@@ -1,32 +1,28 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import { config } from 'dotenv/types';
 import { resolve } from 'path';
 import Querystring from "querystring";
 import { getRepository } from 'typeorm';
 import { User } from '../entity/User';
 
-type JasminToken = {
-  access_token: string,
-  expires_in: number,
-  token_type: String,
-  scope: String
-};
+
 
 
 class JasminRequester {
+
   protected readonly instance: AxiosInstance;
   protected userID: number;
 
   public constructor(user: User) {
+    const jasminURL = `https://my.jasminsoftware.com/api/${process.env.ACCOUNT}/${process.env.SUBSCRIPTION}`;
     this.userID = user.id;
     this.instance = axios.create({
-      baseURL: `https://my.jasminsoftware.com/api/${process.env.ACCOUNT}/${process.env.SUBSCRIPTION}`
+      baseURL: jasminURL
     }
     );
+    
 
-    if (!user.jasmin_token_time || !user.jasmin_token || user.jasmin_token_time <= new Date()) {
-      this.getToken();
-    }
-
+    this._initializeRequestInterceptors();
   }
 
   protected async getToken() {
@@ -38,6 +34,15 @@ class JasminRequester {
     };
 
     try {
+      const user = await getRepository(User).findOne({ where: { id: this.userID } });
+      if (!user) {
+        throw new Error("User does not exist in database");
+      }
+
+      // if (user.jasmin_token_time && user.jasmin_token && user.jasmin_token_time > new Date()) {
+      //   return user.jasmin_token;
+      // }
+
       const response = await axios.post(
         "https://identity.primaverabss.com/connect/token",
         Querystring.stringify(body)
@@ -45,24 +50,43 @@ class JasminRequester {
 
       if (response.status == 200) {
         let now = new Date();
-        let json: JasminToken = response.data;
+        let json: JasminResponse.Token = response.data;
         now.setSeconds(now.getSeconds() + json.expires_in);
         let jasmin_token = json.access_token;
         let jasmin_token_time = now;
         await getRepository(User).update(
           { id: this.userID },
           {
-            jasmin_token,
+            jasmin_token: jasmin_token,
             jasmin_token_time
           }
         )
+        console.log(jasmin_token === user.jasmin_token)
+        return jasmin_token;
       }
-
     } catch (error) {
       console.log(error)
+      return error;
     }
   }
 
+  public getAccountsReceivable = () => this.instance.get<JasminResponse.AccountsReceivable[]>('/accountsReceivable/receipts');
+
+  private _handleRequest = async (config: AxiosRequestConfig) => {
+    config.headers["Authorization"] = "Bearer " + await this.getToken();
+    config.headers["Content-Type"] = "application/json";
+    // config.headers["Connection"] = "keep-alive";
+    // config.headers['Access-Control-Allow-Origin'] = "https://my.jasminsoftware.com/api/*";
+
+    return config;
+  }
+
+
+  private _initializeRequestInterceptors = () => {
+    this.instance.interceptors.request.use(
+      this._handleRequest
+    );
+  }
 
 }
 

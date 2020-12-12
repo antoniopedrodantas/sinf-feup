@@ -108,9 +108,18 @@ async function accounts_receivable(request: Request, response: Response, next: N
     }
 
     let jasminRequest = new JasminRequester(user);
+    try {
+        let jasminResponse = (await jasminRequest.getAccountsReceivable()).data;
 
-    response.statusCode = 200;
-    response.send({ message: request.user});
+        jasminResponse.filter((accounts_receivable) => accounts_receivable.accountingParty === request.params.id);
+        
+    } catch (error) {
+        response.statusCode = 500;
+        response.send({ message : "Server Error"});
+    }
+
+    
+
 }
 
 async function top_products_purchased(request: Request, response: Response, next: NextFunction) {
