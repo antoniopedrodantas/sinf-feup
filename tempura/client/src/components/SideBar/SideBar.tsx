@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFileImport, faSignOutAlt} from '@fortawesome/free-solid-svg-icons'
 import { faChartLine, faCashRegister, faShoppingCart, faCoins, faWarehouse} from '@fortawesome/free-solid-svg-icons'
 import { Redirect } from 'react-router-dom';
+import { id } from 'date-fns/esm/locale';
 const logo =  require("../../assets/logo.svg")
 
 
