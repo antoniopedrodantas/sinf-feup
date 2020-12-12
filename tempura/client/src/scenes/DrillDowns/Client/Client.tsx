@@ -14,6 +14,8 @@ import { useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import { Button } from 'react-bootstrap';
 
+import axios, { AxiosResponse } from 'axios';
+
 interface TokenPayload {
   id: string;
   iat: number;
@@ -29,41 +31,81 @@ const Client: React.FC = () => {
 
     const history = useHistory();
 
+    // fields that will make up the web page
+    const [infoResults, setInfoResults] = useState(
+        {
+            name: '',
+            country: '',
+            taxID: '',
+            email: '',
+            phone: '',
+        }
+    );
+    const [totalSales, setTotalSales] = useState(
+        {
+            total_sales: 0,
+        }
+    );
+
     // checks for authentication
     useEffect(() => {
+        (async () => {
 
-        // gets auth-token from the local storage
-        const token = localStorage.getItem("auth-token");
+            // gets auth-token from the local storage
+            const token = localStorage.getItem("auth-token");
 
-        // token is not null
-        if(token != null){
+            // token is not null
+            if(token != null){
 
-        try{
+            try{
 
-            // gets data from token
-            // TODO: change secret and add to a .env file possibly
-            const data = jwt.verify(token, 'secret');
+                // gets data from token
+                // TODO: change secret and add to a .env file possibly
+                const data = jwt.verify(token, 'secret');
 
-            // gets user id from user
-            const { id } = data as TokenPayload;
+                // gets user id from user
+                const { id } = data as TokenPayload;
 
-            // TODO: maybe do something with id later on
-            console.log("User ID: ", id);
+                // TODO: maybe do something with id later on
+                console.log("User ID: ", id);
 
-        } catch(err) {
+            } catch(err) {
+                history.push('/login');
+            }
+
+            }
+            else{
+            // redirects to login
             history.push('/login');
-        }
+            }
 
-        }
-        else{
-        // redirects to login
-        history.push('/login');
-        }
+            // gets client's info
+            await axios.get(`http://localhost:8000/client/${clientID}/info?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+                        headers: { 'authorization': token },
+                    }).then((res) => {
+                        setInfoResults(res.data);
+                    }).catch((err) => {
+                        console.log(err);
+                });
+
+            // gets total sales for that client
+            await axios.get(`http://localhost:8000/client/${clientID}/total_sales?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+                        headers: { 'authorization': token },
+                    }).then((res) => {
+                        setTotalSales(res.data);
+                    }).catch((err) => {
+                        console.log(err);
+                });
+
+
+
+        })();
 
     }, []);
 
-    const titles=["Entity", "Name", "Country", "Tax ID", "Email", "Phone"];
-    const values=["LRLDA", "L. Ribeiro, Lda.", "Portugal", "502607564", "geral@lribeiro.pt", "+351 253 534 890"];
+
+    let titles=["Name", "Country", "Tax ID", "Email", "Phone"];
+    let values=[infoResults.name, infoResults.country, infoResults.taxID, infoResults.email, infoResults.phone];
 
     const columns1 = ["Name", "Purchased Units"];
     const types1 = ["text", "number"];
@@ -111,7 +153,7 @@ const Client: React.FC = () => {
                                         <CustomTable title="Top Products Purchased" columns={columns1} type={types1} values={values1} drilldown="product" ids={ids}/>
                                     </div>
                                     <div className="bot-elements"> 
-                                        <SingleValueCard type="money" title="Total Sales" value={9435}/>
+                                        <SingleValueCard type="money" title="Total Sales" value={totalSales.total_sales}/>
                                         <SingleValueCard type="money" title="Accounts Receivable" value={2294}/>
                                     </div>
                                 </div>
