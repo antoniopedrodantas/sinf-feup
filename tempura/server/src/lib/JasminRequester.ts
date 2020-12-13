@@ -74,7 +74,7 @@ class JasminRequester {
   
   public getAccountsPayable = () => this.instance.get<JasminResponse.AccountsPayable[]>('/accountsPayable/payments');
   public getSupplierParty = (partyKey: string) => this.instance.get<JasminResponse.SupplierParty>(`/purchasesCore/supplierParties/${partyKey}`);
-  public getAllOrders = () => this.instance.get<JasminResponse.PurchaseOrder[]>('/purchases/orders');
+  public getAllPurchaseOrders = () => this.instance.get<JasminResponse.PurchaseOrder[]>('/purchases/orders');
 
   private _handleRequest = async (config: AxiosRequestConfig) => {
     config.headers["Authorization"] = "Bearer " + await this.getToken();

@@ -8,6 +8,7 @@ import { User } from "../entity/User";
 
 import JasminRequester from "../lib/JasminRequester";
 import HttpException from "../exceptions/HttpException";
+import { TopProductEntry } from "@/@types/supplier";
 
 
 const router = express.Router();
@@ -16,7 +17,7 @@ const router = express.Router();
 router.get('/:id/info', authMiddleware, asyncMiddleware(info));
 router.post('/:id/total_sales', authMiddleware, asyncMiddleware(total_purchases))
 router.post('/:id/accounts_payable', authMiddleware, asyncMiddleware(accounts_payable))
-router.get('/:id/top_products_purchased', authMiddleware, asyncMiddleware(top_products_sold))
+router.post('/:id/top_products_purchased', authMiddleware, asyncMiddleware(top_products_purchased))
 
 
 async function info(request: Request, response: Response, next: NextFunction) {
@@ -63,7 +64,7 @@ async function total_purchases(request: Request, response: Response, next: NextF
 
     let jasminRequest = new JasminRequester(user);
     try {
-        let jasminResponse = (await jasminRequest.getAllOrders()).data;
+        let jasminResponse = (await jasminRequest.getAllPurchaseOrders()).data;
 
         let value = jasminResponse.reduce(
             (accumulator, order) => {
@@ -73,7 +74,7 @@ async function total_purchases(request: Request, response: Response, next: NextF
 
                 const checkStartDate = (!!startDate && new Date(order.documentDate) >= new Date(startDate)) || !startDate;
                 const checkEndDate = (!!endDate && new Date(order.documentDate) <= new Date(endDate)) || !endDate;
-                
+
                 if (checkStartDate && checkEndDate) {
                     accumulator += order.grossValue.amount;
                 }
@@ -114,7 +115,7 @@ async function accounts_payable(request: Request, response: Response, next: Next
 
                 const checkStartDate = (!!startDate && new Date(accountsPayable.documentDate) >= new Date(startDate)) || !startDate;
                 const checkEndDate = (!!endDate && new Date(accountsPayable.documentDate) <= new Date(endDate)) || !endDate;
-                
+
                 if (checkStartDate && checkEndDate) {
                     accumulator += accountsPayable.grossValue.amount;
                 }
@@ -132,9 +133,68 @@ async function accounts_payable(request: Request, response: Response, next: Next
     }
 }
 
-async function top_products_sold(request: Request, response: Response, next: NextFunction) {
-    // TODO: implement this endpoint
-    response.send('NOT IMPLEMENTED');
+async function top_products_purchased(request: Request, response: Response, next: NextFunction) {
+    let user = await getRepository(User).findOne({ where: { id: request.user } });
+    if (!user) {
+        return next(new HttpException(500, "User missing"));
+    }
+
+    const supplierID = request.params.id;
+
+    const startDate = request.body.start_date;
+    const endDate = request.body.end_date;
+
+    let jasminRequest = new JasminRequester(user);
+    try {
+        let jasminResponse = (await jasminRequest.getAllPurchaseOrders()).data;
+
+        let products: { [key: string]: TopProductEntry } = {};
+        jasminResponse.forEach(order => {
+            if (order.sellerSupplierParty !== supplierID) {
+                return;
+            }
+
+            const checkStartDate = (!!startDate && new Date(order.documentDate) >= new Date(startDate)) || !startDate;
+            const checkEndDate = (!!endDate && new Date(order.documentDate) <= new Date(endDate)) || !endDate;
+
+            if (!(checkStartDate && checkEndDate)) {
+                return;
+            }
+
+            order.documentLines.forEach(line => {
+                let productID: string = line.purchasesItem;
+                let quantity = line.quantity;
+
+                if (productID in products) {
+                    products[productID].units += quantity;
+                } else {
+                    products[productID] = {
+                        id: productID,
+                        name: productID,
+                        units: quantity
+                    }
+                }
+            })
+        });
+
+        let topProducts: TopProductEntry[] = Object.values(products);
+        topProducts.sort((p1: TopProductEntry, p2: TopProductEntry) => {
+            if (p1.units < p2.units) {
+                return 1;
+            } else if (p1.units > p2.units) {
+                return -1;
+            }
+            return 0;
+        });
+
+        response
+            .status(200)
+            .send({
+                products: topProducts
+            })
+    } catch (error) {
+        return next(new HttpException(500, "Server Error"));
+    }
 }
 
 export default router;
