@@ -14,7 +14,7 @@ const router = express.Router();
 
 
 router.get('/:id/info', authMiddleware, asyncMiddleware(info));
-router.get('/:id/total_sales', authMiddleware, asyncMiddleware(total_purchases))
+router.post('/:id/total_sales', authMiddleware, asyncMiddleware(total_purchases))
 router.get('/:id/accounts_receivable', authMiddleware, asyncMiddleware(accounts_payable))
 router.get('/:id/top_products_purchased', authMiddleware, asyncMiddleware(top_products_sold))
 
@@ -58,15 +58,26 @@ async function total_purchases(request: Request, response: Response, next: NextF
 
     const supplierID = request.params.id;
 
+    const startDate = request.body.start_date;
+    const endDate = request.body.end_date;
+
     let jasminRequest = new JasminRequester(user);
     try {
         let jasminResponse = (await jasminRequest.getAllOrders()).data;
 
         let value = jasminResponse.reduce(
             (accumulator, order) => {
-                if (order.sellerSupplierParty === supplierID) {
+                if (order.sellerSupplierParty !== supplierID) {
+                    return accumulator;
+                }
+
+                const checkStartDate = (!!startDate && new Date(order.documentDate) >= new Date(startDate)) || !startDate;
+                const checkEndDate = (!!endDate && new Date(order.documentDate) <= new Date(endDate)) || !endDate;
+                
+                if (checkStartDate && checkEndDate) {
                     accumulator += order.grossValue.amount;
                 }
+
                 return accumulator
             }, 0);
 
