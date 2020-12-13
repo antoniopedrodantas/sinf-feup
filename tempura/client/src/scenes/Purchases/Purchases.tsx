@@ -39,6 +39,17 @@ const Purchases: React.FC = () => {
     }
   );
 
+  const [topProducts, setTopProducts] = useState(
+    {
+      columns: ["Name", "Purchased Units", "Price"],
+      types:   ["text", "number", "money"],
+      // values: [] as any[][],
+      // ids: [] as string[],
+      values: [["Soba", "10000", "50"]],
+      ids: ["1"]
+    }
+  );
+
   // checks for authentication
   useEffect(() => {
     (async () => {
@@ -130,6 +141,8 @@ const Purchases: React.FC = () => {
                   <LineChart title="Cost of Goods Sold vs Sales Revenue" labels={lables2} data={values2} data2={values3} width={600} />
                   <p></p>
                   <CustomTable title="Top Suppliers" columns={topSuppliers.columns} type={topSuppliers.types} values={topSuppliers.values} drilldown="product" ids={topSuppliers.ids} />
+                  <p></p>
+                  <CustomTable title="Top Suppliers" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={topProducts.ids} />
                 </div>
               </div>
             </div>
