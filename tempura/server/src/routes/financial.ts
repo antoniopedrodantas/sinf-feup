@@ -113,58 +113,58 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         // ----------------------------------- gets "Non Current Assets" ------------------------------------
 
         // Tangible Fixed Assets.
-        tangibleFixedAssets = getAssets(json,
+        tangibleFixedAssets = Math.round(getAssets(json,
             ["268","269","270","271","272","273", "274", "306", "310"],
             ["275","276","277","278","279","280","281","282","283","284","285","286","287","288", "314", "318"]
-        );
+        ) * 100) / 100;
 
         // Investment Properties
-        investmentProperties = getAssets(json,
+        investmentProperties = Math.round(getAssets(json,
             ["259","260","261","305","309"],
             ["262","263","264","265","266","267","313","317"]
-        );
+        ) * 100) / 100;
 
         // Goodwill
-        goodwill = getAssets(json,
+        goodwill = Math.round(getAssets(json,
             ["217","222","227","289"],
             ["236","237","238","240","245","250","294","299"]
-        );
+        )* 100) / 100;
 
         // Intagible Assets
-        intangibleAssets = getAssets(json,
+        intangibleAssets = Math.round(getAssets(json,
             ["290","291","292","293","307","311"],
             ["295","296","297","298","300","301","302","303","315","319"]
-        );
+        )* 100) / 100;
 
         // Biological Assets
-        biologicalAssets = getAssets(json,
+        biologicalAssets = Math.round(getAssets(json,
             ["197","198","215"],
             ["200","202"]
-        );
+        ) * 100) / 100;
 
         // Financial Holdings
-        financialHoldings = getAssets(json,
+        financialHoldings = Math.round(getAssets(json,
             ["216","221","226"],
             ["239","244","249"]
-        );
+        ) * 100) / 100;
 
         // Other Financial Investments
-        otherFinancialInvestments = getAssets(json,
+        otherFinancialInvestments = Math.round(getAssets(json,
             ["218","219","220","223","224","225","228","229","230","231","232","233","234","304","308"],
             ["235","241","242","243","246","247","248","251","252","253","254","255","256","257","258","312","316"]
-        );
+        ) * 100) / 100;
 
         // Accounts Receivable
-        accountsReceivable = getAssets(json,
+        accountsReceivable = Math.round(getAssets(json,
             ["62","64", "112","114","125","127","129","139"],
             ["68","70","121","123","141","145"]
-        );
+        ) * 100) / 100;
 
         // Deferred Tax Assets
-        deferredTaxAssets = getAssets(json,
+        deferredTaxAssets = Math.round(getAssets(json,
             ["133"],
             ["143"]
-        );
+        ) * 100) / 100;
 
         // Financial Investments
         financialInvestments = 0;
@@ -172,259 +172,253 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         // Credits and Other Non-Current Assets
         creditsAndOther = 0;
 
-        sum = tangibleFixedAssets + investmentProperties + goodwill + intangibleAssets + biologicalAssets + financialHoldings + otherFinancialInvestments + accountsReceivable + deferredTaxAssets + financialInvestments + creditsAndOther;
+        sum = Math.round((tangibleFixedAssets + investmentProperties + goodwill + intangibleAssets + biologicalAssets + financialHoldings + otherFinancialInvestments + accountsReceivable + deferredTaxAssets + financialInvestments + creditsAndOther) * 100) / 100;
 
         // ----------------------------------- gets "Current Assets" ------------------------------------
 
         // Inventory
-        inventory = getAssets(json,
+        inventory = Math.round(getAssets(json,
             ["165", "166", "167", "171", "172", "173", "174", "175", "176", "183", "184", "187", "188", "189", "193", "209", "210", "211", "212", "213"],
             ["168", "169", "170", "177", "178", "179", "180", "181", "182", "185", "186", "190", "191", "192", "194"]
-        );
+        ) * 100) / 100;
 
         // Biological Assets
-        biologicalAssets2 = getAssets(json,
+        biologicalAssets2 = Math.round(getAssets(json,
             ["195", "196", "214"],
             ["199","201"]
-        );
+        ) * 100) / 100;
 
         // Clients
-        clients = getAssets(json,
+        clients = Math.round(getAssets(json,
             ["10","11","12","13","14","15","16","17","18","19","20","21"],
             ["22","24","25","26","27","28","29","30","31","32","33","34","35","36"]
-        );
+        ) * 100) / 100;
 
         // Government and Other Public Entities
-        governmentAndOther = getAssets(json,
+        governmentAndOther = Math.round(getAssets(json,
             ["71","73","74","76","77","79","80","81","82","83","84","85"],
             []
-        );
+        ) * 100) / 100;
 
         // Subscribed and Unpaid Capital
-        subscribedAndUnpaidCapital = getAssets(json,
+        subscribedAndUnpaidCapital = Math.round(getAssets(json,
             ["106","107"],
             ["115","116"]
-        );
+        ) * 100) / 100;
 
         // Other Accounts Receivable
-        otherAccountsReceivable = getAssets(json,
+        otherAccountsReceivable = Math.round(getAssets(json,
             ["37","38","39","40","41","42","43","44","45","46","47","48","49","50","55","56","61","63","108","109","110","111","113","124","126","128","130","138"],
             ["51","52","65","66","67","69","117","118","119","120","122","140","142","144"]
-        );
+        ) * 100) / 100;
 
         // Deferrals
-        deferrals = getAssets(json,
+        deferrals = Math.round(getAssets(json,
             ["146"],
             []
-        );
+        ) * 100) / 100;
 
         // Financial Assets Held for Trading
-        financialAssets = getAssets(json,
+        financialAssets = Math.round(getAssets(json,
             ["4", "6"],
             []
-        );
+        ) * 100) / 100;
 
         // Other Financial Assets
-        otherFinancialAssets = getAssets(json,
+        otherFinancialAssets = Math.round(getAssets(json,
             ["8"],
             []
-        );
+        ) * 100) / 100;
 
         // Non-Current Assets Held for Sale
-        nonCurrentAssetsHeldForSale = getAssets(json,
+        nonCurrentAssetsHeldForSale = Math.round(getAssets(json,
             ["320","321","322","323","324"],
             ["326","327","328","329","330"]
-        );
+        ) * 100) / 100;
 
         // Other Current Assets
         otherCurrentAssets = 0;
 
         // Cash and Bank Deposits
-        cashAndBankDeposits = getAssets(json,
+        cashAndBankDeposits = Math.round(getAssets(json,
             ["1", "2", "3"],
             []
-        );
+        ) * 100) / 100;
 
         // Sum
-        sum2 = inventory + biologicalAssets2 + clients + governmentAndOther + subscribedAndUnpaidCapital + otherAccountsReceivable + deferrals + financialAssets + otherFinancialAssets + nonCurrentAssetsHeldForSale + otherCurrentAssets + cashAndBankDeposits;
+        sum2 = Math.round((inventory + biologicalAssets2 + clients + governmentAndOther + subscribedAndUnpaidCapital + otherAccountsReceivable + deferrals + financialAssets + otherFinancialAssets + nonCurrentAssetsHeldForSale + otherCurrentAssets + cashAndBankDeposits) * 100) / 100;
 
-        totalAssets = sum + sum2;
+        totalAssets = Math.round((sum + sum2) * 100) / 100;
 
         // ----------------------------------- gets "Non Current Liabilities" ------------------------------------
 
         // Provisions
-        provisions = getLiabilities(json,
+        provisions = Math.round(getLiabilities(json,
             ["148","149","150","151","152","153","154","155"],
             []
-        );
+        ) * 100) / 100;
 
         // Financing Obtained
-        financingObtained = getLiabilities(json,
+        financingObtained = Math.round(getLiabilities(json,
             ["87","89","91","93","95","97","99","101","103","105"],
             []
-        );
+        ) * 100) / 100;
 
         // Responsibilities for Post-Employment Benefits
-        responsabilities = getLiabilities(json,
+        responsabilities = Math.round(getLiabilities(json,
             ["132"],
             []
-        );
+        ) * 100) / 100;
 
         // Deferred Tax Liabilities
-        deferredTaxLiabilities = getLiabilities(json,
+        deferredTaxLiabilities = Math.round(getLiabilities(json,
             ["134"],
             []
-        );
+        ) * 100) / 100;
 
         // Accounts Payable
-        accountsPayable = getLiabilities(json,
+        accountsPayable = Math.round(getLiabilities(json,
             ["58","60","62","64","114","125","127","136","139"],
             []
-        );
+        ) * 100) / 100;
 
         // Sum
-        sum3 = provisions + financingObtained + responsabilities + deferredTaxLiabilities + accountsPayable;
+        sum3 = Math.round((provisions + financingObtained + responsabilities + deferredTaxLiabilities + accountsPayable) * 100) / 100;
 
         // ----------------------------------- gets "Current Liabilities" ------------------------------------
 
         // Suppliers
-        suppliers = getLiabilities(json,
+        suppliers = Math.round(getLiabilities(json,
             ["37","38","39","40","41","42","43","44","45","46","47","48","49","50"],
             []
-        );
+        ) * 100) / 100;
 
         // Client Advances
-        clientAdvances = getLiabilities(json,
+        clientAdvances = Math.round(getLiabilities(json,
             ["10","11","12","13","14","15","16","17","18","19","20","21","22","23","137"],
             []
-        );
+        ) * 100) / 100;
 
         // Government and Other Public Entities
-        governmentAndOtherPublic = getLiabilities(json,
+        governmentAndOtherPublic = Math.round(getLiabilities(json,
             ["71","72","75","76","77","78","81","82","83","84","85"],
             []
-        );
+        ) * 100) / 100;
 
         // Financing Obtained
-        financingObtained2 = getLiabilities(json,
+        financingObtained2 = Math.round(getLiabilities(json,
             ["2","3","86","88","90","92","94","96","98","100","102","104"],
             []
-        );
+        ) * 100) / 100;
 
         // Other Accounts Payable
-        otherAccountsPayable = getLiabilities(json,
+        otherAccountsPayable = Math.round(getLiabilities(json,
             ["53","54","57","59","61","63","109","110","113","124","126","131","135","138"],
             []
-        );
+        ) * 100) / 100;
 
         // Deferrals
-        deferrals2 = getLiabilities(json,
+        deferrals2 = Math.round(getLiabilities(json,
             ["147"],
             []
-        );
+        ) * 100) / 100;
 
         // Financial Liabilities Held for Trading
-        financialLiabilities = getLiabilities(json,
+        financialLiabilities = Math.round(getLiabilities(json,
             ["5", "7"],
             []
-        );
+        ) * 100) / 100;
 
         // Other Financial Liabilities
-        otherFinancialLiabilities = getLiabilities(json,
+        otherFinancialLiabilities = Math.round(getLiabilities(json,
             ["9"],
             []
-        );
+        ) * 100) / 100;
 
         // Non-Current Liabilities Held for Sale
-        nonCurrentLiabilitiesHeldForSale = getLiabilities(json,
+        nonCurrentLiabilitiesHeldForSale = Math.round(getLiabilities(json,
             ["325"],
             []
-        );
+        ) * 100) / 100;
 
         // Other Current Liabilities
         otherCurrentLiabilities = 0;
 
         // Sum
-        sum4 = suppliers + clientAdvances + governmentAndOtherPublic + financingObtained2 + otherAccountsPayable + deferrals2 + financialLiabilities + otherFinancialLiabilities + nonCurrentLiabilitiesHeldForSale + otherCurrentLiabilities;
+        sum4 = Math.round((suppliers + clientAdvances + governmentAndOtherPublic + financingObtained2 + otherAccountsPayable + deferrals2 + financialLiabilities + otherFinancialLiabilities + nonCurrentLiabilitiesHeldForSale + otherCurrentLiabilities) * 100) / 100;
 
-        totalLiabilities = sum3 + sum4;
+        totalLiabilities = Math.round((sum3 + sum4) * 100) / 100;
 
         // ----------------------------------- gets "Equity" ------------------------------------
 
         // Subscribed Capital
-        subscribedCapital = getLiabilities(json,
+        subscribedCapital = Math.round(getLiabilities(json,
             ["331"],
             []
-        );
+        ) * 100) / 100;
 
         // Shares
-        shares = getLiabilities(json,
+        shares = Math.round(getLiabilities(json,
             ["333"],
             ["332"]
-        );
+        ) * 100) / 100;
 
         // Other Equity Instruments
-        otherEquityInstruments = getLiabilities(json,
+        otherEquityInstruments = Math.round(getLiabilities(json,
             ["334"],
             []
-        );
+        ) * 100) / 100;
 
         // Issue Premiums
-        issuePremiums = getLiabilities(json,
+        issuePremiums = Math.round(getLiabilities(json,
             ["335"],
             []
-        );
+        ) * 100) / 100;
 
         // Legal Reserves
-        legalReserves = getLiabilities(json,
+        legalReserves = Math.round(getLiabilities(json,
             ["336"],
             []
-        );
+        ) * 100) / 100;
 
         // Other Reserves
-        otherReserves = getLiabilities(json,
+        otherReserves = Math.round(getLiabilities(json,
             ["337"],
             []
-        );
+        ) * 100) / 100;
 
         // Transited Results
-        transitedResults = getLiabilities(json,
+        transitedResults = Math.round(getLiabilities(json,
             ["338"],
             []
-        );
+        ) * 100) / 100;
 
         // Revaluation Surpluses
-        revaluationSurpluses = getLiabilities(json,
+        revaluationSurpluses = Math.round(getLiabilities(json,
             ["343","345"],
             ["344","346"]
-        );
+        ) * 100) / 100;
 
         // Adjustments/Other Changes in Equity
-        adjustments = getLiabilities(json,
+        adjustments = Math.round(getLiabilities(json,
             ["339","340","341","342","347","348","349","351","352"],
             ["350"]
-        );
+        ) * 100) / 100;
 
         // Net Income for the Period
-        netIncome = getLiabilities(json,
+        netIncome = Math.round(getLiabilities(json,
             ["646"],
             []
-        );
+        ) * 100) / 100;
 
         // Anticipated Dividends
-        anticipatedDividends = getLiabilities(json,
+        anticipatedDividends = Math.round(getLiabilities(json,
             [],
             ["647"]
-        );
+        ) * 100) / 100;
 
         // Total Equity
-        totalEquity = subscribedCapital + shares + otherEquityInstruments + issuePremiums + legalReserves + otherReserves + transitedResults + revaluationSurpluses + adjustments + netIncome + anticipatedDividends; 
-
-
-        // test
-        console.log("Get account total: ", getAccountTotal(json["MasterFiles"]["GeneralLedgerAccounts"]["Accounts"]["11"]));
-        console.log("Get taxonomy total: ", getTaxonomyTotal(json, "1"));
-        console.log("Get line total: ", getLineTotal(json, ["1"], ["2"]));
+        totalEquity = Math.round((subscribedCapital + shares + otherEquityInstruments + issuePremiums + legalReserves + otherReserves + transitedResults + revaluationSurpluses + adjustments + netIncome + anticipatedDividends) * 100) / 100; 
 
         // SAFT CHECK
         const check = totalAssets - (totalEquity + totalLiabilities);
@@ -525,14 +519,15 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
     }
 
     // creates response
-    response
+    return response
         .status(200)
-        .send({
+        .json({
             error: false,
             "Assets": assets,
             "Liabilities": liabilities,
             "Equity": equity,
         });
+
 }
 
 async function resultsDemonstration(request: Request, response: Response, next: NextFunction) {
@@ -728,39 +723,39 @@ async function resultsDemonstration(request: Request, response: Response, next: 
 
     // "Income and Expenses"
     const incomeAndExpenses = {
-        "1": codeOne,
-        "2": codeTwo,
-        "3": codeThree,
-        "4": codeFour,
-        "5": codeFive,
-        "6": codeSix,
-        "7": codeSeven,
-        "8": codeEight,
-        "9": codeNine,
-        "10": codeTen,
-        "11": codeEleven,
-        "12": codeTwelve,
-        "13": codeThirteen,
-        "14": codeFourteen,
-        "15": codeFifteen,
-        "16": codeSixteen,
-        "17": codeSeventeen,
-        "18": codeEighteen,
-        "19": codeNineteen,
-        "20": codeTwenty,
-        "21": codeTwentyOne,
-        "22": codeTwentyTwo,
-        "23": codeTwentyThree,
-        "24": codeTwentyFour,
-        "25": codeTwentyFive,
-        "26": codeTwentySix,
-        "27": codeTwentySeven
+        "Sales and Services": codeOne,
+        "Operating Subsidies": codeTwo,
+        "Imputed Gains/Losses of Subsidiaries, Associates and Joint Ventures": codeThree,
+        "Variation in Production Inventories": codeFour,
+        "Work for Own Entity": codeFive,
+        "Cost of Goods Sold and Materials Consumed": codeSix,
+        "Supplies and External Services": codeSeven,
+        "Personnel Expenses": codeEight,
+        "Impairment (Losses/Reversals)": codeNine,
+        "Impairment/Inventory Adjustments (Losses/Reversals)": codeTen,
+        "Impairment of Accounts Receivable (Losses/Reversals)": codeEleven,
+        "Provisions (Increases/Decreases)": codeTwelve,
+        "Impairment of Non-Depreciable/Amortizable Investments (Losses/Reversals)": codeThirteen,
+        "Other Impairments (Losses/Reversals)": codeFourteen,
+        "Fair Value Increases/Decreases": codeFifteen,
+        "Other Income": codeSixteen,
+        "Other Expenses": codeSeventeen,
+        "Income Before Depreciation, Financing Expenses and Taxes": codeEighteen,
+        "Depreciation and Amortization Expenses/Reversals": codeNineteen,
+        "Impairment of Depreciable/Amortizable Investments (Losses/Reversals)": codeTwenty,
+        "Operating Income (Before Financing Expenses and taxes)": codeTwentyOne,
+        "Interest and Similar Income Obtained": codeTwentyTwo,
+        "Interest and Similar Expenses Incurred": codeTwentyThree,
+        "Income Before Taxes": codeTwentyFour,
+        "Tax Over the Period's Income": codeTwentyFive,
+        "Net Income for the Period": codeTwentySix,
+        "Result of Discontinued Activities (Net of Taxes) Included in Net Income for the Period": codeTwentySeven
     };
 
     // creates response
-    response
+    return response
         .status(200)
-        .send({
+        .json({
             error: false,
             "Income and Expenses": incomeAndExpenses,
         });
