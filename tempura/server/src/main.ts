@@ -11,7 +11,6 @@ import morgan from "morgan";
 import dotenv, { DotenvConfigOptions } from 'dotenv';
 
 import errorMiddleware from "./middlewares/errorMiddleware";
-import JasminRequester from "./lib/JasminRequester";
 
 
 const options: ConnectionOptions = {

@@ -101,11 +101,7 @@ async function accounts_receivable(request: Request, response: Response, next: N
 
 
     let user = await getRepository(User).findOne({ where: { id: request.user } });
-    if (!user) {
-        response.statusCode = 500;
-        response.send({ error: true, message: "User is missing" });
-        return next();
-    }
+    if (!user) return next(new HttpException(500, "User is missing"));
 
     let jasminRequest = new JasminRequester(user);
     try {
