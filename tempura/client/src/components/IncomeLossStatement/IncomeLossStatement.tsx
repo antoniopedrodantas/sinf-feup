@@ -33,7 +33,7 @@ const IncomeLossStatement: React.FC<IncomeLossStatementProps> = ({accounts, type
     return(
         <>
             <div className="income-loss-div">
-            <h3 className="title">Income Loss Statement</h3>
+            <h3 className="ils-title">Income Loss Statement</h3>
                 <table id="statement" className="table table-dark table-borderless table-sm">
                     <tbody>
                         {accounts.map((account) => { 
