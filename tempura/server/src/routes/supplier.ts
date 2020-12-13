@@ -15,7 +15,7 @@ const router = express.Router();
 
 router.get('/:id/info', authMiddleware, asyncMiddleware(info));
 router.post('/:id/total_sales', authMiddleware, asyncMiddleware(total_purchases))
-router.get('/:id/accounts_receivable', authMiddleware, asyncMiddleware(accounts_payable))
+router.post('/:id/accounts_payable', authMiddleware, asyncMiddleware(accounts_payable))
 router.get('/:id/top_products_purchased', authMiddleware, asyncMiddleware(top_products_sold))
 
 
@@ -92,8 +92,44 @@ async function total_purchases(request: Request, response: Response, next: NextF
 }
 
 async function accounts_payable(request: Request, response: Response, next: NextFunction) {
-    // TODO: implement this endpoint
-    response.send('NOT IMPLEMENTED');
+    let user = await getRepository(User).findOne({ where: { id: request.user } });
+    if (!user) {
+        return next(new HttpException(500, "User missing"));
+    }
+
+    const supplierID = request.params.id;
+
+    const startDate = request.body.start_date;
+    const endDate = request.body.end_date;
+
+    let jasminRequest = new JasminRequester(user);
+    try {
+        let jasminResponse = (await jasminRequest.getAccountsPayable()).data;
+
+        let value = jasminResponse.reduce(
+            (accumulator, accountsPayable) => {
+                if (accountsPayable.accountingParty !== supplierID) {
+                    return accumulator;
+                }
+
+                const checkStartDate = (!!startDate && new Date(accountsPayable.documentDate) >= new Date(startDate)) || !startDate;
+                const checkEndDate = (!!endDate && new Date(accountsPayable.documentDate) <= new Date(endDate)) || !endDate;
+                
+                if (checkStartDate && checkEndDate) {
+                    accumulator += accountsPayable.grossValue.amount;
+                }
+
+                return accumulator
+            }, 0);
+
+        response
+            .status(200)
+            .send({
+                accounts_payable: value
+            })
+    } catch (error) {
+        return next(new HttpException(500, "Server Error"));
+    }
 }
 
 async function top_products_sold(request: Request, response: Response, next: NextFunction) {

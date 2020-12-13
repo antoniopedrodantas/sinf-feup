@@ -72,6 +72,7 @@ class JasminRequester {
 
   public getAccountsReceivable = () => this.instance.get<JasminResponse.AccountsReceivable[]>('/accountsReceivable/receipts');
   
+  public getAccountsPayable = () => this.instance.get<JasminResponse.AccountsPayable[]>('/accountsPayable/payments');
   public getSupplierParty = (partyKey: string) => this.instance.get<JasminResponse.SupplierParty>(`/purchasesCore/supplierParties/${partyKey}`);
   public getAllOrders = () => this.instance.get<JasminResponse.PurchaseOrder[]>('/purchases/orders');
 
