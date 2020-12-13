@@ -1,5 +1,8 @@
-import { User } from "@/entity/User";
+import { TaxAccountingBasis } from "../entity/Saft";
+import { User } from "../entity/User";
 import JasminRequester from "./JasminRequester";
+import { getSaftFiles } from "./saft";
+import fs from "fs";
 
 export function getUnitsSold(invoices: any, productInvoices: Array<any>) {
 
@@ -22,33 +25,6 @@ export function getUnitsSold(invoices: any, productInvoices: Array<any>) {
     });
 
     return quantity;
-
-}
-
-export function getAverageSalesPrice(invoices: any, productInvoices: Array<any>) {
-
-    // instanciates average sales price
-    let avgSalesPrice = 0;
-
-    let counter = 0;
-
-    // gets each bill that the product is in
-    productInvoices.forEach(bill => {
-
-        // gets its invoice and desired line
-        const billInvoice = bill["Invoice"];
-        const billLine = bill["Line"];
-
-        if (invoices.hasOwnProperty(billInvoice)) {
-
-            avgSalesPrice += getSalesPrice(invoices[billInvoice]["Line"], billLine);
-            counter++;
-
-        }
-
-    });
-
-    return avgSalesPrice / counter;
 
 }
 
@@ -126,23 +102,47 @@ function getQuantityWithDate(lines: Array<any>, billLine: any) {
     return quantityAcc;
 }
 
+export async function getAvgSalePrice(productID: string, user: User, startDate: string, endDate: string) {
+    // TODO: add user to this query
+    const safts = await getSaftFiles(TaxAccountingBasis.BILLING, startDate, endDate);
+
+    if (safts.length == 0) {
+        return 0;
+    }
+
+    // TODO: getting the first saft of the list is temporary
+    const json = JSON.parse(fs.readFileSync(safts[0].path).toString())
+    const products = json["MasterFiles"]["Product"];
+
+    if (!products.hasOwnProperty(productID)) {
+        // TODO: what to do when the product is not found?
+        return 0;
+    }
+
+    const invoices = json["SourceDocuments"]["SalesInvoices"]["Invoice"];
+    const productInvoices: any[] = json["SourceDocuments"]["SalesInvoices"]["ProductInvoice"][productID];
+
+    let sum = 0, counter = 0;
+
+    // gets each bill that the product is in
+    productInvoices.forEach(bill => {
+        // gets its invoice and desired line
+        const billInvoice = bill["Invoice"];
+        const billLine = bill["Line"];
+
+        if (invoices.hasOwnProperty(billInvoice)) {
+            sum += getSalesPrice(invoices[billInvoice]["Line"], billLine);
+            counter++;
+        }
+    });
+
+    return sum / counter;
+}
 
 export async function getAvgPurchasePrice(productID: string, user: User, startDate: string, endDate: string) {
     let jasminRequest = new JasminRequester(user);
 
     let jasminResponse = (await jasminRequest.getAllPurchaseOrders()).data;
-
-    let totalCosts = jasminResponse.reduce(
-        (accumulator, order) => {
-            const checkStartDate = (!!startDate && new Date(order.documentDate) >= new Date(startDate)) || !startDate;
-            const checkEndDate = (!!endDate && new Date(order.documentDate) <= new Date(endDate)) || !endDate;
-
-            if (checkStartDate && checkEndDate) {
-                accumulator += order.grossValue.amount;
-            }
-
-            return accumulator
-        }, 0);
 
     let sum = 0, counter = 0;
 
