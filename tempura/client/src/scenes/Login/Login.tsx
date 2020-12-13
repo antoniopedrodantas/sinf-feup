@@ -13,6 +13,8 @@ const Login: React.FC = () => {
   // Connection with Backend
 
   const history = useHistory();
+  const [showError, setShowError] = useState(false);
+
 
   const submit = async (event: any) => {
     
@@ -30,15 +32,15 @@ const Login: React.FC = () => {
 
       // redirects to overview page
       history.push('/overview');
+      setShowError(false);
 
     }).catch(err => {
       console.log(err);
+      setShowError(true);
     });
-    
   };
   
   // Frontend
-
   return (
     <>
       <div className="login">
@@ -58,11 +60,13 @@ const Login: React.FC = () => {
                 <span className="icon2"><FontAwesomeIcon icon={faLock} /> </span>
                 <input type="password" id="password" placeholder="password" />
               </div>
+              { showError && <p className="err">Invalid credentials.</p>}
             </div>
 
             <button className="loginButton" type="submit"> 
               <span> Log in</span>
             </button>
+            
           </form>
 
         </div>
