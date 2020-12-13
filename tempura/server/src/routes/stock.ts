@@ -15,7 +15,7 @@ const router = express.Router();
 
 router.post('/total_assets_in_stock', authMiddleware, asyncMiddleware(total_assets_in_stock));
 router.post('/inventory_turnover', authMiddleware, asyncMiddleware(inventory_turnover));
-router.get('/inventory_period', authMiddleware, asyncMiddleware(inventory_period));
+router.post('/inventory_period', authMiddleware, asyncMiddleware(inventory_period));
 router.get('/average_sales_quantity', authMiddleware, asyncMiddleware(average_sales_quantity));
 router.get('/product_listing', authMiddleware, asyncMiddleware(product_listing));
 
@@ -47,9 +47,6 @@ async function inventory_turnover(request: Request, response: Response, next: Ne
     let totalAssets = await getTotalAssetsInStock(user, startDate, endDate);
     let totalRevenue = await getTotalRevenue(user, startDate, endDate);
 
-    console.log(totalAssets)
-    console.log(totalRevenue)
-
     let inventoryTurnover = (totalRevenue / totalAssets).toFixed(2);
 
     response
@@ -58,8 +55,24 @@ async function inventory_turnover(request: Request, response: Response, next: Ne
 }
 
 async function inventory_period(request: Request, response: Response, next: NextFunction) {
-    // TODO: implement this endpoint
-    response.send('NOT IMPLEMENTED');
+    let user = await getRepository(User).findOne({ where: { id: request.user } });
+    if (!user) {
+        return next(new HttpException(500, "User missing"));
+    }
+
+    const startDate = request.body.start_date;
+    const endDate = request.body.end_date;
+
+    let totalAssets = await getTotalAssetsInStock(user, startDate, endDate);
+    let totalRevenue = await getTotalRevenue(user, startDate, endDate);
+
+    const period = Math.abs(new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 3600 * 24);
+
+    let inventoryPeriod = ((totalRevenue / totalAssets) * period).toFixed(2);
+
+    response
+        .status(200)
+        .send({ inventory_period: inventoryPeriod })
 }
 
 async function average_sales_quantity(request: Request, response: Response, next: NextFunction) {
