@@ -15,9 +15,9 @@ const Product: React.FC = () => {
     return (
         <>
             <div className="cenas">
-                <DrillInfo title="Product Info" fields={titles} values={values}/>
+                <DrillInfo title="Product Info" fields={titles} values={values} supplierID="1"/>
                 <p></p>
-                <DrillInfo title="Product Info 2" fields={titles2} values={values2}/>
+                <DrillInfo title="Product Info 2" fields={titles2} values={values2} supplierID="3"/>
             </div>
         </>
     );
