@@ -577,145 +577,145 @@ async function resultsDemonstration(request: Request, response: Response, next: 
         
         // -------------------------------------- "Income and Expenses" ---------------------------------------
         // 1.
-        codeOne = getLineTotal(json,
+        codeOne = Math.round(getLineTotal(json,
             ["506", "507", "508", "509", "510", "513", "514", "515", "516", "517"],
             ["511", "512", "518"]
-        );
+        ) * 100) / 100;
 
         // 2.
-        codeTwo = getLineTotal(json,
+        codeTwo = Math.round(getLineTotal(json,
                 ["527", "528"],
                 []
-        );
+        ) * 100) / 100;
 
         // 3.
-        codeThree = getLineTotal(json,
+        codeThree = Math.round(getLineTotal(json,
             ["614", "615", "616", "638", "639"],
             ["479", "480", "481", "482"]
-        );
+        ) * 100) / 100;
 
         // 4.
-        codeFour = getLineTotal(json,
+        codeFour = Math.round(getLineTotal(json,
             ["519", "520", "521", "522"],
             []
-        );
+        ) * 100) / 100;
 
         // 5.
-        codeFive = getLineTotal(json,
+        codeFive = Math.round(getLineTotal(json,
             ["523", "524", "525", "526"],
             []
-        );
+        ) * 100) / 100;
 
         // 6.
-        codeSix = getLineTotal(json,
+        codeSix = Math.round(getLineTotal(json,
             ["353", "354", "355"],
             []
-        );
+        ) * 100) / 100;
 
         // 7.
-        codeSeven = getLineTotal(json,
+        codeSeven = Math.round(getLineTotal(json,
             ["356", "357", "358", "359", "360", "361", "362", "363", "364", "365", "366", "367", "368", "369", "370", "371", "372", "373", "374", "375", "376", "377", "378", "379", "380", "381", "382", "383", "384"],
             []
-        );
+        ) * 100) / 100;
 
         // 8.
-        codeEight = getLineTotal(json,
+        codeEight = Math.round(getLineTotal(json,
             ["385", "386", "387", "388", "389", "390", "391", "392", "393"],
             []
-        );
+        ) * 100) / 100;
 
         // 9.
         codeNine = 0;
 
         // 10.
-        codeTen = getLineTotal(json,
+        codeTen = Math.round(getLineTotal(json,
             ["415", "416", "417", "418", "419", "420"],
             ["549", "550", "551", "552", "553", "554", "555"]
-        );
+        ) * 100) / 100;
 
         // 11.
-        codeEleven = getLineTotal(json,
+        codeEleven = Math.round(getLineTotal(json,
             ["413", "414"],
             ["547", "548"]
-        );
+        ) * 100) / 100;
 
         // 12.
-        codeTwelve = getLineTotal(json,
+        codeTwelve = Math.round(getLineTotal(json,
             ["463", "464", "465", "466", "467", "468", "469", "470"],
             ["586", "587", "588", "589", "590", "591", "592", "593"]
-        );
+        ) * 100) / 100;
 
         // 13.
-        codeThirteen = getLineTotal(json,
+        codeThirteen = Math.round(getLineTotal(json,
             ["412", "422", "423", "424", "425", "441", "442", "443", "444", "445", "446", "447", "448", "449", "450", "451", "452", "453"],
             ["555", "557", "558", "573", "574", "575", "576", "577", "578", "579", "580", "581", "582", "583", "584", "585"]
-        );
+        ) * 100) / 100;
 
         // 14.
         codeFourteen = 0;
 
         // 15.
-        codeFifteen = getLineTotal(json,
+        codeFifteen = Math.round(getLineTotal(json,
             ["594", "595", "596", "597", "598", "599", "600", "601", "602"],
             ["454", "455", "456", "457", "458", "459", "460", "461", "462"]
-        );
+        ) * 100) / 100;
 
         // 16.
-        codeSixteen = getLineTotal(json,
+        codeSixteen = Math.round(getLineTotal(json,
             ["603", "604", "605", "606", "607", "608", "609", "610", "611", "612", "613", "617", "618", "619", "620", "621", "622", "623", "624", "625", "626", "627", "628", "629", "630", "631", "632", "633", "634", "636", "637", "640", "642"],
             []
-        );
+        ) * 100) / 100;
 
         // 17.
-        codeSeventeen = getLineTotal(json,
+        codeSeventeen = Math.round(getLineTotal(json,
             ["471", "472", "473", "474", "475", "476", "477", "478", "483", "484", "485", "486", "487", "488", "489", "490", "491", "492", "493", "494", "495", "496", "497", "498", "499"],
             []
-        );
+        ) * 100) / 100;
 
         // 18.
-        codeEighteen = codeOne + codeTwo + codeThree + codeFour + codeFive - codeSix - codeSeven - codeEight - codeNine - codeTen - codeEleven - codeTwelve - codeThirteen - codeFourteen + codeFifteen + codeSixteen - codeSeventeen;
+        codeEighteen = Math.round((codeOne + codeTwo + codeThree + codeFour + codeFive - codeSix - codeSeven - codeEight - codeNine - codeTen - codeEleven - codeTwelve - codeThirteen - codeFourteen + codeFifteen + codeSixteen - codeSeventeen) * 100) / 100;
 
         // 19.
-        codeNineteen = getLineTotal(json,
+        codeNineteen = Math.round(getLineTotal(json,
             ["394", "395","396","397","398","399","400","401","402","403","404","405","406","407","408","409", "410", "411"],
             ["529","530","531","532","533","534","535","536","537","538","539","540","541","542","543","544","545", "546"]
-        );
+        ) * 100) / 100;
 
         // 20.
-        codeTwenty = getLineTotal(json,
+        codeTwenty = Math.round(getLineTotal(json,
             ["426","427","428","429","430","431","432","433","434","435","436", "437", "438", "439", "440"],
             ["559","560","561","562","563","564","565","566","567","568","569","570","571","572"]
-        );
+        ) * 100) / 100;
 
         // 21.
-        codeTwentyOne = codeEighteen - codeNineteen - codeTwenty;
+        codeTwentyOne = Math.round((codeEighteen - codeNineteen - codeTwenty) * 100) / 100;
 
         // 22.
-        codeTwentyTwo = getLineTotal(json,
+        codeTwentyTwo = Math.round(getLineTotal(json,
             ["635", "641"],
             []
-        );
+        ) * 100) / 100;
 
         // 23.
-        codeTwentyThree = getLineTotal(json,
+        codeTwentyThree = Math.round(getLineTotal(json,
             ["500","501","502","503","504","505"],
             []
-        );
+        ) * 100) / 100;
 
         // 24.
-        codeTwentyFour = codeTwentyOne + codeTwentyTwo - codeTwentyThree;
+        codeTwentyFour = Math.round((codeTwentyOne + codeTwentyTwo - codeTwentyThree) * 100) / 100;
 
         // 25.
-        codeTwentyFive = getLineTotal(json,
+        codeTwentyFive = Math.round(getLineTotal(json,
             ["644", "645"],
             []
-        );
+        ) * 100) / 100;
 
         // 26.
-        codeTwentySix = codeTwentyFour - codeTwentyFive;
+        codeTwentySix = Math.round((codeTwentyFour - codeTwentyFive) * 100) / 100;
 
         // 27.
-        codeTwentySeven = codeTwentySix;
+        codeTwentySeven = Math.round((codeTwentySix) * 100) / 100;
 
     });
 
