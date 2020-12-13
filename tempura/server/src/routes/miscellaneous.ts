@@ -13,16 +13,12 @@ import { json } from "body-parser";
 const router = express.Router();
 
 
-router.get('/total_profit', authMiddleware, asyncMiddleware(total_profit));
+
 router.get('/total_revenue', authMiddleware, asyncMiddleware(total_revenue));
 router.get('/revenue_growth', authMiddleware, asyncMiddleware(revenue_growth));
 router.get('/top_selling_products', authMiddleware, asyncMiddleware(top_selling_products));
 
 
-function total_profit(request: Request, response: Response, next: NextFunction) {
-    // TODO: implement this endpoint
-    response.send('NOT IMPLEMENTED');
-}
 
 async function total_revenue(request: Request, response: Response, next: NextFunction) {
 
