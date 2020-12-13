@@ -80,6 +80,8 @@ const Stock: React.FC = () => {
 
   ];
 
+  const ids = ["001", "002", "003", "004", "005", "006", "007", "008", "009", "010", "011", "012", "013", "014", "015", "016"];
+
   const [showDatePicker, setShowDatePicker] = useState(false);
   return (
     <>
@@ -111,11 +113,11 @@ const Stock: React.FC = () => {
                   <SingleValueCard type="text" title="Inventory Turnover" value="3.4"/>
                 </div>
                 <div className="bottom-cards">
-                  <SingleValueCard type="text" title="Average Sales quantity" value="80"/>
+                  <SingleValueCard type="text" title="Average Sales quantity" value="80" />
                   <SingleValueCard type="text" title="Inventory Period" value="107.4"/>
                 </div>
                 <div className="product-listing">
-                  <CustomTable title="Product Listing" columns={columns1} type={types1} values={values1} />
+                  <CustomTable title="Product Listing" columns={columns1} type={types1} values={values1} drilldown="product" ids={ids}/>
                 </div>
               </div>
             </div>

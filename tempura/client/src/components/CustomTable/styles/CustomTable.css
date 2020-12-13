@@ -51,3 +51,7 @@ td{
 .normal-table > td{
     color: var(--red-color) !important;
 }
+
+.link, .link:hover{
+    color:var(--white-color);
+}

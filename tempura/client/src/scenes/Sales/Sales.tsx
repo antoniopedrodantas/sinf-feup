@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import SingleValueCard from 'src/components/SingleValueCard/SingleValueCard';
 
 import './styles/Sales.css';
 import SideBar from '../../components/SideBar/SideBar';
@@ -71,7 +72,8 @@ const Sales: React.FC = () => {
               <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon"/></label>
             </div>
           <div className="right-body">
-            SALES: All the other content should be placed here
+            <SingleValueCard type="text" title="Largest Margin Supplier" value="vitor" supplierID="1"/>
+            <SingleValueCard type="text" title="test" value="vitor" />
           </div>
           </div>
         </div>

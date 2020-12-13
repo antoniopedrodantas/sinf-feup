@@ -27,5 +27,5 @@ yarn-error.log*
 ### VSCode ###
 .vscode
 
-.env
 
+tempura/server/.env
