@@ -122,7 +122,7 @@ async function accounts_receivable(request: Request, response: Response, next: N
             0);
 
         response.statusCode = 200;
-        console.log(value)
+
         response.send({ error: false, data: value });
     } catch (error) {
         return next(new HttpException(500, "Server Error"));

@@ -29,7 +29,6 @@ const Client: React.FC = () => {
     
     let pageURL = window.location.href;
     let clientID = pageURL.substr(pageURL.lastIndexOf('/') + 1);
-    console.log( "Client ID: " + clientID);
 
     const history = useHistory();
 
@@ -88,7 +87,7 @@ const Client: React.FC = () => {
                 const { id } = data as TokenPayload;
 
                 // TODO: maybe do something with id later on
-                console.log("User ID: ", id);
+                // console.log("User ID: ", id);
 
             } catch(err) {
                 history.push('/login');
@@ -123,7 +122,6 @@ const Client: React.FC = () => {
                         headers: { 'authorization': token },
                     }).then((res) => {
                         setTopProducts(res.data.products);
-                        console.log("ÿoink",res.data.products);
                     }).catch((err) => {
                         console.log(err);
                 });
@@ -135,7 +133,6 @@ const Client: React.FC = () => {
                 , { headers: { authorization: token } }
                     ).then((res) => {
                         setAccountsReceivable(res.data);
-                        console.log(accountsReceivable);
                     }).catch((err) => {
                         console.log(err);
                 });
