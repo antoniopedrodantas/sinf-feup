@@ -28,6 +28,9 @@ const Purchases: React.FC = () => {
   const values2 = ["500", "200", "120", "310", "400", "297"];
   const values3 = ["300", "180", "80", "180", "220", "110"];
 
+  // TODO: fix this?
+  const maxNumberRows = 6;
+
   const history = useHistory();
 
   const [topSuppliers, setTopSuppliers] = useState(
@@ -43,10 +46,8 @@ const Purchases: React.FC = () => {
     {
       columns: ["Name", "Purchased Units", "Price"],
       types:   ["text", "number", "money"],
-      // values: [] as any[][],
-      // ids: [] as string[],
-      values: [["Soba", "10000", "50"]],
-      ids: ["1"]
+      values: [] as any[][],
+      ids: [] as string[]
     }
   );
 
@@ -82,9 +83,7 @@ const Purchases: React.FC = () => {
         history.push('/login');
       }
 
-      await axios.get('http://localhost:8000/top_suppliers', {
-        headers: { 'authorization': token },
-      }).then((res) => {
+      await axios.get(`http://localhost:8000/top_suppliers`, { headers: { authorization: token }, params: { rows: maxNumberRows} }).then((res) => {
         let suppliers: TopSupplier[] = res.data;
         suppliers.forEach((supplier) => {
           let tmpTopSuppliers = {
@@ -99,11 +98,27 @@ const Purchases: React.FC = () => {
           ]);
           setTopSuppliers(tmpTopSuppliers);
         });
-    
       }).catch((err) => {
         console.log(err);
       });
-
+      
+      await axios.get(`http://localhost:8000/top_purchased_products`, { headers: { authorization: token }, params: { rows: maxNumberRows } }).then((res) => {
+        let suppliers: TopProduct[] = res.data;
+        suppliers.forEach((supplier) => {
+          let tmpTopProducts = {
+            ...topProducts
+          }
+          tmpTopProducts.ids.push(supplier.id);
+          tmpTopProducts.values.push([
+            supplier.name,
+            supplier.total_sold,
+            supplier.price
+          ]);
+          setTopProducts(tmpTopProducts);
+        });
+      }).catch((err) => {
+        console.log(err);
+      });
 
     })();
 
@@ -142,7 +157,7 @@ const Purchases: React.FC = () => {
                   <p></p>
                   <CustomTable title="Top Suppliers" columns={topSuppliers.columns} type={topSuppliers.types} values={topSuppliers.values} drilldown="product" ids={topSuppliers.ids} />
                   <p></p>
-                  <CustomTable title="Top Suppliers" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={topProducts.ids} />
+                  <CustomTable title="Top Products" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={topProducts.ids} />
                 </div>
               </div>
             </div>
