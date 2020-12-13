@@ -10,6 +10,7 @@ import { faBars, faTimes} from '@fortawesome/free-solid-svg-icons'
 
 import { useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
+import CustomTable from 'src/components/CustomTable/CustomTable';
 
 interface TokenPayload {
   id: string;
@@ -26,7 +27,9 @@ const Purchases: React.FC = () => {
   const values2 = ["500", "200", "120", "310", "400", "297"];
   const values3 = ["300", "180", "80", "180", "220", "110"];
 
-  
+  const topSuppliersColumns = ["Name","Total Spent", "Orders", "Maximum"];
+  const topSuppliersColumnsTypes = ["text", "money", "number", "money"] ;
+
       
   const history = useHistory();
 
@@ -63,7 +66,14 @@ const Purchases: React.FC = () => {
 
   }, []);
 
+  const topSuppliersValues = [
+    ["Yeet", "1000", "30", "200"]
+  ];
+  const topSuppliersIds = ["a3e5a779-bed6-48d0-8619-12137fba78f6"];
+
   // Frontend
+
+  
 
   return (
     <>
@@ -87,7 +97,9 @@ const Purchases: React.FC = () => {
               <p></p>
               <LineChart title="Revenue Growth" labels={lables2} data={values2} width={600}/>
               <p></p>
-              <LineChart title="Cost of Goods Sold vs Sales Revenue" labels={lables2} data={values2} data2={values3} width={600}/>
+              <LineChart title="Cost of Goods Sold vs Sales Revenue" labels={lables2} data={values2} data2={values3} width={600} />
+              <p></p>
+              <CustomTable title="Top Suppliers" columns={topSuppliersColumns}  type={topSuppliersColumnsTypes} values={topSuppliersValues} drilldown="product" ids={topSuppliersIds} />
             </div>
           </div>
         </div>
