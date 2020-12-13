@@ -121,21 +121,27 @@ const Client: React.FC = () => {
     }, []);
 
 
+    // values for client info
     let titles=["ID", "Name", "Country", "Tax ID", "Email", "Phone"];
     let values=[clientID, infoResults.name, infoResults.country, infoResults.taxID, infoResults.email, infoResults.phone];
 
     const columns1 = ["Name", "Purchased Units"];
     const types1 = ["text", "number"];
 
+    // values for top products purchased
+    let counter = 0;
     let values1:Array<any> = [];
-
+    let ids:Array<any> = [];
     topProducts.map((product) => {
-        values1.push([product.name, parseInt(product.units)]);
+        if(counter < 5){
+            values1.push([product.name, parseInt(product.units)]);
+            ids.push(product.id);
+        }
+        counter++;
     });
+    
 
-    // const values1 = valuesTmp;
-
-    const ids = ["001", "002", "003", "004", "005"];
+    // const ids = ["001", "002", "003", "004", "005"];
     const [showDatePicker, setShowDatePicker] = useState(false);
 
     return (

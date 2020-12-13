@@ -152,9 +152,9 @@ async function top_products_purchased(request: Request, response: Response, next
     }
 
     finalProducts.sort((obj1: any, obj2: any) => {
-        if (obj1.units > obj2.units) {
+        if (parseFloat(obj1.units) < parseFloat(obj2.units)) {
             return 1;
-        } else if (obj1.units < obj2.units) {
+        } else if (parseFloat(obj1.units) > parseFloat(obj2.units)) {
             return -1;
         }    
         return 0;
