@@ -45,8 +45,16 @@ const Purchases: React.FC = () => {
   const [topProducts, setTopProducts] = useState(
     {
       columns: ["Name", "Purchased Units", "Price"],
-      types:   ["text", "number", "money"],
+      types: ["text", "number", "money"],
       values: [] as any[][],
+      ids: [] as string[]
+    }
+  );
+
+  const [supplierCountries, setSupplierCountries] = useState(
+    {
+      columns: [] as string[],
+      values: [] as string[],
       ids: [] as string[]
     }
   );
@@ -83,11 +91,14 @@ const Purchases: React.FC = () => {
         history.push('/login');
       }
 
-      await axios.get(`http://localhost:8000/top_suppliers`, { headers: { authorization: token }, params: { rows: maxNumberRows} }).then((res) => {
+      await axios.get(`http://localhost:8000/top_suppliers`, {
+        headers: { authorization: token },
+        params: { rows: maxNumberRows }
+      }).then((res) => {
         let suppliers: TopSupplier[] = res.data;
         suppliers.forEach((supplier) => {
           let tmpTopSuppliers = {
-            ... topSuppliers
+            ...topSuppliers
           }
           tmpTopSuppliers.ids.push(supplier.id);
           tmpTopSuppliers.values.push([
@@ -101,10 +112,13 @@ const Purchases: React.FC = () => {
       }).catch((err) => {
         console.log(err);
       });
-      
-      await axios.get(`http://localhost:8000/top_purchased_products`, { headers: { authorization: token }, params: { rows: maxNumberRows } }).then((res) => {
-        let suppliers: TopProduct[] = res.data;
-        suppliers.forEach((supplier) => {
+
+      await axios.get(`http://localhost:8000/top_purchased_products`, {
+        headers: { authorization: token },
+        params: { rows: maxNumberRows }
+      }).then((res) => {
+        let topPurchasedProducts: TopProduct[] = res.data;
+        topPurchasedProducts.forEach((supplier) => {
           let tmpTopProducts = {
             ...topProducts
           }
@@ -115,6 +129,23 @@ const Purchases: React.FC = () => {
             supplier.price
           ]);
           setTopProducts(tmpTopProducts);
+        });
+      }).catch((err) => {
+        console.log(err);
+      });
+      await axios.get(`http://localhost:8000/supplier_country`, {
+        headers: { authorization: token },
+        // params: { rows: maxNumberRows }
+      }).then((res) => {
+        let _supplierCountries: SupplierCountry[] = res.data;
+        _supplierCountries.forEach((supplier) => {
+          let _supplierCountry = {
+            ...supplierCountries
+          }
+          _supplierCountry.ids.push(supplier.id);
+          _supplierCountry.values.push(supplier.value.toString());
+          _supplierCountry.columns.push(supplier.name);
+          setSupplierCountries(_supplierCountry);
         });
       }).catch((err) => {
         console.log(err);
@@ -149,7 +180,7 @@ const Purchases: React.FC = () => {
                   <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon" /></label>
                 </div>
                 <div className="right-body">
-                  <PieChart title="Supplier Region" labels={lables} data={values} />
+                  <PieChart title="Supplier Countries" labels={supplierCountries.columns} data={supplierCountries.values} />
                   <p></p>
                   <LineChart title="Revenue Growth" labels={lables2} data={values2} width={600} />
                   <p></p>

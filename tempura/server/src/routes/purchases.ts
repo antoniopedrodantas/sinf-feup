@@ -93,9 +93,6 @@ async function supplier_country(request: Request, response: Response, next: Next
         return next(error);
     }
 
-
-
-    response.send('NOT IMPLEMENTED');
 }
 
 async function top_suppliers(request: Request, response: Response, next: NextFunction) {
