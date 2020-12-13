@@ -13,6 +13,11 @@ import { useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import { Button, Col, Row } from 'react-bootstrap';
 
+interface TokenPayload {
+    id: string;
+    iat: number;
+    exp: number;
+  }
 
 const Product: React.FC = () => {
 
@@ -21,6 +26,39 @@ const Product: React.FC = () => {
     console.log( "Product ID: " + productID);
 
     const history = useHistory();
+
+        // checks for authentication
+        useEffect(() => {
+
+            // gets auth-token from the local storage
+            const token = localStorage.getItem("auth-token");
+    
+            // token is not null
+            if(token != null){
+    
+            try{
+    
+                // gets data from token
+                // TODO: change secret and add to a .env file possibly
+                const data = jwt.verify(token, 'secret');
+    
+                // gets user id from user
+                const { id } = data as TokenPayload;
+    
+                // TODO: maybe do something with id later on
+                console.log("User ID: ", id);
+    
+            } catch(err) {
+                history.push('/login');
+            }
+    
+            }
+            else{
+            // redirects to login
+            history.push('/login');
+            }
+    
+        }, []);
 
     const titles = ["Name", "Description", "Main Supplier", "Bar Code"];
     const values = ["Tempura XL", "Larger Tempuras", "Kaizuya, Co. Ltd", "0 87645869 54689"];
@@ -60,7 +98,7 @@ const Product: React.FC = () => {
                                 </div>
                                 
                                 
-                                <div className="all-info">
+                                <div className="all-info-product">
                                     <div className="main-info-product">
                                     <DrillInfo title="Product Info" fields={titles} values={values} supplierID="1"/>
                                     <LineChart title="Units Sold per Month" labels={labels2} data={values2} width={600}/>
