@@ -21,12 +21,13 @@ const options: ConnectionOptions = {
     synchronize: true,
 }
 
-const corsOptions = {
+const corsOptions: CorsOptions = {
     "origin": "http://localhost:3000",
     "methods": ["GET","PUT","POST","DELETE"],
     "preflightContinue": false,
     "credentials": true,
-    "optionsSuccessStatus": 200
+    "optionsSuccessStatus": 200,
+    "exposedHeaders": ["Authorization"]
 }
 
 
