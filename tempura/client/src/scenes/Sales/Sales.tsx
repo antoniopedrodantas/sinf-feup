@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import SingleValueCard from 'src/components/SingleValueCard/SingleValueCard';
+import LineChart from '../../components/Charts/LineChart';
 
 import './styles/Sales.css';
 import SideBar from '../../components/SideBar/SideBar';
@@ -19,6 +20,10 @@ interface TokenPayload {
 }
 
 const Sales: React.FC = () => {
+
+  const lables2 = ["Jan", "Feb", "Mar", "Apr", "May", "June"];
+  const values2 = ["500", "200", "120", "310", "400", "297"];
+  const values3 = ["300", "180", "80", "180", "220", "110"];
 
   const history = useHistory();
   const maxNumberRows = 6;
@@ -106,8 +111,9 @@ const Sales: React.FC = () => {
               <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon" /></label>
             </div>
             <div className="right-body">
-              <SingleValueCard type="text" title="Largest Margin Supplier" value="vitor" supplierID="1" />
               <SingleValueCard type="text" title="test" value="vitor" />
+              <p></p>
+              <LineChart title="Cost of Goods Sold vs Sales Revenue" labels={lables2} data={values2} data2={values3} width={600} />
               <p></p>
               <CustomTable title="Top Products" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={topProducts.ids} />
             </div>

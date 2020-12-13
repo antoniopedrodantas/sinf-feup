@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
 import SideBar from '../../components/SideBar/SideBar';
+import SingleValueCard from 'src/components/SingleValueCard/SingleValueCard';
+import Calendar from 'src/components/Calendar/Calendar';
 import './styles/Purchases.css';
-import PieChart from '../../components/Charts/PieChart';
-import LineChart from '../../components/Charts/LineChart';
+import PieChart from 'src/components/Charts/PieChart';
 import '../../common.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faTimes, faCalendar } from '@fortawesome/free-solid-svg-icons'
+import { Button } from 'react-bootstrap';
 
 import { useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
@@ -60,103 +62,129 @@ const Purchases: React.FC = () => {
   );
 
   // checks for authentication
-  useEffect(() => {
-    (async () => {
+  // useEffect(() => {
+  //   (async () => {
 
-      // gets auth-token from the local storage
-      const token = localStorage.getItem("auth-token");
+  //     // gets auth-token from the local storage
+  //     const token = localStorage.getItem("auth-token");
 
-      // token is not null
-      if (token != null) {
+  //     // token is not null
+  //     if (token != null) {
 
-        try {
+  //       try {
 
-          // gets data from token
-          // TODO: change secret and add to a .env file possibly
-          const data = jwt.verify(token, 'secret');
+  //         // gets data from token
+  //         // TODO: change secret and add to a .env file possibly
+  //         const data = jwt.verify(token, 'secret');
 
-          // gets user id from user
-          const { id } = data as TokenPayload;
+  //         // gets user id from user
+  //         const { id } = data as TokenPayload;
 
-          // TODO: maybe do something with id later on
-          console.log("User ID: ", id);
+  //         // TODO: maybe do something with id later on
+  //         console.log("User ID: ", id);
 
-        } catch (err) {
-          history.push('/login');
-        }
+  //       } catch (err) {
+  //         history.push('/login');
+  //       }
 
-      }
-      else {
-        // redirects to login
-        history.push('/login');
-      }
+  //     }
+  //     else {
+  //       // redirects to login
+  //       history.push('/login');
+  //     }
 
-      await axios.get(`http://localhost:8000/top_suppliers`, {
-        headers: { authorization: token },
-        params: { rows: maxNumberRows }
-      }).then((res) => {
-        let suppliers: TopSupplier[] = res.data;
-        suppliers.forEach((supplier) => {
-          let _topSuppliers = {
-            ...topSuppliers
-          }
-          _topSuppliers.ids.push(supplier.name);
-          _topSuppliers.values.push([
-            supplier.name,
-            supplier.total_spent,
-            supplier.numOrders,
-            supplier.max_spent
-          ]);
-          setTopSuppliers(_topSuppliers);
-        });
-      }).catch((err) => {
-        console.log(err);
-      });
+  //     await axios.get(`http://localhost:8000/top_suppliers`, {
+  //       headers: { authorization: token },
+  //       params: { rows: maxNumberRows }
+  //     }).then((res) => {
+  //       let suppliers: TopSupplier[] = res.data;
+  //       suppliers.forEach((supplier) => {
+  //         let _topSuppliers = {
+  //           ...topSuppliers
+  //         }
+  //         _topSuppliers.ids.push(supplier.name);
+  //         _topSuppliers.values.push([
+  //           supplier.name,
+  //           supplier.total_spent,
+  //           supplier.numOrders,
+  //           supplier.max_spent
+  //         ]);
+  //         setTopSuppliers(_topSuppliers);
+  //       });
+  //     }).catch((err) => {
+  //       console.log(err);
+  //     });
 
-      await axios.get(`http://localhost:8000/top_purchased_products`, {
-        headers: { authorization: token },
-        params: { rows: maxNumberRows }
-      }).then((res) => {
-        let topPurchasedProducts: TopProduct[] = res.data;
-        topPurchasedProducts.forEach((product) => {
-          let _topProducts = {
-            ...topProducts
-          }
-          _topProducts.ids.push(product.name);
-          _topProducts.values.push([
-            product.name,
-            product.total_sold,
-            product.price
-          ]);
-          setTopProducts(_topProducts);
-        });
-      }).catch((err) => {
-        console.log(err);
-      });
-      await axios.get(`http://localhost:8000/supplier_country`, {
-        headers: { authorization: token },
-      }).then((res) => {
-        let _supplierCountries: SupplierCountry[] = res.data;
-        _supplierCountries.forEach((supplier) => {
-          let _supplierCountry = {
-            ...supplierCountries
-          }
-          _supplierCountry.ids.push(supplier.id);
-          _supplierCountry.values.push(supplier.value.toString());
-          _supplierCountry.columns.push(supplier.name);
-          setSupplierCountries(_supplierCountry);
-        });
-      }).catch((err) => {
-        console.log(err);
-      });
+  //     await axios.get(`http://localhost:8000/top_purchased_products`, {
+  //       headers: { authorization: token },
+  //       params: { rows: maxNumberRows }
+  //     }).then((res) => {
+  //       let topPurchasedProducts: TopProduct[] = res.data;
+  //       topPurchasedProducts.forEach((product) => {
+  //         let _topProducts = {
+  //           ...topProducts
+  //         }
+  //         _topProducts.ids.push(product.name);
+  //         _topProducts.values.push([
+  //           product.name,
+  //           product.total_sold,
+  //           product.price
+  //         ]);
+  //         setTopProducts(_topProducts);
+  //       });
+  //     }).catch((err) => {
+  //       console.log(err);
+  //     });
+  //     await axios.get(`http://localhost:8000/supplier_country`, {
+  //       headers: { authorization: token },
+  //     }).then((res) => {
+  //       let _supplierCountries: SupplierCountry[] = res.data;
+  //       _supplierCountries.forEach((supplier) => {
+  //         let _supplierCountry = {
+  //           ...supplierCountries
+  //         }
+  //         _supplierCountry.ids.push(supplier.id);
+  //         _supplierCountry.values.push(supplier.value.toString());
+  //         _supplierCountry.columns.push(supplier.name);
+  //         setSupplierCountries(_supplierCountry);
+  //       });
+  //     }).catch((err) => {
+  //       console.log(err);
+  //     });
 
-    })();
+  //   })();
 
-  }, []);
+  // }, []);
+
+
 
 
   // Frontend
 
+  const columns1 = ["Name", "Sold Units", "Price"];
+  const types1 = ["text", "number", "money"];
+  const values1 = [
+      ["Sashimi", "150", "17.8"],
+      ["Tempura", "121", "18.8"],
+      ["Sushi", "103", "20.0"],
+      ["Robata", "89", "9.2"],
+      ["Robata", "89", "9.2"]
+  ];
+
+  const columns2 = ["Name", "Total Spent", "Orders", "Maximum"];
+  const types2 = ["text", "money", "number", "money"];
+  const valuesTable = [
+    ["Kayuza Lda.", "2124", "5", "809"],
+    ["Kayuza Lda.", "2124", "5", "809"],
+    ["Kayuza Lda.", "2124", "5", "809"],
+    ["Kayuza Lda.", "2124", "5", "809"],
+    ["Kayuza Lda.", "2124", "5", "809"]
+];
+
+  const labels2 = ["Portugal", "Japan"];
+  const valuesChart = ["40", "60"];
+  const ids = ["001", "002", "003", "004", "005"];
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
 
   return (
@@ -178,17 +206,46 @@ const Purchases: React.FC = () => {
                   <div className="tempura"> Tempura</div>
                   <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon" /></label>
                 </div>
-                <div className="right-body">
+                {/* <div className="right-body">
+                  <SingleValueCard type="money" title="Average per Margin Supplier" value={23456} />
+                  <p></p>
+                  <SingleValueCard type="text" title="Largest Margin Supplier" value="vitor" supplierID="1" />
+                  <p></p>
                   <PieChart title="Supplier Countries" labels={supplierCountries.columns} data={supplierCountries.values} />
-                  <p></p>
-                  <LineChart title="Revenue Growth" labels={lables2} data={values2} width={600} />
-                  <p></p>
-                  <LineChart title="Cost of Goods Sold vs Sales Revenue" labels={lables2} data={values2} data2={values3} width={600} />
                   <p></p>
                   <CustomTable title="Top Suppliers" columns={topSuppliers.columns} type={topSuppliers.types} values={topSuppliers.values} drilldown="product" ids={topSuppliers.ids} />
                   <p></p>
-                  <CustomTable title="Top Products" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={topProducts.ids} />
+                  <CustomTable title="Top Purchased Products" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={topProducts.ids} />
+                </div> */}
+                <div className="right-body">
+
+                <div className="purchases-content">
+
+                      <div className="date-selection">
+                          <Button onClick={()=> setShowDatePicker(!showDatePicker)}className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon"/> 
+                              {showDatePicker ? "Hide" : "Date Picker"}
+                          </Button>
+                          {showDatePicker && <Calendar start={new Date()} end={new Date(2021,0,30)}/>} 
+                      </div>
+                <div className = "top-things">
+                  <div className ="left-cards">
+                    <SingleValueCard type="money" title="Average per Margin Supplier" value={23456} />
+                    <p></p>
+                    <SingleValueCard type="text" title="Largest Margin Supplier" value="Vitor Lda." supplierID="1" />
+                    <p></p>
+                  </div>
+                  <div className = "right-chart">
+                    <PieChart title="Supplier Countries" labels={labels2} data={valuesChart} />
+                  <p></p>
+                  </div>
                 </div>
+                <div className = "bottom-things">
+                  <CustomTable title="Top Suppliers" columns={columns2} type={types2} values={valuesTable} drilldown="product" ids={ids} />
+                  <p></p>
+                  <CustomTable title="Top Purchased Products" columns={columns1} type={types1} values={values1} drilldown="product" ids={ids} />
+                </div>
+                </div>
+              </div>
               </div>
             </div>
           </div>
