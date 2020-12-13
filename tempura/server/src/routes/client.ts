@@ -95,24 +95,22 @@ async function total_sales(request: Request, response: Response, next: NextFunct
 }
 
 async function accounts_receivable(request: Request, response: Response, next: NextFunction) {
+    
     // TODO: implement this endpoint
-
     // TODO validar data
-
 
     let user = await getRepository(User).findOne({ where: { id: request.user } });
     if (!user) {
-        response.statusCode = 500;
-        response.send({ error: true, message: "User is missing" });
-        return next();
+        return next(new HttpException(500, "Server Error"));
     }
 
-    let jasminRequest = new JasminRequester(user);
     try {
+        let jasminRequest = new JasminRequester(user);
         let jasminResponse = (await jasminRequest.getAccountsReceivable()).data;
+        const clientID = request.params.id.split('.')[0];
         let value = jasminResponse.reduce(
             (accumulator, accounts_receivable) => {
-                if (accounts_receivable.accountingParty !== request.params.id) return accumulator;
+                if (accounts_receivable.accountingParty !== clientID) return accumulator;
                 const checkStartDate = (!!request.body.start_date && new Date(accounts_receivable.documentDate) >= new Date(request.body.start_date)) || !request.body.start_date;
                 const checkEndDate =   (!!request.body.end_date   && new Date(accounts_receivable.documentDate) <= new Date(request.body.end_date)) || !request.body.end_date;
                     
@@ -124,6 +122,7 @@ async function accounts_receivable(request: Request, response: Response, next: N
             0);
 
         response.statusCode = 200;
+
         response.send({ error: false, data: value });
     } catch (error) {
         return next(new HttpException(500, "Server Error"));
@@ -186,9 +185,9 @@ async function top_products_purchased(request: Request, response: Response, next
     }
 
     finalProducts.sort((obj1: any, obj2: any) => {
-        if (obj1.units > obj2.units) {
+        if (parseFloat(obj1.units) < parseFloat(obj2.units)) {
             return 1;
-        } else if (obj1.units < obj2.units) {
+        } else if (parseFloat(obj1.units) > parseFloat(obj2.units)) {
             return -1;
         }
         return 0;

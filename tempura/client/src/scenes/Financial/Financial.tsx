@@ -22,70 +22,182 @@ interface TokenPayload {
 
 export const Financial: React.FC = () => {
 
+  const jsonBS = {
+    "Assets": {
+        "Non Current Assets": {
+            "Tangible Fixed Assets": "198263",
+            "Investment Properties": "198263",
+            "Goodwill": "198263",
+            "Intangible Assets": "198263",
+            "Biologic Assets": "198263",
+            "Financial Holdings": "198263",
+            "Other Financial Investments": "198263",
+            "Accounts Receivable": "198263",
+            "Deferred Tax Assets": "198263",
+            "Financial Investments": "198263",
+            "Credits and Other Non-Current Assets": "198263",
+            "Sum": "182763"
+        },
+        "Current Assets": {
+            "Inventory": "198263",
+            "Biologic Assets": "198263",
+            "Clients": "198263",
+            "Government and Other Public Entities": "198263",
+            "Subscribed and Unpaid Capital": "198263",
+            "Other Accounts Receivable": "198263",
+            "Deferrals": "198263",
+            "Financial Assets Held for Trading": "198263",
+            "Other Financial Assets": "198263",
+            "Non-Current Assets Held for Sale": "198263",
+            "Other Current Assets": "198263",
+            "Cash and Bank Deposits": "198263",
+            "Sum": "198263",
+
+        },
+        "Total Assets": "12312"
+    },
+    "Liabilities": {
+        "Non Current Liabilities": {
+            "Provisions": "198263",
+            "Financing Obtained": "198263",
+            "Responsibilities for Post-Employment Benefits": "198263",
+            "Deferred Tax Liabilities": "198263",
+            "Accounts Payable": "198263",
+            "Sum": "182763"
+        },
+        "Current Liabilities": {
+            "Suppliers": "198263",
+            "Client Advances": "198263",
+            "Government and Other Public Entities": "198263",
+            "Financing Obtained": "198263",
+            "Other Accounts Payable": "198263",
+            "Deferrals": "198263",
+            "Financial Liabilities Held for Trading": "198263",
+            "Other Financial Liabilities": "198263",
+            "Non-Current Liabilities Held for Sale": "198263",
+            "Other Current Liabilities": "198263",
+            "Sum": "198263",
+
+        },
+        "Total Liabilities": "12312"
+    },
+    "Equity":{
+        "Equity":{
+            "Subscribed Capital": "198263",
+            "Shares": "198263",
+            "Other Equity Instruments": "198263",
+            "Issue Premiums": "198263",
+            "Legal Reserves": "198263",
+            "Other Reserves": "198263",
+            "Transited Results": "198263",
+            "Revaluation Surpluses": "198263",
+            "Adjustments/Other Changes in Equity": "198263",
+            "Net Income for the Period": "198263",
+            "Anticipated Dividends": "198263"
+        },
+        "Total Equity": "12312"  }};
+
+  const jsonILS = {
+    "Sales and Services": "12314",
+    "Operating Subsidies": "12314",
+    "Imputed Gains/Losses of Subsidiaries, Associates and Joint Ventures": "12314",
+    "Variation in Production Inventories": "12314",
+    "Work for Own Entity": "12314",
+    "Cost of Goods Sold and Materials Consumed": "12314",
+    "Supplies and External Services": "12314",
+    "Personnel Expenses": "12314",
+    "Impairment (Losses/Reversals)": "12314",
+    "Impairment/Inventory Adjustments (Losses/Reversals)": "12314",
+    "Impairment of Accounts Receivable (Losses/Reversals)": "12314",
+    "Provisions (Increases/Decreases)": "12314",
+    "Impairment of Non-Depreciable/Amortizable Investments (Losses/Reversals)": "12314",
+    "Other Impairments (Losses/Reversals)": "12314",
+    "Fair Value Increases/Decreases": "12314",
+    "Other Income": "12314",
+    "Other Expenses": "12314",
+    "Income Before Depreciation, Financing Expenses and Taxes": "12314",
+    "Depreciation and Amortization Expenses/Reversals": "12314",
+    "Impairment of Depreciable/Amortizable Investments (Losses/Reversals)": "12314",
+    "Operating Income (Before Financing Expenses and taxes)": "12314",
+    "Interest and Similar Income Obtained": "12314",
+    "Interest and Similar Expenses Incurred": "12314",
+    "Income Before Taxes": "12314",
+    "Tax Over the Period's Income": "12314",
+    "Net Income for the Period": "12314",
+    "Result of Discontinued Activities (Net of Taxes) Included in Net Income for the Period": "12314"
+}
+
   const [showDatePicker, setShowDatePicker] = useState(false);
 
-  const currentassets1 = [
-                  ["Cash","1,235"],
-                  ["Clients","23,000"],
-                  ["Tangible Fixed Assets", "64,390"],
-                  ["Investment Properties","198,000"],
-                  ["Intangible Assets","97,654"],
-                  ["Inventory","32,770"],
-                  ["Sum","32,770"]
-                ];
+  function getCurrentAssetsFromJSON(json_data: any){
+    var currentAssets =  getArrayFromJSON(json_data["Assets"]["Current Assets"]);
+    return currentAssets;
+  }
 
-  const noncurrentassets1 = [
-                  ["Cash","1,235"],
-                  ["Clients","23,000"],
-                  ["Tangible Fixed Assets", "64,390"],
-                  ["Investment Properties","198,000"],
-                  ["Intangible Assets","97,654"],
-                  ["Inventory","32,770"],
-                  ["Sum","32,770"]
-                ];
+  function getNonCurrentAssetsFromJSON(json_data: any){
+    var nonCurrentAssets =  getArrayFromJSON(json_data["Assets"]["Non Current Assets"]);
+    return nonCurrentAssets;
+  }
 
-  const currentliabilities1 = [
-                  ["Suppliers","44,200"],
-                  ["Client Advances","76,500"],
-                  ["Government and Other Public Entities", "90,600"],
-                  ["Financing Obtained","88,500"],
-                  ["Sum","32,770"]
-                ];
+  function getTotalAssetsFromJSON(json_data: any){
+    var totalAssets =  json_data["Assets"]["Total Assets"];
+    return totalAssets;
+  }
 
-  const noncurrentliabilities1 = [
-                  ["Suppliers","44,200"],
-                  ["Client Advances","76,500"],
-                  ["Government and Other Public Entities", "90,600"],
-                  ["Financing Obtained","88,500"],
-                  ["Sum","32,770"]
-                ];
+  function getCurrentLiabilitiesFromJSON(json_data: any){
+    var currentLiabilities =  getArrayFromJSON(json_data["Liabilities"]["Current Liabilities"]);
+    return currentLiabilities;
+  }
 
-  const equity1 = [
-                  ["Subscribed Capital", "198263"],
-                  ["Shares", "198263"],
-                  ["Other Equity Instruments", "198263"],
-                  ["Issue Premiums", "198263"],
-                  ["Legal Reserves", "198263"]
-                ];
+  function getNonCurrentLiabilitiesFromJSON(json_data: any){
+    var nonCurrentLiabilities =  getArrayFromJSON(json_data["Liabilities"]["Non Current Liabilities"]);
+    return nonCurrentLiabilities;
+  }
 
-  const liabilitiesTotal1 = "270,654";
-  const assetsTotal1 = "404,560";
-  const  equityTotal1 = "130,765";
-  const types1 =["text","money"];
+  function getTotalLiabilitiesFromJSON(json_data: any){
+    var totalLiabilities =  json_data["Liabilities"]["Total Liabilities"];
+    return totalLiabilities;
+  }
 
-  const accounts1 =[
-                      ["Personnel expenses","126,567"],
-                      ["Purchases","65,987"],
-                      ["Cost of sold goods","43,249"],
-                      ["Supplies and external services","110,987"],
-                      ["Sales and services provided","87,654"],
-                      ["Income Before Taxes","45,324"],
-                      ["Variation in production inventories","32,654"],
-                      ["Work for own entity","12,345"],
-                      ["Depreciation and amortization expenses","7,094"],
-                      ["Net Income for the Period","92,546"]
+  function getEquityFromJSON(json_data: any){
+    var nonCurrentLiabilities =  getArrayFromJSON(json_data["Equity"]["Equity"]);
+    return nonCurrentLiabilities;
+  }
 
-                  ];
+  function getTotalEquityFromJSON(json_data: any){
+    var totalLiabilities =  json_data["Equity"]["Total Equity"];
+    return totalLiabilities;
+  }
+
+
+  function getArrayFromJSON(json_data: any) {
+    var result =[];
+
+    for(var i in json_data)
+      result.push([i, json_data [i]]);
+
+    return result;
+
+  }
+
+  let infoCurrentAssets = getCurrentAssetsFromJSON(jsonBS);
+  let infoNonCurrentAssets = getNonCurrentAssetsFromJSON(jsonBS);
+  let infoTotalAssets = getTotalAssetsFromJSON(jsonBS);
+
+  let infoCurrentLiabilities = getCurrentLiabilitiesFromJSON(jsonBS);
+  let infoNonCurrentLiabilities = getNonCurrentLiabilitiesFromJSON(jsonBS);
+  let infoTotalLiabilities = getTotalLiabilitiesFromJSON(jsonBS);
+
+  let infoEquity = getEquityFromJSON(jsonBS);
+  let infoTotalEquity = getTotalEquityFromJSON(jsonBS);
+
+  let infoILS = getArrayFromJSON(jsonILS);
+
+ 
+
+  const types =["text","money"];
+
+
 
   const history = useHistory();
 
@@ -132,31 +244,39 @@ export const Financial: React.FC = () => {
         
 
         <div className="row h-100">
+
           <div className="left-side col-md-2">
               <label htmlFor="menu" className="menu-close"><FontAwesomeIcon icon={faTimes} className="toggle-icon"/></label>
               <SideBar coreview="financial"/>
           </div>
+
           <div className="right-side col-md-10 right-financial">
             <div className="toggle-menu">
               <div className="tempura"> Tempura</div>
               <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon"/></label>
             </div>
-            <div className="date-selection">
+            
+            <div className="right-body right-div">
+
+            <div className="financial-content">
+
+              <div className="date-selection date-selection-financial">
                   <Button onClick={()=> setShowDatePicker(!showDatePicker)}className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon"/> 
                     {showDatePicker ? "Hide" : "Date Picker"}
                   </Button>
                   {showDatePicker && <Calendar start={new Date()} end={new Date(2021,0,30)}/>} 
+              </div>
+
+            <div className = "row h-90 row-financial">
+                <div className="tb-bs col-md-6">
+                  <BalanceSheet currentAssets={infoCurrentAssets} nonCurrentAssets={infoNonCurrentAssets} currentLiabilities={infoCurrentLiabilities} nonCurrentLiabilities={infoNonCurrentLiabilities} assetsTotal={infoTotalAssets} liabilitiesTotal={infoTotalLiabilities} equity={infoEquity} equityTotal={infoTotalEquity} types={types}/>
                 </div>
-            <div className="right-body">
-            <div className = "row h-90">
-      <div className="tb1 col-md-6">
-        <BalanceSheet currentAssets={currentassets1} nonCurrentAssets={noncurrentassets1} currentLiabilities={currentliabilities1} nonCurrentLiabilities={noncurrentliabilities1} assetsTotal={assetsTotal1} liabilitiesTotal={liabilitiesTotal1} equity={equity1} equityTotal={equityTotal1} types={types1}/>
-      </div>
-      <div className="tb1 col-md-6">
-        <IncomeLossStatement accounts={accounts1} types={types1}/>
-      </div>
-    </div>
+                <div className="tb-ils col-md-6">
+                  <IncomeLossStatement accounts={infoILS} types={types}/>
+                </div>
             </div>
+            </div>
+          </div>
           </div>
         </div>
       </div>

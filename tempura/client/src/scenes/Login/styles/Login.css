@@ -112,6 +112,11 @@ input:focus, textarea:focus, select:focus{
     outline: none;
 }
 
+.err{
+    font-weight: 600;
+    margin-top: 0.2em;
+    color: var(--red-color);
+}
 
 /* add media queries*/
 @media(max-width:1300px)

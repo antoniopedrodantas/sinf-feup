@@ -1,3 +1,4 @@
+import HttpException from '../exceptions/HttpException';
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
@@ -12,10 +13,11 @@ export default function authMiddleware(request: Request, response: Response, nex
     // checks for auth in request headers
     const { authorization } = request.headers;
 
+
+    console.log(request.headers);
     // fails to get authorization
     if(!authorization){
-        response.status(401);
-        response.json("error: You need to be logged in to access this information.");
+        return next(new HttpException(401, "error: You need to be logged in to access this information."))
     }
 
     if(authorization != null) {
@@ -37,17 +39,16 @@ export default function authMiddleware(request: Request, response: Response, nex
             return next();
     
         } catch(err) {
-            response.status(401);
-            response.json(err).send();
+            return next(new HttpException(401,err))
         }
 
     }
     else {
 
         // authorization is null
-        response.status(401);
-        response.json("error: You need to be logged in to access this information.");
-
+        // response.status(401);
+        // response.json("error: You need to be logged in to access this information.");
+        return next(new HttpException(401, "error: You need to be logged in to access this information."))
     }
 
 }
