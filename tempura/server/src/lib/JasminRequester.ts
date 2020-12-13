@@ -79,6 +79,13 @@ class JasminRequester {
   public getAllSaleOrders = () => this.instance.get<JasminResponse.SaleOrder[]>('/sales/orders');
   
 
+
+  public getMaterialItemKey = (itemKey: string) => {
+    const url = `/materialscore/materialsitems/${itemKey}/extension`;
+    return this.instance.get<JasminResponse.MaterialItemKey>(url);
+  }
+
+
   private _handleRequest = async (config: AxiosRequestConfig) => {
     config.headers["Authorization"] = "Bearer " + await this.getToken();
     config.headers["Content-Type"] = "application/json";

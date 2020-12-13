@@ -95,9 +95,6 @@ async function total_sales(request: Request, response: Response, next: NextFunct
 }
 
 async function accounts_receivable(request: Request, response: Response, next: NextFunction) {
-    
-    // TODO: implement this endpoint
-    // TODO validar data
 
     let user = await getRepository(User).findOne({ where: { id: request.user } });
     if (!user) {
