@@ -70,6 +70,9 @@ const Supplier: React.FC = () => {
         ["Yakisoba", "550"]
     ];
 
+    const ids = ["001", "002", "003", "004", "005"];
+
+
     const [showDatePicker, setShowDatePicker] = useState(false);
 
     return (
@@ -102,7 +105,7 @@ const Supplier: React.FC = () => {
                                 <div className="all-info">
                                     <div className="top-elements">
                                         <DrillInfo title="Supplier Info" fields={titles} values={values}/>
-                                        <CustomTable title="Top Products Sold" columns={columns1} type={types1} values={values1} />
+                                        <CustomTable title="Top Products Sold" columns={columns1} type={types1} values={values1} drilldown="product" ids={ids}/>
                                     </div>
                                     <div className="bot-elements"> 
                                         <SingleValueCard type="money" title="Total Purchases" value={12000}/>

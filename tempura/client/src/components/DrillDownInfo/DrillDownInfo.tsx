@@ -1,21 +1,29 @@
 import React from "react";
 import './styles/DrillDownInfo.css';
-
+import {
+    BrowserRouter as Router,
+    Link
+} from "react-router-dom";
 interface InfoProps{
     title: String;
     fields: String[];
     values: String[];
+    supplierID?: String;
 }
 
-const DrillDownInfo: React.FC<InfoProps> = ({title,fields, values}) => {
+const DrillDownInfo: React.FC<InfoProps> = ({title,fields, values, supplierID}) => {
   
     const retrieveValue = (i: any) =>{
-        if(values[i] != null && values[i] != "")
+        if(values[i] != null && values[i] != "" && fields[i] == "Main Supplier"){
+            return <Link  className="link" to={"/supplier/" + supplierID}>{values[i]}</Link>
+        }
+        else if(values[i] != null && values[i] != "")
             return values[i]
         else
             return <i>no information</i>
     }
 
+    
     return (
         <>
         <div className="info-drill">

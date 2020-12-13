@@ -22,6 +22,11 @@ interface TokenPayload {
 
 const Client: React.FC = () => {
 
+    
+    let pageURL = window.location.href;
+    let clientID = pageURL.substr(pageURL.lastIndexOf('/') + 1);
+    console.log( "Client ID: " + clientID);
+
     const history = useHistory();
 
     // checks for authentication
@@ -70,6 +75,7 @@ const Client: React.FC = () => {
         ["Yakisoba", "550"]
     ];
 
+    const ids = ["001", "002", "003", "004", "005"];
     const [showDatePicker, setShowDatePicker] = useState(false);
 
     return (
@@ -102,7 +108,7 @@ const Client: React.FC = () => {
                                 <div className="all-info">
                                     <div className="top-elements">
                                         <DrillInfo title="Client Info" fields={titles} values={values}/>
-                                        <CustomTable title="Top Products Purchased" columns={columns1} type={types1} values={values1} />
+                                        <CustomTable title="Top Products Purchased" columns={columns1} type={types1} values={values1} drilldown="product" ids={ids}/>
                                     </div>
                                     <div className="bot-elements"> 
                                         <SingleValueCard type="money" title="Total Sales" value={9435}/>
