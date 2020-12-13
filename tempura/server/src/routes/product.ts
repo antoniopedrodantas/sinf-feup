@@ -106,8 +106,6 @@ async function total_units_sold(request: Request, response: Response, next: Next
 }
 
 async function units_in_stock(request: Request, response: Response, next: NextFunction) {
-    // TODO: implement this endpoint
-
     let user = await getRepository(User).findOne({ where: { id: request.user } });
     if (!user) return next(new HttpException(500, "User is missing"));
     const itemKey = request.params.id;
@@ -179,7 +177,7 @@ async function average_purchase_price(request: Request, response: Response, next
 
     response
         .status(200)
-        .send({ average_profit_price: avgPurchasePrice });
+        .send({ average_purchase_price: avgPurchasePrice });
 }
 
 async function average_profit_per_unit(request: Request, response: Response, next: NextFunction) {
