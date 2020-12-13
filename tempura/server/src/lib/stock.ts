@@ -3,6 +3,7 @@ import { User } from "../entity/User";
 import JasminRequester from "./JasminRequester";
 import { getSaftFiles } from "./saft";
 import fs from "fs";
+import { getAvgPurchasePrice, getAvgSalePrice, getTotalUnitsSold } from "./product";
 
 
 
@@ -63,4 +64,45 @@ export async function getAvgSaleQuantity(user: User, startDate: string, endDate:
     }
 
     return sum / counter;
+}
+
+export async function getProductList(user: User, startDate: string, endDate: string) {
+    let jasminRequest = new JasminRequester(user);
+    let jasminResponse = (await jasminRequest.getMaterialItems()).data;
+
+    let productList: ProductListEntry[] = [];
+
+    await Promise.all(jasminResponse.map(async (item) => {
+        const checkStartDate = (!!startDate && new Date(item.createdOn) >= new Date(startDate)) || !startDate;
+        const checkEndDate = (!!endDate && new Date(item.createdOn) <= new Date(endDate)) || !endDate;
+
+        if (!(checkStartDate && checkEndDate)) {
+            return;
+        }
+
+        let productID = item.itemKey;
+
+        let stock: number = 0;
+        item.materialsItemWarehouses.forEach(wharehouse => {
+            stock += wharehouse.stockBalance;
+        });
+
+        let sold = await getTotalUnitsSold(productID, user, startDate, endDate);
+        let avgPurchasePrice = (await getAvgPurchasePrice(productID, user, startDate, endDate)).toFixed(2);
+        let avgSellingPrice = (await getAvgSalePrice(productID, user, startDate, endDate)).toFixed(2);
+
+        let product: ProductListEntry = {
+            barcode: item.barcode,
+            name: productID,
+            stock: stock,
+            sold: sold,
+            avgPurchasePrice: avgPurchasePrice,
+            avgSellingPrice: avgSellingPrice
+        };
+
+        productList.push(product);
+
+    }));
+
+    return productList;
 }
