@@ -114,7 +114,7 @@ const Client: React.FC = () => {
                         console.log(err);
                 });
 
-
+            // TODO: get accounts receivable
 
         })();
 
@@ -140,8 +140,6 @@ const Client: React.FC = () => {
         counter++;
     });
     
-
-    // const ids = ["001", "002", "003", "004", "005"];
     const [showDatePicker, setShowDatePicker] = useState(false);
 
     return (
