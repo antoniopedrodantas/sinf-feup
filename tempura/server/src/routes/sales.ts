@@ -10,19 +10,31 @@ import { ClientRequest } from "http";
 import { getRepository } from "typeorm";
 import { User } from "../entity/User";
 import JasminRequester from "../lib/JasminRequester";
+import { getCostOfGoodsSoldVsSalesRevenue } from "../lib/sales";
 
 const router = express.Router();
 
 
-router.get('/cogs_vs_sales_revenue', authMiddleware, asyncMiddleware(cogs_vs_sr));
+router.post('/cogs_vs_sales_revenue', authMiddleware, asyncMiddleware(cogs_vs_sr));
 router.get('/top_clients', authMiddleware, asyncMiddleware(top_clients));
 router.get('/top_sold_products', authMiddleware, asyncMiddleware(top_sold_products));
 router.get('/average_sale_price', authMiddleware, asyncMiddleware(average_sale_price));
 
 // cost of goods sold vs. sales revenue (chart)
 async function cogs_vs_sr(request: Request, response: Response, next: NextFunction) {
-    // TODO: implement this endpoint
-    response.send('NOT IMPLEMENTED');
+    let user = await getRepository(User).findOne({ where: { id: request.user } });
+    if (!user) {
+        return next(new HttpException(500, "User missing"));
+    }
+
+    const startDate = request.body.start_date;
+    const endDate = request.body.end_date;
+
+    let cogsVsSales = await getCostOfGoodsSoldVsSalesRevenue(user, startDate, endDate);
+
+    response
+        .status(200)
+        .send({ cogs_vs_sr: cogsVsSales })
 }
 
 async function top_clients(request: Request, response: Response, next: NextFunction) {
@@ -48,11 +60,11 @@ async function top_clients(request: Request, response: Response, next: NextFunct
     for (let customerID in customerInvoices) {
         let total = 0;
         let max = 0;
-        
+
         const currInvoices: Array<any> = customerInvoices[customerID];
         currInvoices.forEach(invoiceID => {
             let invoiceTotal = parseFloat(invoices[invoiceID].DocumentTotals.NetTotal);
-            
+
             total += invoiceTotal;
 
             if (invoiceTotal > max) {
@@ -82,7 +94,7 @@ async function top_clients(request: Request, response: Response, next: NextFunct
         .status(200)
         .send({
             clients: topClients
-    });
+        });
 }
 
 async function average_sale_price(request: Request, response: Response, next: NextFunction) {
@@ -110,7 +122,7 @@ async function average_sale_price(request: Request, response: Response, next: Ne
         .status(200)
         .send({
             avg_sale: sum / counter
-    });
+        });
 }
 
 async function top_sold_products(request: Request, response: Response, next: NextFunction) {
@@ -140,7 +152,7 @@ async function top_sold_products(request: Request, response: Response, next: Nex
             })
         });
         let result = Object.values(topProducts).sort((p1, p2) => p2.total_sold - p1.total_sold)
-        let limit = request.query.rows as string; 
+        let limit = request.query.rows as string;
         if (limit) {
             result = result.slice(0, parseInt(limit));
             console.log(result)
@@ -150,7 +162,7 @@ async function top_sold_products(request: Request, response: Response, next: Nex
         return next(error);
     }
 
-    
+
 }
 
 export default router;

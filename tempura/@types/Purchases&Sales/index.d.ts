@@ -18,3 +18,9 @@ type SupplierCountry = {
   name: string,
   value: number,
 }
+
+type COGSvsSR = {
+  date: string,
+  cogs: number,
+  sr: number
+}
