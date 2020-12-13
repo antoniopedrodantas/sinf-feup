@@ -1,5 +1,9 @@
 import React from "react";
 import CSS from 'csstype';
+import {
+    BrowserRouter as Router,
+    Link
+} from "react-router-dom";
 
 import './styles/CustomTable.css';
 
@@ -8,9 +12,11 @@ interface TableProps{
     columns: String[]; 
     type: String[];
     values: String[][];
+    drilldown: String;
+    ids: String[];
 }
 
-const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
+const CustomTable: React.FC<TableProps> = ({title,columns, type, values, drilldown, ids}) => {
 
     const renderType = (i:any) =>{
         switch(type[i]){
@@ -29,13 +35,25 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
         }
     }
 
-    /* previously were all text-center */
     const generateHeaderClassName = (i:any) =>{
         switch(type[i]){
             case 'text': default: return "header-elem text-left";
             case 'money': return "header-elem text-right";
             case 'percentage': return "header-elem text-right";
             case 'number': return "header-elem text-right";
+        }
+    }
+
+    const generateElement = (elem: any, i: any, j: any) =>{
+        if(columns[i] == "Name"){
+            switch(drilldown){
+                case 'product': return <Link  className="link" to={"/product/" + ids[j]}>{elem}</Link>;
+                case 'client': return <Link  className="link" to={"/client/" + ids[j]}>{elem}</Link>;
+                case 'supplier': return <Link  className="link" to={"/supplier/" + ids[j]}>{elem}</Link>;
+            }
+        }
+        else{
+            return elem;
         }
     }
 
@@ -53,12 +71,12 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {values.map((value, i) => {     
+                        {values.map((value, j) => {     
                             return( 
-                            <tr key={i} className={classType}>
+                            <tr key={j} className={classType}>
                             {  
                                 value.map((elem, i) => {     
-                                    return (<td key={i} className={generateClassName(i)}>{elem}{renderType(i)}</td> ) 
+                                    return (<td key={i} className={generateClassName(i)}>{generateElement(elem,i, j)}{renderType(i)}</td> ) 
                                 }) 
                             }
                             </tr>
@@ -73,8 +91,3 @@ const CustomTable: React.FC<TableProps> = ({title,columns, type, values}) => {
 
 export default CustomTable;
 
-/*
-TODO
-- meter scroll vertical quando houver demasiados items
-- adicionar media queries ao cartoes
-*/

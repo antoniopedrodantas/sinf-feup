@@ -6,7 +6,7 @@ import authMiddleware from '../middlewares/authMiddleware';
 
 
 import fs from "fs";
-import { getLineTotal } from "../lib/financial";
+import { getLineTotal, getAssets, getLiabilities, getAccountTotal, getTaxonomyTotal } from "../lib/financial";
 import { getSaftFiles } from "../lib/saft";
 import { TaxAccountingBasis } from "../entity/Saft";
 
@@ -113,55 +113,55 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         // ----------------------------------- gets "Non Current Assets" ------------------------------------
 
         // Tangible Fixed Assets.
-        tangibleFixedAssets = getLineTotal(json,
+        tangibleFixedAssets = getAssets(json,
             ["268","269","270","271","272","273", "274", "306", "310"],
             ["275","276","277","278","279","280","281","282","283","284","285","286","287","288", "314", "318"]
         );
 
         // Investment Properties
-        investmentProperties = getLineTotal(json,
+        investmentProperties = getAssets(json,
             ["259","260","261","305","309"],
             ["262","263","264","265","266","267","313","317"]
         );
 
         // Goodwill
-        goodwill = getLineTotal(json,
+        goodwill = getAssets(json,
             ["217","222","227","289"],
             ["236","237","238","240","245","250","294","299"]
         );
 
         // Intagible Assets
-        intangibleAssets = getLineTotal(json,
+        intangibleAssets = getAssets(json,
             ["290","291","292","293","307","311"],
             ["295","296","297","298","300","301","302","303","315","319"]
         );
 
         // Biological Assets
-        biologicalAssets = getLineTotal(json,
+        biologicalAssets = getAssets(json,
             ["197","198","215"],
             ["200","202"]
         );
 
         // Financial Holdings
-        financialHoldings = getLineTotal(json,
+        financialHoldings = getAssets(json,
             ["216","221","226"],
             ["239","244","249"]
         );
 
         // Other Financial Investments
-        otherFinancialInvestments = getLineTotal(json,
+        otherFinancialInvestments = getAssets(json,
             ["218","219","220","223","224","225","228","229","230","231","232","233","234","304","308"],
             ["235","241","242","243","246","247","248","251","252","253","254","255","256","257","258","312","316"]
         );
 
         // Accounts Receivable
-        accountsReceivable = getLineTotal(json,
+        accountsReceivable = getAssets(json,
             ["62","64", "112","114","125","127","129","139"],
             ["68","70","121","123","141","145"]
         );
 
         // Deferred Tax Assets
-        deferredTaxAssets = getLineTotal(json,
+        deferredTaxAssets = getAssets(json,
             ["133"],
             ["143"]
         );
@@ -177,61 +177,61 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         // ----------------------------------- gets "Current Assets" ------------------------------------
 
         // Inventory
-        inventory = getLineTotal(json,
+        inventory = getAssets(json,
             ["165", "166", "167", "171", "172", "173", "174", "175", "176", "183", "184", "187", "188", "189", "193", "209", "210", "211", "212", "213"],
             ["168", "169", "170", "177", "178", "179", "180", "181", "182", "185", "186", "190", "191", "192", "194"]
         );
 
         // Biological Assets
-        biologicalAssets2 = getLineTotal(json,
+        biologicalAssets2 = getAssets(json,
             ["195", "196", "214"],
             ["199","201"]
         );
 
         // Clients
-        clients = getLineTotal(json,
+        clients = getAssets(json,
             ["10","11","12","13","14","15","16","17","18","19","20","21"],
             ["22","24","25","26","27","28","29","30","31","32","33","34","35","36"]
         );
 
         // Government and Other Public Entities
-        governmentAndOther = getLineTotal(json,
+        governmentAndOther = getAssets(json,
             ["71","73","74","76","77","79","80","81","82","83","84","85"],
             []
         );
 
         // Subscribed and Unpaid Capital
-        subscribedAndUnpaidCapital = getLineTotal(json,
+        subscribedAndUnpaidCapital = getAssets(json,
             ["106","107"],
             ["115","116"]
         );
 
         // Other Accounts Receivable
-        otherAccountsReceivable = getLineTotal(json,
+        otherAccountsReceivable = getAssets(json,
             ["37","38","39","40","41","42","43","44","45","46","47","48","49","50","55","56","61","63","108","109","110","111","113","124","126","128","130","138"],
             ["51","52","65","66","67","69","117","118","119","120","122","140","142","144"]
         );
 
         // Deferrals
-        deferrals = getLineTotal(json,
+        deferrals = getAssets(json,
             ["146"],
             []
         );
 
         // Financial Assets Held for Trading
-        financialAssets = getLineTotal(json,
+        financialAssets = getAssets(json,
             ["4", "6"],
             []
         );
 
         // Other Financial Assets
-        otherFinancialAssets = getLineTotal(json,
+        otherFinancialAssets = getAssets(json,
             ["8"],
             []
         );
 
         // Non-Current Assets Held for Sale
-        nonCurrentAssetsHeldForSale = getLineTotal(json,
+        nonCurrentAssetsHeldForSale = getAssets(json,
             ["320","321","322","323","324"],
             ["326","327","328","329","330"]
         );
@@ -240,7 +240,7 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         otherCurrentAssets = 0;
 
         // Cash and Bank Deposits
-        cashAndBankDeposits = getLineTotal(json,
+        cashAndBankDeposits = getAssets(json,
             ["1", "2", "3"],
             []
         );
@@ -253,31 +253,31 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         // ----------------------------------- gets "Non Current Liabilities" ------------------------------------
 
         // Provisions
-        provisions = getLineTotal(json,
+        provisions = getLiabilities(json,
             ["148","149","150","151","152","153","154","155"],
             []
         );
 
         // Financing Obtained
-        financingObtained = getLineTotal(json,
+        financingObtained = getLiabilities(json,
             ["87","89","91","93","95","97","99","101","103","105"],
             []
         );
 
         // Responsibilities for Post-Employment Benefits
-        responsabilities = getLineTotal(json,
+        responsabilities = getLiabilities(json,
             ["132"],
             []
         );
 
         // Deferred Tax Liabilities
-        deferredTaxLiabilities = getLineTotal(json,
+        deferredTaxLiabilities = getLiabilities(json,
             ["134"],
             []
         );
 
         // Accounts Payable
-        accountsPayable = getLineTotal(json,
+        accountsPayable = getLiabilities(json,
             ["58","60","62","64","114","125","127","136","139"],
             []
         );
@@ -288,55 +288,55 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         // ----------------------------------- gets "Current Liabilities" ------------------------------------
 
         // Suppliers
-        suppliers = getLineTotal(json,
+        suppliers = getLiabilities(json,
             ["37","38","39","40","41","42","43","44","45","46","47","48","49","50"],
             []
         );
 
         // Client Advances
-        clientAdvances = getLineTotal(json,
+        clientAdvances = getLiabilities(json,
             ["10","11","12","13","14","15","16","17","18","19","20","21","22","23","137"],
             []
         );
 
         // Government and Other Public Entities
-        governmentAndOtherPublic = getLineTotal(json,
+        governmentAndOtherPublic = getLiabilities(json,
             ["71","72","75","76","77","78","81","82","83","84","85"],
             []
         );
 
         // Financing Obtained
-        financingObtained2 = getLineTotal(json,
+        financingObtained2 = getLiabilities(json,
             ["2","3","86","88","90","92","94","96","98","100","102","104"],
             []
         );
 
         // Other Accounts Payable
-        otherAccountsPayable = getLineTotal(json,
+        otherAccountsPayable = getLiabilities(json,
             ["53","54","57","59","61","63","109","110","113","124","126","131","135","138"],
             []
         );
 
         // Deferrals
-        deferrals2 = getLineTotal(json,
+        deferrals2 = getLiabilities(json,
             ["147"],
             []
         );
 
         // Financial Liabilities Held for Trading
-        financialLiabilities = getLineTotal(json,
+        financialLiabilities = getLiabilities(json,
             ["5", "7"],
             []
         );
 
         // Other Financial Liabilities
-        otherFinancialLiabilities = getLineTotal(json,
+        otherFinancialLiabilities = getLiabilities(json,
             ["9"],
             []
         );
 
         // Non-Current Liabilities Held for Sale
-        nonCurrentLiabilitiesHeldForSale = getLineTotal(json,
+        nonCurrentLiabilitiesHeldForSale = getLiabilities(json,
             ["325"],
             []
         );
@@ -352,67 +352,67 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         // ----------------------------------- gets "Equity" ------------------------------------
 
         // Subscribed Capital
-        subscribedCapital = getLineTotal(json,
+        subscribedCapital = getLiabilities(json,
             ["331"],
             []
         );
 
         // Shares
-        shares = getLineTotal(json,
-            [],
-            ["332","333"]
+        shares = getLiabilities(json,
+            ["333"],
+            ["332"]
         );
 
         // Other Equity Instruments
-        otherEquityInstruments = getLineTotal(json,
+        otherEquityInstruments = getLiabilities(json,
             ["334"],
             []
         );
 
         // Issue Premiums
-        issuePremiums = getLineTotal(json,
+        issuePremiums = getLiabilities(json,
             ["335"],
             []
         );
 
         // Legal Reserves
-        legalReserves = getLineTotal(json,
+        legalReserves = getLiabilities(json,
             ["336"],
             []
         );
 
         // Other Reserves
-        otherReserves = getLineTotal(json,
+        otherReserves = getLiabilities(json,
             ["337"],
             []
         );
 
         // Transited Results
-        transitedResults = getLineTotal(json,
+        transitedResults = getLiabilities(json,
             ["338"],
             []
         );
 
         // Revaluation Surpluses
-        revaluationSurpluses = getLineTotal(json,
+        revaluationSurpluses = getLiabilities(json,
             ["343","345"],
             ["344","346"]
         );
 
         // Adjustments/Other Changes in Equity
-        adjustments = getLineTotal(json,
-            ["339","340","341","342","347","348","342","351","352"],
+        adjustments = getLiabilities(json,
+            ["339","340","341","342","347","348","349","351","352"],
             ["350"]
         );
 
         // Net Income for the Period
-        netIncome = getLineTotal(json,
+        netIncome = getLiabilities(json,
             ["646"],
             []
         );
 
         // Anticipated Dividends
-        anticipatedDividends = getLineTotal(json,
+        anticipatedDividends = getLiabilities(json,
             [],
             ["647"]
         );
@@ -420,9 +420,15 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
         // Total Equity
         totalEquity = subscribedCapital + shares + otherEquityInstruments + issuePremiums + legalReserves + otherReserves + transitedResults + revaluationSurpluses + adjustments + netIncome + anticipatedDividends; 
 
+
+        // test
+        console.log("Get account total: ", getAccountTotal(json["MasterFiles"]["GeneralLedgerAccounts"]["Accounts"]["11"]));
+        console.log("Get taxonomy total: ", getTaxonomyTotal(json, "1"));
+        console.log("Get line total: ", getLineTotal(json, ["1"], ["2"]));
+
         // SAFT CHECK
-        // const check = totalAssets - (totalEquity + totalLiabilities);
-        // console.log("CHECK RESULTS: ", check);
+        const check = totalAssets - (totalEquity + totalLiabilities);
+        console.log("CHECK RESULTS: ", check);
     });
 
     // ----------------------------------- JSON Response ------------------------------------

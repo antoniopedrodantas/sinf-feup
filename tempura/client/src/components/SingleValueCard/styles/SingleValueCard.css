@@ -26,6 +26,10 @@
   text-overflow: scale;
 }
 
+.link2, .link2:hover{
+  color:var(--red-color);
+}
+
 @media(max-width: 1100px){
   .card{
       margin:0 auto;

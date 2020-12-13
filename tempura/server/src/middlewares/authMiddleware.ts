@@ -27,13 +27,12 @@ export default function authMiddleware(request: Request, response: Response, nex
 
             // gets data from token
             // TODO: change secret and add to a .env file possibly
-            const data = jwt.verify(token, 'secret');
+            const data = jwt.verify(token, process.env.TOKEN_SECRET ?? "secret");
 
             // gets user id from user
             const { id } = data as TokenPayload;
-
-            // TODO: maybe do something with id later on
-
+            
+            request.user = id;
             // goes to next function
             return next();
     
