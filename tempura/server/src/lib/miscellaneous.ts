@@ -74,16 +74,26 @@ export function getTopSellingProducts(bills:any, products:any){
 export function getRevenueGrowth(bills:any, daysArray:any){
 
     let jsonArray: { day: string, revenue_growth: number; }[] = [];
-    let previousIncome = 1;
+    let previousIncome = 0;
+    let counter = 0;
 
     daysArray.forEach((day: any) => {
         
         for(let key in bills){
-
+            
             if(bills[key]["InvoiceDate"] == day){
-                const revenueG = (bills[key]["DocumentTotals"]["NetTotal"] - previousIncome) / previousIncome;
-                jsonArray.push({"day": day, "revenue_growth": revenueG});
-                previousIncome = bills[key]["DocumentTotals"]["NetTotal"];
+                
+                if(counter == 0){
+                    jsonArray.push({"day": day, "revenue_growth": 0});
+                    previousIncome = bills[key]["DocumentTotals"]["NetTotal"];
+                }
+                else{
+                    const revenueG = (bills[key]["DocumentTotals"]["NetTotal"] - previousIncome) / previousIncome;
+                    jsonArray.push({"day": day, "revenue_growth": revenueG});
+                    previousIncome = bills[key]["DocumentTotals"]["NetTotal"];
+                }
+                counter++;
+                
             }
 
         }

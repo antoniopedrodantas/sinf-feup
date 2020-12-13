@@ -48,8 +48,7 @@ const LineChart: React.FC<LineChartProps> = ({title, labels, data, data2, width}
                             scales:{
                                 yAxes:[{
                                     ticks:{
-                                        min: 0,
-                                        beginAtZero: true,
+                                        beginAtZero: false,
                                         fontSize:16,
                                         fontColor:'white'
                                     }

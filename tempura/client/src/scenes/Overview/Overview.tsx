@@ -14,6 +14,8 @@ import LineChart from '../../components/Charts/LineChart';
 import './styles/Overview.css';
 import '../../common.css';
 
+import axios, { AxiosResponse } from 'axios';
+
 
 interface TokenPayload {
   id: string;
@@ -23,35 +25,58 @@ interface TokenPayload {
 
 const Overview: React.FC = () => {
 
+  // overview component
+  const [revenueGrowth, setRevenueGrowth] = useState([
+    {
+        day: '',
+        revenue_growth: 0,
+    }
+  ]);
+
   const history = useHistory();
 
   // checks for authentication
   useEffect(() => {
+    (async () => {
 
-    // gets auth-token from the local storage
-    const token = localStorage.getItem("auth-token");
+      // gets auth-token from the local storage
+      const token = localStorage.getItem("auth-token");
 
-    // token is not null
-    if(token != null){
+      // token is not null
+      if(token != null){
 
-      try{
+        try{
 
-        // gets data from token
-        // TODO: change secret and add to a .env file possibly
-        const data = jwt.verify(token, 'secret');
-        const { id } = data as TokenPayload;
+          // gets data from token
+          // TODO: change secret and add to a .env file possibly
+          const data = jwt.verify(token, 'secret');
+          const { id } = data as TokenPayload;
 
-        // TODO: maybe do something with id later on
-        console.log("User ID: ", id);
+          // TODO: maybe do something with id later on
+          console.log("User ID: ", id);
 
-      } catch(err) {
+        } catch(err) {
+          history.push('/login');
+        }
+
+
+
+      }
+      else{
         history.push('/login');
       }
 
-    }
-    else{
-      history.push('/login');
-    }
+      // gets balance sheet info
+      await axios.get(`http://localhost:8000/revenue_growth?start_date=2020-01-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+              headers: { 'authorization': token },
+            }).then((res) => {
+              setRevenueGrowth(res.data.revenue_growth);
+              console.log(res.data);
+            }).catch((err) => {
+              console.log(err);
+            });
+
+    })();
 
   }, []);
 
@@ -70,8 +95,12 @@ const Overview: React.FC = () => {
 
   const ids = ["001", "002", "003", "004", "005"];
 
-  const labels2 = ["Jan", "Feb", "Mar", "Apr", "May", "June"];
-  const values2 = ["50", "40", "45", "30", "52", "30"];
+  let labels2:Array<any> = [];
+  let values2:Array<any> = [];
+  revenueGrowth.map((revenue) => {
+    labels2.push(revenue.day);
+    values2.push(revenue.revenue_growth);
+  });
 
   return (
     <>
