@@ -14,6 +14,10 @@ import { useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import { Button } from 'react-bootstrap';
 
+import formurlencoded from 'form-urlencoded';
+
+import axios, { AxiosResponse } from 'axios';
+
 interface TokenPayload {
   id: string;
   iat: number;
@@ -25,57 +29,138 @@ const Client: React.FC = () => {
     
     let pageURL = window.location.href;
     let clientID = pageURL.substr(pageURL.lastIndexOf('/') + 1);
-    console.log( "Client ID: " + clientID);
 
     const history = useHistory();
 
+    // json request body
+    const body = {
+        start_date: "2020-01-01 00:00:00",
+        end_date: "2021-01-01 00:00:00"
+    };
+
+    // fields that will make up the web page
+    const [infoResults, setInfoResults] = useState(
+        {
+            name: '',
+            country: '',
+            taxID: '',
+            email: '',
+            phone: '',
+        }
+    );
+    const [totalSales, setTotalSales] = useState(
+        {
+            total_sales: 0,
+        }
+    );
+    const [topProducts, setTopProducts] = useState([
+        {
+            id: '',
+            name: '',
+            units: '',
+        }
+    ]);
+    const [accountsReceivable, setAccountsReceivable] = useState(
+        {
+            error: '',
+            data: 0,
+        }
+    );
+
     // checks for authentication
     useEffect(() => {
+        (async () => {
 
-        // gets auth-token from the local storage
-        const token = localStorage.getItem("auth-token");
+            // gets auth-token from the local storage
+            const token = localStorage.getItem("auth-token");
 
-        // token is not null
-        if(token != null){
+            // token is not null
+            if(token != null){
 
-        try{
+            try{
 
-            // gets data from token
-            // TODO: change secret and add to a .env file possibly
-            const data = jwt.verify(token, 'secret');
+                // gets data from token
+                // TODO: change secret and add to a .env file possibly
+                const data = jwt.verify(token, 'secret');
 
-            // gets user id from user
-            const { id } = data as TokenPayload;
+                // gets user id from user
+                const { id } = data as TokenPayload;
 
-            // TODO: maybe do something with id later on
-            console.log("User ID: ", id);
+                // TODO: maybe do something with id later on
+                // console.log("User ID: ", id);
 
-        } catch(err) {
+            } catch(err) {
+                history.push('/login');
+            }
+
+            }
+            else{
+            // redirects to login
             history.push('/login');
-        }
+            }
 
-        }
-        else{
-        // redirects to login
-        history.push('/login');
-        }
+            // gets client's info
+            await axios.get(`http://localhost:8000/client/${clientID}/info?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+                        headers: { 'authorization': token },
+                    }).then((res) => {
+                        setInfoResults(res.data);
+                    }).catch((err) => {
+                        console.log(err);
+                });
+
+            // gets total sales for that client
+            await axios.get(`http://localhost:8000/client/${clientID}/total_sales?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+                        headers: { 'authorization': token },
+                    }).then((res) => {
+                        setTotalSales(res.data);
+                    }).catch((err) => {
+                        console.log(err);
+                });
+
+            // gets client's top products purchased
+            await axios.get(`http://localhost:8000/client/${clientID}/top_products_purchased?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+                        headers: { 'authorization': token },
+                    }).then((res) => {
+                        setTopProducts(res.data.products);
+                    }).catch((err) => {
+                        console.log(err);
+                });
+
+            // gets accounts receivable
+            await axios.post(`http://localhost:8000/client/${clientID}/accounts_receivable`, {
+                    body: formurlencoded(body)
+                }
+                , { headers: { authorization: token } }
+                    ).then((res) => {
+                        setAccountsReceivable(res.data);
+                    }).catch((err) => {
+                        console.log(err);
+                });
+
+        })();
 
     }, []);
 
-    const titles=["Entity", "Name", "Country", "Tax ID", "Email", "Phone"];
-    const values=["LRLDA", "L. Ribeiro, Lda.", "Portugal", "502607564", "geral@lribeiro.pt", "+351 253 534 890"];
+
+    // values for client info
+    let titles=["ID", "Name", "Country", "Tax ID", "Email", "Phone"];
+    let values=[clientID, infoResults.name, infoResults.country, infoResults.taxID, infoResults.email, infoResults.phone];
 
     const columns1 = ["Name", "Purchased Units"];
     const types1 = ["text", "number"];
-    const values1 = [
-        ["Sushi", "550"],
-        ["Hossomakis", "550"],
-        ["Sashimi", "5150"],
-        ["Yakisoba", "550"],
-        ["Yakisoba", "550"]
-    ];
 
-    const ids = ["001", "002", "003", "004", "005"];
+    // values for top products purchased
+    let counter = 0;
+    let values1:Array<any> = [];
+    let ids:Array<any> = [];
+    topProducts.map((product) => {
+        if(counter < 5){
+            values1.push([product.name, parseInt(product.units)]);
+            ids.push(product.id);
+        }
+        counter++;
+    });
+    
     const [showDatePicker, setShowDatePicker] = useState(false);
 
     return (
@@ -111,8 +196,8 @@ const Client: React.FC = () => {
                                         <CustomTable title="Top Products Purchased" columns={columns1} type={types1} values={values1} drilldown="product" ids={ids}/>
                                     </div>
                                     <div className="bot-elements"> 
-                                        <SingleValueCard type="money" title="Total Sales" value={9435}/>
-                                        <SingleValueCard type="money" title="Accounts Receivable" value={2294}/>
+                                        <SingleValueCard type="money" title="Total Sales" value={totalSales.total_sales}/>
+                                        <SingleValueCard type="money" title="Accounts Receivable" value={accountsReceivable.data}/>
                                     </div>
                                 </div>
                                 
