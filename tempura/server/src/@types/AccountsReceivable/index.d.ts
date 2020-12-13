@@ -174,7 +174,7 @@ declare module JasminResponse {
     version: number[];
     versionByte: string;
     seriesNumber: number;
-    documentDate: Date;
+    documentDate: string;
     postingDate: Date;
     remarks?: any;
     note?: any;

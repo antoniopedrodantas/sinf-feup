@@ -112,21 +112,22 @@ async function accounts_receivable(request: Request, response: Response, next: N
         let jasminResponse = (await jasminRequest.getAccountsReceivable()).data;
         let value = jasminResponse.reduce(
             (accumulator, accounts_receivable) => {
-                if (accounts_receivable.accountingParty === request.params.id) {
+                if (accounts_receivable.accountingParty !== request.params.id) return accumulator;
+                const checkStartDate = (!!request.body.start_date && new Date(accounts_receivable.documentDate) >= new Date(request.body.start_date)) || !request.body.start_date;
+                const checkEndDate =   (!!request.body.end_date   && new Date(accounts_receivable.documentDate) <= new Date(request.body.end_date)) || !request.body.end_date;
+                    
+                if (checkEndDate && checkStartDate) {
                     accumulator += accounts_receivable.grossValue.amount;
                 }
                 return accumulator;
             },
             0);
-        
+
         response.statusCode = 200;
         response.send({ error: false, data: value });
     } catch (error) {
-        return next(new HttpException(500, "Server Error")); 
+        return next(new HttpException(500, "Server Error"));
     }
-
-    
-
 }
 
 async function top_products_purchased(request: Request, response: Response, next: NextFunction) {
@@ -153,7 +154,7 @@ async function top_products_purchased(request: Request, response: Response, next
         }
 
         const customerInvoices: Array<string> = salesInvoices.CustomerInvoice[clientID];
-        
+
         customerInvoices.forEach(invoiceID => {
             if (!salesInvoices.Invoice.hasOwnProperty(invoiceID)) {
                 return;
@@ -170,7 +171,7 @@ async function top_products_purchased(request: Request, response: Response, next
                     // probably need to get the names from jasmin
                     tmpProducts[productID] = {
                         id: productID,
-                        name: productID, 
+                        name: productID,
                         units: line.Quantity
                     };
                 }
@@ -189,7 +190,7 @@ async function top_products_purchased(request: Request, response: Response, next
             return 1;
         } else if (obj1.units < obj2.units) {
             return -1;
-        }    
+        }
         return 0;
     })
 
