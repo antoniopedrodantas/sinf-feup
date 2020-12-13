@@ -40,59 +40,59 @@ const Sales: React.FC = () => {
   );
 
 
-  // // checks for authentication
-  // useEffect(() => {
-  //   (async () => {
+  // checks for authentication
+  useEffect(() => {
+    (async () => {
 
-  //     // gets auth-token from the local storage
-  //     const token = localStorage.getItem("auth-token");
+      // gets auth-token from the local storage
+      const token = localStorage.getItem("auth-token");
 
-  //     // token is not null
-  //     if (token != null) {
+      // token is not null
+      if (token != null) {
 
-  //       try {
+        try {
 
-  //         // gets data from token
-  //         // TODO: change secret and add to a .env file possibly
-  //         const data = jwt.verify(token, 'secret');
+          // gets data from token
+          // TODO: change secret and add to a .env file possibly
+          const data = jwt.verify(token, 'secret');
 
-  //         // gets user id from user
-  //         const { id } = data as TokenPayload;
+          // gets user id from user
+          const { id } = data as TokenPayload;
 
-  //         // TODO: maybe do something with id later on
-  //         console.log("User ID: ", id);
+          // TODO: maybe do something with id later on
+          console.log("User ID: ", id);
 
           
 
-  //       } catch (err) {
-  //         history.push('/login');
-  //       }
+        } catch (err) {
+          history.push('/login');
+        }
 
-  //       await axios.get('http://localhost:8000/top_sold_products', { params: { rows: maxNumberRows }, headers: { authorization: token } })
-  //         .then((res) => {
-  //           let products: TopProduct[] = res.data;
-  //           let _topProducts = {
-  //             ...topProducts
-  //           }
-  //           products.forEach((product) => {
-  //             _topProducts.ids.push(product.name);
-  //             _topProducts.values.push([
-  //               product.name,
-  //               product.total_sold,
-  //               product.price
-  //             ]);
-  //           });
-  //           setTopProducts(_topProducts);
-  //         }).catch((err) => {
-  //           console.log(err);
-  //         });
-  //     }
-  //     else {
-  //       // redirects to login
-  //       history.push('/login');
-  //     }
-  //   })();
-  // }, []);
+        await axios.get('http://localhost:8000/top_sold_products', { params: { rows: maxNumberRows }, headers: { authorization: token } })
+          .then((res) => {
+            let products: TopProduct[] = res.data;
+            let _topProducts = {
+              ...topProducts
+            }
+            products.forEach((product) => {
+              _topProducts.ids.push(product.name);
+              _topProducts.values.push([
+                product.name,
+                product.total_sold,
+                product.price
+              ]);
+            });
+            setTopProducts(_topProducts);
+          }).catch((err) => {
+            console.log(err);
+          });
+      }
+      else {
+        // redirects to login
+        history.push('/login');
+      }
+    })();
+  }, []);
 
   // Frontend
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -143,19 +143,7 @@ const Sales: React.FC = () => {
                   </Button>
                   {showDatePicker && <Calendar start={new Date()} end={new Date(2021,0,30)}/>} 
               </div>
-              {/* <div className = "top-things">
-                <SingleValueCard type="money" title="Total Revenue" value={500309} />
-                <p></p>
-                <SingleValueCard type="money" title="Average Sales Price" value={789} />
-                <p></p>
-                <LineChart title="Cost of Goods Sold vs Sales Revenue" labels={lables2} data={values2} data2={values3} width={600} />
-                <p></p>
-              </div>
-              <div className = "bottom-things">
-                <CustomTable title="Top Clients" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={topProducts.ids} />
-                <p></p>
-                <CustomTable title="Top Selling Products" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={topProducts.ids} />
-              </div> */}
+
               <div className = "top-things">
                 <div className ="left-names">
                   <SingleValueCard type="money" title="Total Revenue" value={500309} />
@@ -171,7 +159,7 @@ const Sales: React.FC = () => {
               <div className = "bottom-things">
                 <CustomTable title="Top Clients" columns={columns2} type={types2} values={valuesTable} drilldown="product" ids={topProducts.ids} />
                 <p></p>
-                <CustomTable title="Top Selling Products" columns={columns1} type={types1} values={values1} drilldown="product" ids={topProducts.ids} />
+                <CustomTable title="Top Selling Products" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={topProducts.ids} />
               </div>
             </div>
           </div>

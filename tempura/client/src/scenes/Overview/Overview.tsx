@@ -25,35 +25,35 @@ const Overview: React.FC = () => {
 
   const history = useHistory();
 
-  // // checks for authentication
-  // useEffect(() => {
+  // checks for authentication
+  useEffect(() => {
 
-  //   // gets auth-token from the local storage
-  //   const token = localStorage.getItem("auth-token");
+    // gets auth-token from the local storage
+    const token = localStorage.getItem("auth-token");
 
-  //   // token is not null
-  //   if(token != null){
+    // token is not null
+    if(token != null){
 
-  //     try{
+      try{
 
-  //       // gets data from token
-  //       // TODO: change secret and add to a .env file possibly
-  //       const data = jwt.verify(token, 'secret');
-  //       const { id } = data as TokenPayload;
+        // gets data from token
+        // TODO: change secret and add to a .env file possibly
+        const data = jwt.verify(token, 'secret');
+        const { id } = data as TokenPayload;
 
-  //       // TODO: maybe do something with id later on
-  //       console.log("User ID: ", id);
+        // TODO: maybe do something with id later on
+        console.log("User ID: ", id);
 
-  //     } catch(err) {
-  //       history.push('/login');
-  //     }
+      } catch(err) {
+        history.push('/login');
+      }
 
-  //   }
-  //   else{
-  //     history.push('/login');
-  //   }
+    }
+    else{
+      history.push('/login');
+    }
 
-  // }, []);
+  }, []);
 
   // Frontend
   const [showDatePicker, setShowDatePicker] = useState(false);
