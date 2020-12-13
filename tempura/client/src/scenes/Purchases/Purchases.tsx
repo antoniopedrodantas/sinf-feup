@@ -231,7 +231,7 @@ const Purchases: React.FC = () => {
                 <div className = "bottom-things">
                   <CustomTable title="Top Suppliers" columns={topSuppliers.columns} type={topSuppliers.types} values={topSuppliers.values} drilldown="supplier" ids={topSuppliers.ids} />
                   <p></p>
-                  <CustomTable title="Top Purchased Products" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={ids} />
+                  <CustomTable title="Top Purchased Products" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={topProducts.ids} />
                 </div>
                 </div>
               </div>
