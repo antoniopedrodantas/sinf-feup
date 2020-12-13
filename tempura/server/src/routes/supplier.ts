@@ -15,7 +15,7 @@ const router = express.Router();
 
 
 router.get('/:id/info', authMiddleware, asyncMiddleware(info));
-router.post('/:id/total_sales', authMiddleware, asyncMiddleware(total_purchases))
+router.post('/:id/total_purchases', authMiddleware, asyncMiddleware(total_purchases))
 router.post('/:id/accounts_payable', authMiddleware, asyncMiddleware(accounts_payable))
 router.post('/:id/top_products_purchased', authMiddleware, asyncMiddleware(top_products_purchased))
 
