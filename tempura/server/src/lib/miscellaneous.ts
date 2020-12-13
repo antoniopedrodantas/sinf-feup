@@ -47,3 +47,26 @@ export function getTopSellingProducts(bills:any, products:any){
     return products;
 
 }
+
+export function getRevenueGrowth(bills:any, daysArray:any){
+
+    let jsonArray: { day: string, revenue_growth: number; }[] = [];
+    let previousIncome = 1;
+
+    daysArray.forEach((day: any) => {
+        
+        for(let key in bills){
+
+            if(bills[key]["InvoiceDate"] == day){
+                const revenueG = (bills[key]["DocumentTotals"]["NetTotal"] - previousIncome) / previousIncome;
+                jsonArray.push({"day": day, "revenue_growth": revenueG});
+                previousIncome = bills[key]["DocumentTotals"]["NetTotal"];
+            }
+
+        }
+
+    });
+
+    return jsonArray;
+
+}
