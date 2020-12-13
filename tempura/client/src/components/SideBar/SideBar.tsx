@@ -8,6 +8,9 @@ import { Redirect } from 'react-router-dom';
 import { id } from 'date-fns/esm/locale';
 const logo =  require("../../assets/logo.svg")
 
+import axios from 'axios';
+import fs from 'fs';
+
 
 interface SideProps {
   coreview: string;
@@ -17,6 +20,38 @@ class SideBar extends Component<SideProps> {
 
   // logout redirect state
   state = { logout: null };
+
+  fileUploadButton = () => {
+
+    // gets auth-token from the local storage
+    const token = localStorage.getItem("auth-token");
+
+    const fileButton = document.getElementById('fileButton') as HTMLInputElement;
+    if(fileButton){
+      fileButton.click();
+      fileButton.onchange = async () =>{      
+        console.log(fileButton.files);
+
+        if(fileButton.files){
+          let data = new FormData();
+          data.append('saft', fileButton.files[0]);
+          
+          // gets total costs
+          await axios.post(`http://localhost:8000/upload`, data, {
+            headers: { 
+              'authorization': token,
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            }).then((res) => {
+              console.log(res);
+            }).catch((err: any) => {
+              console.log(err);
+            });
+        }
+
+      }
+    }
+  }
 
   render() {
     const {coreview} = this.props
@@ -61,10 +96,13 @@ class SideBar extends Component<SideProps> {
     return (
       <>
         <img id="left-logo" src={logo} alt="logo"/>
-        
-        <button className="left-buttons import"> 
-          <span> <span className="import"><FontAwesomeIcon  icon={faFileImport} /></span> <span className="spanText">Import File</span></span>
-        </button>
+
+        <div>
+          <input id="fileButton" type="file" hidden />
+          <button className="left-buttons import" onClick={this.fileUploadButton}>
+            <span> <span className="import"><FontAwesomeIcon  icon={faFileImport} /></span> <span className="spanText">Import File</span></span>
+          </button>
+        </div> 
 
         <nav className="nav-items">
 
