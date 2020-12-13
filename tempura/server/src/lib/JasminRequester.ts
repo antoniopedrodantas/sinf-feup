@@ -72,6 +72,13 @@ class JasminRequester {
 
   public getAccountsReceivable = () => this.instance.get<JasminResponse.AccountsReceivable[]>('/accountsReceivable/receipts');
 
+
+  public getMaterialItemKey = (itemKey: string) => {
+    const url = `/materialscore/materialsitems/${itemKey}/extension`;
+    return this.instance.get<JasminResponse.MaterialItemKey>(url);
+  }
+
+
   private _handleRequest = async (config: AxiosRequestConfig) => {
     config.headers["Authorization"] = "Bearer " + await this.getToken();
     config.headers["Content-Type"] = "application/json";
