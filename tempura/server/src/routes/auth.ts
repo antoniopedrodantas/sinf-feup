@@ -35,12 +35,13 @@ async function login(request: Request, response: Response, next: NextFunction) {
 
         // fails to provide correct password
         if(!isValidPassword){
-        return next(new HttpException(401, "Invalid username or password."));
+            return next(new HttpException(401, "Invalid username or password."));
         }
 
+        let secret = process.env.TOKEN_SECRET ?? 'secret';
+
         // creates token
-        // TODO : change secret and add to a .env file possibly
-        const token = jwt.sign({ id: user.id }, 'secret', { expiresIn: '4h' });
+        const token = jwt.sign({ id: user.id }, secret , { expiresIn: '4h' });
 
         // logs in succesfully
         response.status(200);
