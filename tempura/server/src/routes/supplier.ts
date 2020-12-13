@@ -8,7 +8,7 @@ import { User } from "../entity/User";
 
 import JasminRequester from "../lib/JasminRequester";
 import HttpException from "../exceptions/HttpException";
-import { TopProductEntry } from "@/@types/supplier";
+import { TopProductEntry } from "../@types/supplier";
 
 
 const router = express.Router();
@@ -30,7 +30,7 @@ async function info(request: Request, response: Response, next: NextFunction) {
 
     let jasminRequest = new JasminRequester(user);
     try {
-        let jasminResponse = (await jasminRequest.getSupplierParty(supplierID)).data;
+        let jasminResponse = (await jasminRequest.getSupplierPartyByKey(supplierID)).data;
 
         if (jasminResponse.hasOwnProperty("message")) {
             return next(new HttpException(404, "The supplier was not found"));
