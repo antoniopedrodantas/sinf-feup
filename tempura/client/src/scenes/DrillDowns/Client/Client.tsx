@@ -64,7 +64,7 @@ const Client: React.FC = () => {
     const [accountsReceivable, setAccountsReceivable] = useState(
         {
             error: '',
-            data: '',
+            data: 0,
         }
     );
 
@@ -123,18 +123,19 @@ const Client: React.FC = () => {
                         headers: { 'authorization': token },
                     }).then((res) => {
                         setTopProducts(res.data.products);
-                        console.log(res.data.products);
+                        console.log("ÿoink",res.data.products);
                     }).catch((err) => {
                         console.log(err);
                 });
 
             // gets accounts receivable
             await axios.post(`http://localhost:8000/client/${clientID}/accounts_receivable`, {
-                        headers: { 'authorization': token },
-                        body: formurlencoded(body)
-                    }).then((res) => {
+                    body: formurlencoded(body)
+                }
+                , { headers: { authorization: token } }
+                    ).then((res) => {
                         setAccountsReceivable(res.data);
-                        console.log(res.data);
+                        console.log(accountsReceivable);
                     }).catch((err) => {
                         console.log(err);
                 });
@@ -199,7 +200,7 @@ const Client: React.FC = () => {
                                     </div>
                                     <div className="bot-elements"> 
                                         <SingleValueCard type="money" title="Total Sales" value={totalSales.total_sales}/>
-                                        <SingleValueCard type="money" title="Accounts Receivable" value={2294}/>
+                                        <SingleValueCard type="money" title="Accounts Receivable" value={accountsReceivable.data}/>
                                     </div>
                                 </div>
                                 
