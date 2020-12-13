@@ -15,6 +15,8 @@ import './styles/Overview.css';
 import '../../common.css';
 
 import axios, { AxiosResponse } from 'axios';
+import formurlencoded from 'form-urlencoded';
+import qs from 'qs';
 
 
 interface TokenPayload {
@@ -25,11 +27,47 @@ interface TokenPayload {
 
 const Overview: React.FC = () => {
 
+  // json request body
+  const body = {
+    start_date: "2020-01-02 00:00:00",
+    end_date: "2021-01-01 00:00:00"
+  };
+  const body2 = {
+    start_date: "2018-12-31 00:00:00",
+    end_date: "2020-01-01 00:00:00"
+  };
+
   // overview component
   const [revenueGrowth, setRevenueGrowth] = useState([
     {
         day: '',
         revenue_growth: 0,
+    }
+  ]);
+  const [totalProfit, setTotalProfit] = useState(
+    {
+      total_profit: 0,
+    }
+  );
+  const [totalRevenue, setTotalRevenue] = useState(
+    {
+      revenue: 0,
+    }
+  );
+  const [liquidity, setLiquidity] = useState(
+    {
+      liquidity: 0,
+    }
+  );
+  const [totalCosts, setTotalCosts] = useState(
+    {
+      total_costs: 0,
+    }
+  );
+  const [topSellingProducts, setTopSellingProducts] = useState([
+    {
+      name: '',
+      quantity: 0
     }
   ]);
 
@@ -66,15 +104,75 @@ const Overview: React.FC = () => {
         history.push('/login');
       }
 
-      // gets balance sheet info
+      // gets revenue_growth
       await axios.get(`http://localhost:8000/revenue_growth?start_date=2020-01-02 00:00:00&end_date=2021-01-01 00:00:00`, {
               headers: { 'authorization': token },
-            }).then((res) => {
+            }).then((res: { data: { revenue_growth: React.SetStateAction<{ day: string; revenue_growth: number; }[]>; }; }) => {
               setRevenueGrowth(res.data.revenue_growth);
-              console.log(res.data);
-            }).catch((err) => {
+            }).catch((err: any) => {
               console.log(err);
             });
+
+      // gets total profit
+      await axios.post(`http://localhost:8000/total_profit`, formurlencoded(body), {
+              headers: { 
+                'authorization': token,
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+            }).then((res) => {
+              setTotalProfit(res.data);
+            }).catch((err: any) => {
+              console.log(err);
+            });
+      
+
+      // gets total revenue
+      await axios.post(`http://localhost:8000/total_revenue`, formurlencoded(body), {
+              headers: { 
+                'authorization': token,
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+            }).then((res) => {
+              setTotalRevenue(res.data);
+            }).catch((err: any) => {
+              console.log(err);
+            });
+
+          
+      // gets liquidity
+      await axios.post(`http://localhost:8000/liquidity`, formurlencoded(body2), {
+              headers: { 
+                'authorization': token,
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+            }).then((res) => {
+              setLiquidity(res.data);
+            }).catch((err: any) => {
+              console.log(err);
+            });
+
+      // gets total costs
+      await axios.post(`http://localhost:8000/total_costs`, formurlencoded(body), {
+              headers: { 
+                'authorization': token,
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+            }).then((res) => {
+              setTotalCosts(res.data);
+            }).catch((err: any) => {
+              console.log(err);
+            });
+
+      // gets top selling products
+      await axios.get(`http://localhost:8000/top_selling_products?start_date=2020-01-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+              headers: { 'authorization': token },
+            }).then((res) => {
+              setTopSellingProducts(res.data.products);
+            }).catch((err: any) => {
+              console.log(err);
+            });
+
+    
 
     })();
 
@@ -83,17 +181,29 @@ const Overview: React.FC = () => {
   // Frontend
   const [showDatePicker, setShowDatePicker] = useState(false);
 
-  const columns1 = ["Name", "Sold Units", "Price"];
-  const types1 = ["text", "number", "money"];
-  const values1 = [
-      ["Sashimi", "150", "17.8"],
-      ["Tempura", "121", "18.8"],
-      ["Sushi", "103", "20.0"],
-      ["Robata", "89", "9.2"],
-      ["Robata", "89", "9.2"]
-  ];
+  // const columns1 = ["Name", "Sold Units", "Price"];
+  // const types1 = ["text", "number", "money"];
+  // const values1 = [
+  //     ["Sashimi", "150", "17.8"],
+  //     ["Tempura", "121", "18.8"],
+  //     ["Sushi", "103", "20.0"],
+  //     ["Robata", "89", "9.2"],
+  //     ["Robata", "89", "9.2"]
+  // ];
+  const columns1 = ["Name", "Sold Units"]
+  const types1 = ["text", "number"];
+  let values1:Array<any> = [];
+  let ids:Array<any> = [];
+  let counter = 0;
+  topSellingProducts.map((product) => {
+    if(counter < 5){
+      values1.push([product.name, product.quantity]);
+      ids.push(product.name);
+    }
+    counter++;
+  });
 
-  const ids = ["001", "002", "003", "004", "005"];
+  // const ids = ["001", "002", "003", "004", "005"];
 
   let labels2:Array<any> = [];
   let values2:Array<any> = [];
@@ -133,12 +243,12 @@ const Overview: React.FC = () => {
               
                 <div className="frame-top">
                   <div className="left-frame-top">
-                    <SingleValueCard type="money" title="Total Profit" value={352100}/>
-                    <SingleValueCard type="percentage" title="Liquidity" value={67.3}/>
+                    <SingleValueCard type="money" title="Total Profit" value={totalProfit.total_profit}/>
+                    <SingleValueCard type="percentage" title="Liquidity" value={liquidity.liquidity}/>
                   </div>
                   <div className="mid-frame-top">
-                    <SingleValueCard type="money" title="Total Revenue" value={500309}/>
-                    <SingleValueCard type="money" title="Total Costs" value={148209}/>
+                    <SingleValueCard type="money" title="Total Revenue" value={totalRevenue.revenue}/>
+                    <SingleValueCard type="money" title="Total Costs" value={totalCosts.total_costs}/>
                   </div>
                   <div className="top-selling">
                     <CustomTable title="Top Selling Products" columns={columns1} type={types1} values={values1} drilldown="product" ids={ids}/>
