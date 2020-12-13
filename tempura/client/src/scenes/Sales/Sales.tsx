@@ -63,19 +63,19 @@ const Sales: React.FC = () => {
 
         await axios.get('http://localhost:8000/top_sold_products', { params: { rows: maxNumberRows }, headers: { authorization: token } })
           .then((res) => {
-            let suppliers: TopProduct[] = res.data;
-            let tmpTopProducts = {
+            let products: TopProduct[] = res.data;
+            let _topProducts = {
               ...topProducts
             }
-            suppliers.forEach((supplier) => {
-              tmpTopProducts.ids.push(supplier.id);
-              tmpTopProducts.values.push([
-                supplier.name,
-                supplier.total_sold,
-                supplier.price
+            products.forEach((product) => {
+              _topProducts.ids.push(product.name);
+              _topProducts.values.push([
+                product.name,
+                product.total_sold,
+                product.price
               ]);
             });
-            setTopProducts(tmpTopProducts);
+            setTopProducts(_topProducts);
           }).catch((err) => {
             console.log(err);
           });

@@ -97,17 +97,17 @@ const Purchases: React.FC = () => {
       }).then((res) => {
         let suppliers: TopSupplier[] = res.data;
         suppliers.forEach((supplier) => {
-          let tmpTopSuppliers = {
+          let _topSuppliers = {
             ...topSuppliers
           }
-          tmpTopSuppliers.ids.push(supplier.id);
-          tmpTopSuppliers.values.push([
+          _topSuppliers.ids.push(supplier.name);
+          _topSuppliers.values.push([
             supplier.name,
             supplier.total_spent,
             supplier.numOrders,
             supplier.max_spent
           ]);
-          setTopSuppliers(tmpTopSuppliers);
+          setTopSuppliers(_topSuppliers);
         });
       }).catch((err) => {
         console.log(err);
@@ -118,24 +118,23 @@ const Purchases: React.FC = () => {
         params: { rows: maxNumberRows }
       }).then((res) => {
         let topPurchasedProducts: TopProduct[] = res.data;
-        topPurchasedProducts.forEach((supplier) => {
-          let tmpTopProducts = {
+        topPurchasedProducts.forEach((product) => {
+          let _topProducts = {
             ...topProducts
           }
-          tmpTopProducts.ids.push(supplier.id);
-          tmpTopProducts.values.push([
-            supplier.name,
-            supplier.total_sold,
-            supplier.price
+          _topProducts.ids.push(product.name);
+          _topProducts.values.push([
+            product.name,
+            product.total_sold,
+            product.price
           ]);
-          setTopProducts(tmpTopProducts);
+          setTopProducts(_topProducts);
         });
       }).catch((err) => {
         console.log(err);
       });
       await axios.get(`http://localhost:8000/supplier_country`, {
         headers: { authorization: token },
-        // params: { rows: maxNumberRows }
       }).then((res) => {
         let _supplierCountries: SupplierCountry[] = res.data;
         _supplierCountries.forEach((supplier) => {
