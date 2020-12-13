@@ -43,7 +43,7 @@
 
 .right-chart > .pie-chart {
     width: 100%;
-    height: 85%;
+    height: 90%; 
     margin-top: 1em;
 }
 
@@ -112,7 +112,7 @@
 
 @media(max-width:500px){
     .left-cards > .card > .card-title{
-        font-size: 1em;
+        font-size: 1.5em;
     }
 
     .purchases-content{
