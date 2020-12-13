@@ -12,3 +12,9 @@ type TopProduct = {
   price: number,
   id: string
 }
+
+type SupplierCountry = {
+  id: string,
+  name: string,
+  value: number,
+}
