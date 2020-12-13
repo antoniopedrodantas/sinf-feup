@@ -14,10 +14,10 @@ interface InfoProps{
 const DrillDownInfo: React.FC<InfoProps> = ({title,fields, values, supplierID}) => {
   
     const retrieveValue = (i: any) =>{
-        if(values[i] != null && values[i] != "" && fields[i] == "Main Supplier"){
+        if(values[i] != null && values[i] != "" && fields[i] == "Main Supplier" && values[i] != "no information"){
             return <Link  className="link" to={"/supplier/" + supplierID}>{values[i]}</Link>
         }
-        else if(values[i] != null && values[i] != "")
+        else if(values[i] != null && values[i] != "" && values[i] != "no information")
             return values[i]
         else
             return <i>no information</i>

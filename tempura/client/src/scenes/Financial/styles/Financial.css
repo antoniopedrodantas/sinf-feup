@@ -4,22 +4,250 @@
     background-color: orange;
 } */
 
+.bs-title{
+    padding-top: 0.5em;
+}
+
+.ils-title {
+    padding-top: 0.5em;
+}
+
 .right-financial{
-    width: 75vw;
-    height: 95vh;
+    width: 75vw !important;
+    height: 100vh;
+}
+
+.financial-content{
+    padding-left: 3em;
+    padding-right: 3em;
+    /* overflow: hidden; */
 }
 
 .tb1 {
     width: 100vw;
     height: 100vh;
+    padding-right: 0.5em;
 }
 
 .balance-sheet-div {
-    width: 40vw;
-    height: 85vh;
+    width: 35vw;
+    height: 90vh;
+    padding-right: 15px;
 }
 
 .income-loss-div {
-    width: 40vw;
-    height: 85vh;
+    width: 35vw;
+    height: 90vh;
+    /* padding-right: 15px; */
+    padding-left: 1em !important;
+}
+
+.tb-ils {
+    padding-left: 3em !important;
+}
+
+@media(max-width: 1300px){
+    .financial-content{
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+
+    .tb-ils {
+        padding-left: 2em !important;
+    }
+
+    .balance-sheet-div {
+        width: 38vw;
+    }
+    
+    .income-loss-div {
+        width: 38vw;
+    }
+}
+
+@media(max-width: 1030px){
+    .tb-ils {
+        padding-left: 1.5em !important;
+    }
+}
+
+
+@media(max-width: 966px){
+
+    .balance-sheet-div {
+        width: 38vw;
+    }
+
+    .income-loss-div {
+        width: 38vw;
+    }
+
+    .tb-ils {
+        padding-left: 1em !important;
+    }
+
+}
+
+@media(max-width: 768px){
+    .balance-sheet-div {
+        width: 85vw;
+        height: 55vh;
+        align-self: center;
+        padding-top: 1em;
+        padding-bottom: 1em;
+    }
+
+    .income-loss-div {
+        width: 85vw;
+        height: 55vh;
+        align-self: center;
+        padding-top: 1em;
+        padding-bottom: 1em;
+    }
+
+    .tb-bs {
+        width: 85vw !important;
+        align-self: center;
+        padding-left: 4vw !important;
+        padding-top: 3em;
+        padding-bottom: 1em;
+    }
+
+    .tb-ils {
+        width: 85vw !important;
+        align-self: center;
+        padding-left: 4vw !important;
+        padding-top: 1em;
+        padding-bottom: 1em;
+    }
+
+    .date-selection-financial {
+        margin-bottom: 0;
+    }
+
+    .components-fin {
+        height: 120vh !important;
+    }
+
+    .row-financial {
+        height: 130vh !important;
+    }
+}
+
+@media(max-width: 525px){
+    .right-financial{
+        overflow-y: scroll;
+    }
+
+    .balance-sheet-div {
+        width: 90vw;
+    }
+
+    .income-loss-div {
+        width: 90vw;
+    }
+
+    .tb-bs {
+        width: 90vw !important;
+        align-self: center;
+        padding-left: 0 !important;
+    }
+
+    .tb-ils {
+        width: 90vw !important;
+        align-self: center;
+        padding-left: 0 !important;
+    }
+
+    .financial-content {
+        padding-left: 0.3em !important;
+        padding-right: 0.3em !important;
+        overflow-y: scroll;
+    }
+
+    .bs-title{
+        font-size: 1.5em;
+        padding-top: 0em;
+    }
+
+    .general-title{
+        font-size: 1.2em;
+        margin-bottom: 0;
+    }
+
+    .ils-title {
+        font-size: 1.5em;
+        padding-top: 0;
+        padding-left: 0.3em;
+    }
+
+    .right-div {
+        overflow-y: scroll;
+    }
+
+    .row-financial {
+        height: 130vh !important;
+    }
+
+}
+
+@media(max-width: 400px){
+    .bs-title{
+        font-size: 1.5em;
+        padding-top: 0em;
+    }
+
+    .general-title{
+        font-size: 1.2em;
+        margin-bottom: 0;
+    }
+
+    .ils-title {
+        font-size: 1.5em;
+        padding-top: 0;
+        padding-left: 0.3em;
+    }
+
+    .balance-sheet-div {
+        padding-top: 0.7em;
+        width: 89vw;
+    }
+
+    .income-loss-div {
+        width: 89vw;
+    }
+
+    .tb-bs {
+        width: 86vw !important;
+        align-self: center;
+        padding-left: 0vw !important;
+    }
+
+    .tb-ils {
+        width: 86vw !important;
+        align-self: center;
+        padding-left: 0vw !important;
+    }
+
+    .date-selection-financial {
+        padding-right: 0; 
+        padding-left: 0;
+    }
+
+    .right-div{
+        height:130vh;
+        overflow-y: scroll;
+    }
+
+    .financial-content {
+        height: 130vh;
+        padding-left: 0.3em !important;
+        padding-right: 0.3em !important;
+    }
+
+    .row-financial {
+        height: 130vh !important;
+    }
+
+
 }
