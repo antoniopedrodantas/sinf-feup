@@ -6,7 +6,7 @@ import HttpException from "../exceptions/HttpException";
 import { getSaftFiles } from "../lib/saft";
 import fs from "fs";
 import { TaxAccountingBasis } from "../entity/Saft";
-import { getUnitsSold, getUnitsSoldPerDay, getAvgPurchasePrice, getAvgSalePrice } from "../lib/product";
+import { getUnitsSold, getUnitsSoldPerDay, getAvgPurchasePrice, getAvgSalePrice, getTotalUnitsSold } from "../lib/product";
 
 import authMiddleware from "../middlewares/authMiddleware";
 import asyncMiddleware from "../middlewares/asyncMiddleware";
@@ -16,7 +16,7 @@ const router = express.Router();
 
 
 router.get('/:id/info', authMiddleware, asyncMiddleware(info));
-router.get('/:id/total_units_sold', authMiddleware, asyncMiddleware(total_units_sold));
+router.post('/:id/total_units_sold', authMiddleware, asyncMiddleware(total_units_sold));
 router.get('/:id/units_in_stock', authMiddleware, asyncMiddleware(units_in_stock));
 router.post('/:id/average_sale_price', authMiddleware, asyncMiddleware(average_sale_price));
 router.post('/:id/average_purchase_price', authMiddleware, asyncMiddleware(average_purchase_price));
@@ -71,37 +71,22 @@ async function info(request: Request, response: Response, next: NextFunction) {
 }
 
 async function total_units_sold(request: Request, response: Response, next: NextFunction) {
-    
+    let user = await getRepository(User).findOne({ where: { id: request.user } });
+    if (!user) {
+        return next(new HttpException(500, "User missing"));
+    }
+
     // gets params
     const productID = request.params.id;
-    const start = request.query.start_date;
-    const end = request.query.end_date;
+    const startDate = request.body.start_date;
+    const endDate = request.body.end_date;
 
-    // TODO: add user parameter to query
-    const safts = await getSaftFiles(TaxAccountingBasis.BILLING, start, end);
-
-    if (safts.length == 0) {
-        // TODO: add descriptive error message and status code
-        return next(new HttpException(500, "Internal server error."))
-    }
-
-    // TODO: getting the first saft of the list is temporary
-    const products = JSON.parse(fs.readFileSync(safts[0].path).toString())["MasterFiles"]["Product"];
-
-    if (!products.hasOwnProperty(productID)) {
-        // TODO: add descriptive error message and status code
-        return next(new HttpException(500, "Client with specified id not found."))
-    }
-    
-    // gets the sold units
-    const invoices = JSON.parse(fs.readFileSync(safts[0].path).toString())["SourceDocuments"]["SalesInvoices"]["Invoice"];
-    const productInvoice = JSON.parse(fs.readFileSync(safts[0].path).toString())["SourceDocuments"]["SalesInvoices"]["ProductInvoice"][productID];
-    const totalUnitsSold = getUnitsSold(invoices, productInvoice);
+    let totalUnitsSold = await getTotalUnitsSold(productID, user, startDate, endDate);
 
     response
         .status(200)
         .send({
-            "units": totalUnitsSold,
+            units: totalUnitsSold,
         });
 }
 

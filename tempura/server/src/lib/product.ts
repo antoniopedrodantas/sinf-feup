@@ -102,6 +102,30 @@ function getQuantityWithDate(lines: Array<any>, billLine: any) {
     return quantityAcc;
 }
 
+export async function getTotalUnitsSold(productID: string, user: User, startDate: string, endDate: string) {
+
+    const safts = await getSaftFiles(TaxAccountingBasis.BILLING, startDate, endDate);
+
+    if (safts.length == 0) {
+        return 0;
+    }
+
+    // TODO: getting the first saft of the list is temporary
+    const json = JSON.parse(fs.readFileSync(safts[0].path).toString());
+    const products = json["MasterFiles"]["Product"];
+
+    if (!products.hasOwnProperty(productID)) {
+        return 0;
+    }
+    
+    // gets the sold units
+    const invoices = json["SourceDocuments"]["SalesInvoices"]["Invoice"];
+    const productInvoice = json["SourceDocuments"]["SalesInvoices"]["ProductInvoice"][productID];
+    const totalUnitsSold = getUnitsSold(invoices, productInvoice);
+
+    return totalUnitsSold;
+}
+
 export async function getAvgSalePrice(productID: string, user: User, startDate: string, endDate: string) {
     // TODO: add user to this query
     const safts = await getSaftFiles(TaxAccountingBasis.BILLING, startDate, endDate);

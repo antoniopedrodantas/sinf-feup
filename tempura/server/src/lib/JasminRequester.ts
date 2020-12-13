@@ -77,7 +77,7 @@ class JasminRequester {
   public getSupplierParty = () => this.instance.get<JasminResponse.SupplierParty[]>("/purchasesCore/supplierParties/extension")
   public getAllPurchaseOrders = () => this.instance.get<JasminResponse.PurchaseOrder[]>('/purchases/orders');
   public getAllSaleOrders = () => this.instance.get<JasminResponse.SaleOrder[]>('/sales/orders');
-  
+  public getMaterialItems = () => this.instance.get<JasminResponse.MaterialItems[]>('materialscore/materialsitems');
 
 
   public getMaterialItemKey = (itemKey: string) => {
