@@ -172,6 +172,14 @@
 
 @media(max-width:620px){
 
+    .main-info-product {
+        width: 82vw !important;
+    }
+
+    .single-card-col{
+        width: 82vw !important;
+    }
+
     .single-card-col > .card > .card-value {
         width: 100%;
         font-size: 2em;
