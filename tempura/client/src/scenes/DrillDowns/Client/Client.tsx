@@ -14,6 +14,8 @@ import { useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import { Button } from 'react-bootstrap';
 
+import formurlencoded from 'form-urlencoded';
+
 import axios, { AxiosResponse } from 'axios';
 
 interface TokenPayload {
@@ -30,6 +32,12 @@ const Client: React.FC = () => {
     console.log( "Client ID: " + clientID);
 
     const history = useHistory();
+
+    // json request body
+    const body = {
+        start_date: "2020-01-01 00:00:00",
+        end_date: "2021-01-01 00:00:00"
+    };
 
     // fields that will make up the web page
     const [infoResults, setInfoResults] = useState(
@@ -52,7 +60,13 @@ const Client: React.FC = () => {
             name: '',
             units: '',
         }
-    ])
+    ]);
+    const [accountsReceivable, setAccountsReceivable] = useState(
+        {
+            error: '',
+            data: '',
+        }
+    );
 
     // checks for authentication
     useEffect(() => {
@@ -114,7 +128,16 @@ const Client: React.FC = () => {
                         console.log(err);
                 });
 
-            // TODO: get accounts receivable
+            // gets accounts receivable
+            await axios.post(`http://localhost:8000/client/${clientID}/accounts_receivable`, {
+                        headers: { 'authorization': token },
+                        body: formurlencoded(body)
+                    }).then((res) => {
+                        setAccountsReceivable(res.data);
+                        console.log(res.data);
+                    }).catch((err) => {
+                        console.log(err);
+                });
 
         })();
 

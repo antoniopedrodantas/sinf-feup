@@ -95,24 +95,23 @@ async function total_sales(request: Request, response: Response, next: NextFunct
 }
 
 async function accounts_receivable(request: Request, response: Response, next: NextFunction) {
+    
     // TODO: implement this endpoint
-
     // TODO validar data
-
 
     let user = await getRepository(User).findOne({ where: { id: request.user } });
     if (!user) {
-        response.statusCode = 500;
-        response.send({ error: true, message: "User is missing" });
-        return next();
+        return next(new HttpException(500, "Server Error"));
     }
 
-    let jasminRequest = new JasminRequester(user);
     try {
+        let jasminRequest = new JasminRequester(user);
         let jasminResponse = (await jasminRequest.getAccountsReceivable()).data;
+        const clientID = request.params.id.split('.')[0];
+        console.log("HEREEEE: ", clientID);
         let value = jasminResponse.reduce(
             (accumulator, accounts_receivable) => {
-                if (accounts_receivable.accountingParty !== request.params.id) return accumulator;
+                if (accounts_receivable.accountingParty !== clientID) return accumulator;
                 const checkStartDate = (!!request.body.start_date && new Date(accounts_receivable.documentDate) >= new Date(request.body.start_date)) || !request.body.start_date;
                 const checkEndDate =   (!!request.body.end_date   && new Date(accounts_receivable.documentDate) <= new Date(request.body.end_date)) || !request.body.end_date;
                     
