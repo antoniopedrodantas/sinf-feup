@@ -7,45 +7,41 @@ import { getSaftFiles } from "../lib/saft";
 import { TaxAccountingBasis } from "../entity/Saft";
 import HttpException from "../exceptions/HttpException";
 import fs from "fs";
-import { getRevenueTotal, getAllProducts, getTopSellingProducts, getRevenueGrowth } from "../lib/miscellaneous";
+import { getRevenueTotal, getAllProducts, getTopSellingProducts, getRevenueGrowth, getTotalRevenue } from "../lib/miscellaneous";
 import { json } from "body-parser";
+import { getRepository } from "typeorm";
+import { User } from "../entity/User";
 
 const router = express.Router();
 
 
-router.get('/total_profit', authMiddleware, asyncMiddleware(total_profit));
-router.get('/total_revenue', authMiddleware, asyncMiddleware(total_revenue));
+
+router.post('/total_revenue', authMiddleware, asyncMiddleware(total_revenue));
 router.get('/revenue_growth', authMiddleware, asyncMiddleware(revenue_growth));
 router.get('/top_selling_products', authMiddleware, asyncMiddleware(top_selling_products));
 
 
-function total_profit(request: Request, response: Response, next: NextFunction) {
-    // TODO: implement this endpoint
-    response.send('NOT IMPLEMENTED');
-}
 
 async function total_revenue(request: Request, response: Response, next: NextFunction) {
-
-    const start = request.query.start_date;
-    const end = request.query.end_date;
-
-    // TODO: add user parameter to query
-    const safts = await getSaftFiles(TaxAccountingBasis.BILLING, start, end);
-
-    if (safts.length == 0) {
-        // TODO: add descriptive error message and status code
-        return next(new HttpException(500, "Internal server error."))
+    let user = await getRepository(User).findOne({ where: { id: request.user } });
+    if (!user) {
+        return next(new HttpException(500, "User missing"));
     }
 
-    // TODO: getting the first saft of the list is temporary
-    const bills = JSON.parse(fs.readFileSync(safts[0].path).toString())["SourceDocuments"]["SalesInvoices"]["Invoice"];
+    const startDate = request.body.start_date;
+    const endDate = request.body.end_date;
 
-    const revenueTotal = getRevenueTotal(bills);
+    let totalRevenue;
+    try {
+        totalRevenue = await getTotalRevenue(user, startDate, endDate);
+    } catch (error) {
+        return next(error);
+    }
 
     response
         .status(200)
         .send({
-            "profit": revenueTotal,
+            revenue: totalRevenue,
         });
 }
 
