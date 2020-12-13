@@ -16,7 +16,7 @@ const router = express.Router();
 
 router.get('/cogs_vs_sales_revenue', authMiddleware, asyncMiddleware(cogs_vs_sr));
 router.get('/top_clients', authMiddleware, asyncMiddleware(top_clients));
-router.get('/top_sale_products', authMiddleware, asyncMiddleware(top_sale_products));
+router.get('/top_sold_products', authMiddleware, asyncMiddleware(top_sold_products));
 router.get('/average_sale_price', authMiddleware, asyncMiddleware(average_sale_price));
 
 // cost of goods sold vs. sales revenue (chart)
@@ -113,7 +113,7 @@ async function average_sale_price(request: Request, response: Response, next: Ne
     });
 }
 
-async function top_sale_products(request: Request, response: Response, next: NextFunction) {
+async function top_sold_products(request: Request, response: Response, next: NextFunction) {
     let user = await getRepository(User).findOne({ where: { id: request.user } });
     if (!user) {
         return next(new HttpException(401, "User not logged in"));

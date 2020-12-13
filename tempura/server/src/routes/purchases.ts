@@ -40,7 +40,6 @@ async function top_purchased_products(request: Request, response: Response, next
         purchases.forEach(order => {
             order.documentLines.forEach(product => {
                 const productID = product.purchasesItemId
-                console.log(productID);
                 if (!productID) {
                     return;
                 }
@@ -54,7 +53,7 @@ async function top_purchased_products(request: Request, response: Response, next
             })
         });
         let result = Object.values(topProducts).sort((p1, p2) => p2.total_sold - p1.total_sold)
-        response.status(200).json(result).send();
+        return response.status(200).json(result);
     } catch (error) {
         return next(error);
     }
@@ -93,7 +92,7 @@ async function top_suppliers(request: Request, response: Response, next: NextFun
 
         });
         let result = Object.values(topSuppliers).sort((s1,s2) => s2.total_spent - s1.total_spent)
-        response.status(200).json(result).send();
+        return response.status(200).json(result);
     } catch (error) {
         return next(error);
     }
