@@ -6,7 +6,7 @@ import HttpException from "../exceptions/HttpException";
 import { getSaftFiles } from "../lib/saft";
 import fs from "fs";
 import { TaxAccountingBasis } from "../entity/Saft";
-import { getUnitsSold, getAverageSalesPrice, getUnitsSoldPerDay } from "../lib/product";
+import { getUnitsSold, getAverageSalesPrice, getUnitsSoldPerDay, getAvgPurchasePrice } from "../lib/product";
 
 import authMiddleware from "../middlewares/authMiddleware";
 import asyncMiddleware from "../middlewares/asyncMiddleware";
@@ -19,7 +19,7 @@ router.get('/:id/info', authMiddleware, asyncMiddleware(info));
 router.get('/:id/total_units_sold', authMiddleware, asyncMiddleware(total_units_sold));
 router.get('/:id/units_in_stock', authMiddleware, asyncMiddleware(units_in_stock));
 router.get('/:id/average_sale_price', authMiddleware, asyncMiddleware(average_sale_price));
-router.get('/:id/average_purchase_price', authMiddleware, asyncMiddleware(average_purchase_price));
+router.post('/:id/average_purchase_price', authMiddleware, asyncMiddleware(average_purchase_price));
 router.get('/:id/average_profit_per_unit', authMiddleware, asyncMiddleware(average_profit_per_unit));
 router.get('/:id/units_sold_per_day', authMiddleware, asyncMiddleware(units_sold_per_day));
 
@@ -166,9 +166,20 @@ async function average_sale_price(request: Request, response: Response, next: Ne
 }
 
 async function average_purchase_price(request: Request, response: Response, next: NextFunction) {
-    // TODO: implement this endpoint
-    // JASMIN
-    response.send('NOT IMPLEMENTED');
+    let user = await getRepository(User).findOne({ where: { id: request.user } });
+    if (!user) {
+        return next(new HttpException(500, "User missing"));
+    }
+
+    const productID = request.params.id;
+    const startDate = request.body.start_date;
+    const endDate = request.body.end_date;
+
+    let avgPurchasePrice = await getAvgPurchasePrice(productID, user, startDate, endDate);
+
+    response
+        .status(200)
+        .send({ average_profit_price: avgPurchasePrice });
 }
 
 async function average_profit_per_unit(request: Request, response: Response, next: NextFunction) {
