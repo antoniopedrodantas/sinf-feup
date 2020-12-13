@@ -1,1 +1,42 @@
 @import '../../../index.css';
+
+.product-content{
+    padding-left: 3em;
+    padding-right: 3em;
+    overflow: hidden;
+}
+
+.all-info{
+    display: inline-block;
+    /*flex-direction: row;
+    justify-content: space-between; */
+    margin-top: 17vh;
+}
+
+.main-info-product {
+    /* display:flex;
+    flex-direction: column; */
+    width: 45vw !important;
+    float: left;
+}
+
+.main-info-product > .info-drill {
+    width: 70%;
+}
+
+.single-card-col{
+    /* display:flex;
+    flex-direction: column;
+    justify-content: space-evenly; */
+    width: vw !important;
+    float: right;
+    padding-left: 5vw;
+}
+
+.single-card-col > .card {
+    width: 90%;
+}
+
+.single-card-col > .card:nth-child(1){
+    margin-top: 0 !important;
+}
