@@ -7,12 +7,16 @@ import { TaxAccountingBasis } from "../entity/Saft";
 import HttpException from "../exceptions/HttpException";
 import fs from "fs";
 import { ClientRequest } from "http";
+import { getRepository } from "typeorm";
+import { User } from "../entity/User";
+import JasminRequester from "../lib/JasminRequester";
 
 const router = express.Router();
 
 
 router.get('/cogs_vs_sales_revenue', authMiddleware, asyncMiddleware(cogs_vs_sr));
 router.get('/top_clients', authMiddleware, asyncMiddleware(top_clients));
+router.get('/top_sale_products', authMiddleware, asyncMiddleware(top_sale_products));
 router.get('/average_sale_price', authMiddleware, asyncMiddleware(average_sale_price));
 
 // cost of goods sold vs. sales revenue (chart)
@@ -107,6 +111,41 @@ async function average_sale_price(request: Request, response: Response, next: Ne
         .send({
             avg_sale: sum / counter
     });
+}
+
+async function top_sale_products(request: Request, response: Response, next: NextFunction) {
+    let user = await getRepository(User).findOne({ where: { id: request.user } });
+    if (!user) {
+        return next(new HttpException(401, "User not logged in"));
+    }
+
+    let jasminRequest = new JasminRequester(user);
+    try {
+        let sales = (await jasminRequest.getAllSaleOrders()).data
+        let topProducts: { [key: string]: TopProduct } = {};
+
+        sales.forEach(order => {
+            order.documentLines.forEach(product => {
+                const productID = product.salesItemId
+                if (!productID) {
+                    return;
+                }
+                const topProduct = topProducts[productID];
+                topProducts[productID] = {
+                    name: product.salesItem,
+                    id: productID,
+                    price: (!topProduct) ? product.unitPrice.amount : Math.max(topProduct.price, product.unitPrice.amount),
+                    total_sold: (!topProduct) ? product.quantity : topProduct.total_sold + product.quantity
+                }
+            })
+        });
+        let result = Object.values(topProducts).sort((p1, p2) => p2.total_sold - p1.total_sold)
+        response.status(200).json(result).send();
+    } catch (error) {
+        return next(error);
+    }
+
+    
 }
 
 export default router;
