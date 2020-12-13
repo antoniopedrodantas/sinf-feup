@@ -53,6 +53,11 @@ async function top_purchased_products(request: Request, response: Response, next
             })
         });
         let result = Object.values(topProducts).sort((p1, p2) => p2.total_sold - p1.total_sold)
+        let limit = request.query.rows as string;
+        if (limit) {
+            result = result.slice(0, parseInt(limit));
+            console.log(result)
+        }
         return response.status(200).json(result);
     } catch (error) {
         return next(error);
@@ -91,7 +96,12 @@ async function top_suppliers(request: Request, response: Response, next: NextFun
             }
 
         });
-        let result = Object.values(topSuppliers).sort((s1,s2) => s2.total_spent - s1.total_spent)
+        let result = Object.values(topSuppliers).sort((s1, s2) => s2.total_spent - s1.total_spent)
+        let limit = request.query.rows as string;
+        if (limit) {
+            result = result.slice(0, parseInt(limit));
+            console.log(result)
+        }
         return response.status(200).json(result);
     } catch (error) {
         return next(error);

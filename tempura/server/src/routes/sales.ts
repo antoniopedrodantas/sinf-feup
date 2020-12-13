@@ -140,7 +140,12 @@ async function top_sold_products(request: Request, response: Response, next: Nex
             })
         });
         let result = Object.values(topProducts).sort((p1, p2) => p2.total_sold - p1.total_sold)
-        response.status(200).json(result).send();
+        let limit = request.query.rows as string; 
+        if (limit) {
+            result = result.slice(0, parseInt(limit));
+            console.log(result)
+        }
+        return response.status(200).json(result);
     } catch (error) {
         return next(error);
     }

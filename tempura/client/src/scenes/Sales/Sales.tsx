@@ -23,7 +23,7 @@ const Sales: React.FC = () => {
   const history = useHistory();
   const maxNumberRows = 6;
 
-  const [topSaleProducts, setTopSaleProducts] = useState(
+  const [topProducts, setTopProducts] = useState(
     {
       columns: ["Name", "Sold Units", "Price"],
       types: ["text", "number", "money"],
@@ -61,11 +61,11 @@ const Sales: React.FC = () => {
           history.push('/login');
         }
 
-        await axios.get('http://localhost:8000/top_sold_products', { headers: { authorization: token } })
+        await axios.get('http://localhost:8000/top_sold_products', { params: { rows: maxNumberRows }, headers: { authorization: token } })
           .then((res) => {
             let suppliers: TopProduct[] = res.data;
             let tmpTopProducts = {
-              ...topSaleProducts
+              ...topProducts
             }
             suppliers.forEach((supplier) => {
               tmpTopProducts.ids.push(supplier.id);
@@ -75,7 +75,7 @@ const Sales: React.FC = () => {
                 supplier.price
               ]);
             });
-            setTopSaleProducts(tmpTopProducts);
+            setTopProducts(tmpTopProducts);
           }).catch((err) => {
             console.log(err);
           });
@@ -109,7 +109,7 @@ const Sales: React.FC = () => {
               <SingleValueCard type="text" title="Largest Margin Supplier" value="vitor" supplierID="1" />
               <SingleValueCard type="text" title="test" value="vitor" />
               <p></p>
-              <CustomTable title="Top Products" columns={topSaleProducts.columns} type={topSaleProducts.types} values={topSaleProducts.values} drilldown="product" ids={topSaleProducts.ids} />
+              <CustomTable title="Top Products" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={topProducts.ids} />
             </div>
           </div>
         </div>
