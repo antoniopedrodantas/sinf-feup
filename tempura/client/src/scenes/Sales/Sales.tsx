@@ -157,7 +157,7 @@ const Sales: React.FC = () => {
                 </div>
               </div>
               <div className = "bottom-things">
-                <CustomTable title="Top Clients" columns={columns2} type={types2} values={valuesTable} drilldown="product" ids={topProducts.ids} />
+                <CustomTable title="Top Clients" columns={columns2} type={types2} values={valuesTable} drilldown="client" ids={topProducts.ids} />
                 <p></p>
                 <CustomTable title="Top Selling Products" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={topProducts.ids} />
               </div>
