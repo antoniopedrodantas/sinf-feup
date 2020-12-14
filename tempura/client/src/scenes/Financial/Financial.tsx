@@ -154,10 +154,8 @@ export const Financial: React.FC = () => {
           // gets user id from user
           const { id } = data as TokenPayload;
 
-          // TODO: maybe do something with id later on
-          console.log("User ID: ", id);
 
-        } catch (err) {
+        } catch(err) {
           history.push('/login');
         }
 
@@ -177,11 +175,11 @@ export const Financial: React.FC = () => {
       });
 
       // gets results demonstration
+
       axios.get(`http://localhost:8000/results_demonstration?start_date=2018-12-31 00:00:00&end_date=2020-01-01 00:00:00`, {
         headers: { 'authorization': token },
       }).then((res) => {
         setResultsDemonstration(res.data["Income and Expenses"]);
-        console.log(res.data);
       }).catch((err) => {
         console.log(err);
       });

@@ -26,7 +26,6 @@ const Product: React.FC = () => {
 
     let pageURL = window.location.href;
     let productID = pageURL.substr(pageURL.lastIndexOf('/') + 1);
-    console.log("Product ID: " + productID);
 
     // json request body
     const body = {
@@ -98,10 +97,7 @@ const Product: React.FC = () => {
                     // gets user id from user
                     const { id } = data as TokenPayload;
 
-                    // TODO: maybe do something with id later on
-                    console.log("User ID: ", id);
-
-                } catch (err) {
+                } catch(err) {
                     history.push('/login');
                 }
 

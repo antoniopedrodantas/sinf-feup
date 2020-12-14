@@ -87,6 +87,7 @@ const Stock: React.FC = () => {
 
           // TODO: maybe do something with id later on
 
+
         } catch (err) {
           history.push('/login');
         }

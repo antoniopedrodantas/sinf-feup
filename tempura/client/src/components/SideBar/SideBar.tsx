@@ -43,7 +43,6 @@ class SideBar extends Component<SideProps, SideState> {
     if(fileButton){
       fileButton.click();
       fileButton.onchange = async () =>{      
-        console.log(fileButton.files);
 
         if(fileButton.files){
           let data = new FormData();
@@ -56,7 +55,6 @@ class SideBar extends Component<SideProps, SideState> {
               'Content-Type': 'application/x-www-form-urlencoded',
             },
             }).then((res) => {
-              console.log(res.data);
               this.setState({showSucc:true});
             }).catch((err) => {
               console.log(err);

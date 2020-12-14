@@ -86,8 +86,7 @@ const Client: React.FC = () => {
                     // gets user id from user
                     const { id } = data as TokenPayload;
 
-                    // TODO: maybe do something with id later on
-                    // console.log("User ID: ", id);
+
 
                 } catch (err) {
                     history.push('/login');
