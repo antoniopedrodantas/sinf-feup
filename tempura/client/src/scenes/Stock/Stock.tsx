@@ -86,7 +86,6 @@ const Stock: React.FC = () => {
           const { id } = data as TokenPayload;
 
           // TODO: maybe do something with id later on
-          console.log("User ID: ", id);
 
         } catch (err) {
           history.push('/login');
@@ -99,19 +98,18 @@ const Stock: React.FC = () => {
       }
 
 
-      await axios.post(`http://localhost:8000/total_assets_in_stock`, formurlencoded(body), {
+       axios.post(`http://localhost:8000/total_assets_in_stock`, formurlencoded(body), {
         headers: {
           'authorization': token,
           'Content-Type': 'application/x-www-form-urlencoded',
         },
       }).then((res) => {
-        console.log(res.data.total_assets)
         setTotalAssets({ total_assets: res.data.total_assets });
       }).catch((err: any) => {
         console.log(err);
       });
 
-      await axios.post(`http://localhost:8000/average_sales_quantity`, formurlencoded(body), {
+       axios.post(`http://localhost:8000/average_sales_quantity`, formurlencoded(body), {
         headers: {
           'authorization': token,
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -122,7 +120,7 @@ const Stock: React.FC = () => {
         console.log(err);
       });
 
-      await axios.post(`http://localhost:8000/inventory_turnover`, formurlencoded(body), {
+       axios.post(`http://localhost:8000/inventory_turnover`, formurlencoded(body), {
         headers: {
           'authorization': token,
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -133,7 +131,7 @@ const Stock: React.FC = () => {
         console.log(err);
       });
 
-      await axios.post(`http://localhost:8000/inventory_period`, formurlencoded(body), {
+       axios.post(`http://localhost:8000/inventory_period`, formurlencoded(body), {
         headers: {
           'authorization': token,
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -144,7 +142,7 @@ const Stock: React.FC = () => {
         console.log(err);
       });
 
-      await axios.post(`http://localhost:8000/product_listing`, formurlencoded(body), {
+       axios.post(`http://localhost:8000/product_listing`, formurlencoded(body), {
         headers: {
           'authorization': token,
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -177,29 +175,6 @@ const Stock: React.FC = () => {
 
   // Frontend
 
-  // const columns1 = ["Bar Code", "Name", "Stock", "Sold", "Avg. Purchase Price", "Avg. Selling Price"];
-  // const types1 = ["text", "text", "number", "number", "money", "money"];
-  // const values1 = [
-  //   ["0 938021 147933", "Sushi", "550", "345", "9.2", "15.0"],
-  //   ["0 938021 147933", "Hossomakis", "550", "345", "9.6", "16.2"],
-  //   ["0 938021 147933", "Sashimi", "5150", "345", "11.5", "17.5"],
-  //   ["0 938021 147933", "Yakisoba", "550", "345", "8.8", "13.0"],
-  //   ["0 938021 147933", "Robata", "550", "345", "5.2", "10.0"],
-  //   ["0 938021 147933", "Uramakis", "550", "345", "9.9", "16.5"],
-  //   ["0 938021 147933", "Niguiri", "550", "345", "7.5", "14.7"],
-  //   ["0 938021 147933", "Tempura", "550", "345", "6.1", "12.2"],
-  //   ["0 938021 147933", "Wasabi", "550", "345", "10.2", "10.9"],
-  //   ["0 938021 147933", "Wasabi", "550", "345", "10.2", "10.9"],
-  //   ["0 938021 147933", "Wasabi", "550", "345", "10.2", "10.9"],
-  //   ["0 938021 147933", "Wasabi", "550", "345", "10.2", "10.9"],
-  //   ["0 938021 147933", "Wasabi", "550", "345", "10.2", "10.9"],
-  //   ["0 938021 147933", "Wasabi", "550", "345", "10.2", "10.9"],
-  //   ["0 938021 147933", "Wasabi", "550", "345", "10.2", "10.9"],
-  //   ["0 938021 147933", "Wasabi", "550", "345", "10.2", "10.9"]
-
-  // ];
-
-  // const ids = ["001", "002", "003", "004", "005", "006", "007", "008", "009", "010", "011", "012", "013", "014", "015", "016"];
 
   const [showDatePicker, setShowDatePicker] = useState(false);
   return (
@@ -229,7 +204,7 @@ const Stock: React.FC = () => {
                 </div>
                 <div className="top-cards">
                   <SingleValueCard type="money" title="Total assets in Stock" value={totalAssets.total_assets} />
-                  <SingleValueCard type="percentage" title="Inventory Turnover" value={inventoryTurnover.inventory_turnover} />
+                  <SingleValueCard type="text" title="Inventory Turnover" value={inventoryTurnover.inventory_turnover.toString()} />
                 </div>
                 <div className="bottom-cards">
                   <SingleValueCard type="unit" title="Average Sales quantity" value={avgSalesQuantity.average_sales_quantity} />

@@ -109,7 +109,7 @@ const Purchases: React.FC = () => {
         history.push('/login');
       }
 
-      await axios.get(`http://localhost:8000/top_suppliers`, {
+      axios.get(`http://localhost:8000/top_suppliers`, {
         headers: { authorization: token },
         params: { rows: maxNumberRows }
       }).then((res) => {
@@ -131,7 +131,7 @@ const Purchases: React.FC = () => {
         console.log(err);
       });
 
-      await axios.get(`http://localhost:8000/top_purchased_products`, {
+      axios.get(`http://localhost:8000/top_purchased_products`, {
         headers: { authorization: token },
         params: { rows: maxNumberRows }
       }).then((res) => {
@@ -151,7 +151,8 @@ const Purchases: React.FC = () => {
       }).catch((err) => {
         console.log(err);
       });
-      await axios.get(`http://localhost:8000/supplier_country`, {
+
+      axios.get(`http://localhost:8000/supplier_country`, {
         headers: { authorization: token },
       }).then((res) => {
         let _supplierCountries: SupplierCountry[] = res.data;
@@ -168,7 +169,7 @@ const Purchases: React.FC = () => {
         console.log(err);
       });
 
-      await axios.post(`http://localhost:8000/average_margin_per_supplier`, formurlencoded(body), {
+      axios.post(`http://localhost:8000/average_margin_per_supplier`, formurlencoded(body), {
         headers: {
           'authorization': token,
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -179,7 +180,7 @@ const Purchases: React.FC = () => {
         console.log(err);
       });
 
-      await axios.post(`http://localhost:8000/largest_margin_supplier`, formurlencoded(body), {
+      axios.post(`http://localhost:8000/largest_margin_supplier`, formurlencoded(body), {
         headers: {
           'authorization': token,
           'Content-Type': 'application/x-www-form-urlencoded',
