@@ -15,8 +15,8 @@ import './styles/Overview.css';
 import '../../common.css';
 
 import axios, { AxiosResponse } from 'axios';
-import formurlencoded from 'form-urlencoded';
-import qs from 'qs';
+// import formurlencoded from 'form-urlencoded';
+// import qs from 'qs';
 
 
 interface TokenPayload {
@@ -74,109 +74,109 @@ const Overview: React.FC = () => {
   const history = useHistory();
 
   // checks for authentication
-  useEffect(() => {
-    (async () => {
+  // useEffect(() => {
+  //   (async () => {
 
-      // gets auth-token from the local storage
-      const token = localStorage.getItem("auth-token");
+  //     // gets auth-token from the local storage
+  //     const token = localStorage.getItem("auth-token");
 
-      // token is not null
-      if(token != null){
+      // // token is not null
+      // if(token != null){
 
-        try{
+      //   try{
 
-          // gets data from token
-          // TODO: change secret and add to a .env file possibly
-          const data = jwt.verify(token, 'secret');
-          const { id } = data as TokenPayload;
+      //     // gets data from token
+      //     // TODO: change secret and add to a .env file possibly
+      //     const data = jwt.verify(token, 'secret');
+      //     const { id } = data as TokenPayload;
 
-          // TODO: maybe do something with id later on
-          console.log("User ID: ", id);
+      //     // TODO: maybe do something with id later on
+      //     console.log("User ID: ", id);
 
-        } catch(err) {
-          history.push('/login');
-        }
+      //   } catch(err) {
+      //     history.push('/login');
+      //   }
 
 
 
-      }
-      else{
-        history.push('/login');
-      }
+      // }
+      // else{
+      //   history.push('/login');
+      // }
 
-      // gets revenue_growth
-      await axios.get(`http://localhost:8000/revenue_growth?start_date=2020-01-02 00:00:00&end_date=2021-01-01 00:00:00`, {
-              headers: { 'authorization': token },
-            }).then((res: { data: { revenue_growth: React.SetStateAction<{ day: string; revenue_growth: number; }[]>; }; }) => {
-              setRevenueGrowth(res.data.revenue_growth);
-            }).catch((err: any) => {
-              console.log(err);
-            });
+  //     // gets revenue_growth
+  //     await axios.get(`http://localhost:8000/revenue_growth?start_date=2020-01-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+  //             headers: { 'authorization': token },
+  //           }).then((res: { data: { revenue_growth: React.SetStateAction<{ day: string; revenue_growth: number; }[]>; }; }) => {
+  //             setRevenueGrowth(res.data.revenue_growth);
+  //           }).catch((err: any) => {
+  //             console.log(err);
+  //           });
 
-      // gets total profit
-      await axios.post(`http://localhost:8000/total_profit`, formurlencoded(body), {
-              headers: { 
-                'authorization': token,
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
-            }).then((res) => {
-              setTotalProfit(res.data);
-            }).catch((err: any) => {
-              console.log(err);
-            });
+  //     // gets total profit
+  //     await axios.post(`http://localhost:8000/total_profit`, formurlencoded(body), {
+  //             headers: { 
+  //               'authorization': token,
+  //               'Content-Type': 'application/x-www-form-urlencoded',
+  //             },
+  //           }).then((res) => {
+  //             setTotalProfit(res.data);
+  //           }).catch((err: any) => {
+  //             console.log(err);
+  //           });
       
 
-      // gets total revenue
-      await axios.post(`http://localhost:8000/total_revenue`, formurlencoded(body), {
-              headers: { 
-                'authorization': token,
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
-            }).then((res) => {
-              setTotalRevenue(res.data);
-            }).catch((err: any) => {
-              console.log(err);
-            });
+  //     // gets total revenue
+  //     await axios.post(`http://localhost:8000/total_revenue`, formurlencoded(body), {
+  //             headers: { 
+  //               'authorization': token,
+  //               'Content-Type': 'application/x-www-form-urlencoded',
+  //             },
+  //           }).then((res) => {
+  //             setTotalRevenue(res.data);
+  //           }).catch((err: any) => {
+  //             console.log(err);
+  //           });
 
           
-      // gets liquidity
-      await axios.post(`http://localhost:8000/liquidity`, formurlencoded(body2), {
-              headers: { 
-                'authorization': token,
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
-            }).then((res) => {
-              setLiquidity(res.data);
-            }).catch((err: any) => {
-              console.log(err);
-            });
+  //     // gets liquidity
+  //     await axios.post(`http://localhost:8000/liquidity`, formurlencoded(body2), {
+  //             headers: { 
+  //               'authorization': token,
+  //               'Content-Type': 'application/x-www-form-urlencoded',
+  //             },
+  //           }).then((res) => {
+  //             setLiquidity(res.data);
+  //           }).catch((err: any) => {
+  //             console.log(err);
+  //           });
 
-      // gets total costs
-      await axios.post(`http://localhost:8000/total_costs`, formurlencoded(body), {
-              headers: { 
-                'authorization': token,
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
-            }).then((res) => {
-              setTotalCosts(res.data);
-            }).catch((err: any) => {
-              console.log(err);
-            });
+  //     // gets total costs
+  //     await axios.post(`http://localhost:8000/total_costs`, formurlencoded(body), {
+  //             headers: { 
+  //               'authorization': token,
+  //               'Content-Type': 'application/x-www-form-urlencoded',
+  //             },
+  //           }).then((res) => {
+  //             setTotalCosts(res.data);
+  //           }).catch((err: any) => {
+  //             console.log(err);
+  //           });
 
-      // gets top selling products
-      await axios.get(`http://localhost:8000/top_selling_products?start_date=2020-01-02 00:00:00&end_date=2021-01-01 00:00:00`, {
-              headers: { 'authorization': token },
-            }).then((res) => {
-              setTopSellingProducts(res.data.products);
-            }).catch((err: any) => {
-              console.log(err);
-            });
+  //     // gets top selling products
+  //     await axios.get(`http://localhost:8000/top_selling_products?start_date=2020-01-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+  //             headers: { 'authorization': token },
+  //           }).then((res) => {
+  //             setTopSellingProducts(res.data.products);
+  //           }).catch((err: any) => {
+  //             console.log(err);
+  //           });
 
     
 
-    })();
+  //   })();
 
-  }, []);
+  // }, []);
 
   // Frontend
   const [showDatePicker, setShowDatePicker] = useState(false);
