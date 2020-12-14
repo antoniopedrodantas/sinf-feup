@@ -10,22 +10,35 @@ const logo =  require("../../assets/logo.svg")
 
 import axios from 'axios';
 import fs from 'fs';
+import Alert from 'react-bootstrap/Alert'
+import { Button } from 'react-bootstrap';
 
 
 interface SideProps {
   coreview: string;
 }
 
-class SideBar extends Component<SideProps> {
+interface SideState{
+  showErr: boolean;
+  showSucc: boolean;
+  logout: boolean;
+}
+
+class SideBar extends Component<SideProps, SideState> {
 
   // logout redirect state
-  state = { logout: null };
+  state: SideState = {  
+                        showErr: false,
+                        showSucc: false,
+                        logout: false 
+                      };
+  
 
   fileUploadButton = () => {
 
     // gets auth-token from the local storage
     const token = localStorage.getItem("auth-token");
-
+    
     const fileButton = document.getElementById('fileButton') as HTMLInputElement;
     if(fileButton){
       fileButton.click();
@@ -43,9 +56,11 @@ class SideBar extends Component<SideProps> {
               'Content-Type': 'application/x-www-form-urlencoded',
             },
             }).then((res) => {
-              console.log(res);
-            }).catch((err: any) => {
+              console.log(res.data);
+              this.setState({showSucc:true});
+            }).catch((err) => {
               console.log(err);
+              this.setState({showErr:true});
             });
         }
 
@@ -95,13 +110,38 @@ class SideBar extends Component<SideProps> {
    
     return (
       <>
-        <img id="left-logo" src={logo} alt="logo"/>
 
+        <img id="left-logo" src={logo} alt="logo"/>
         <div>
           <input id="fileButton" type="file" hidden />
           <button className="left-buttons import" onClick={this.fileUploadButton}>
             <span> <span className="import"><FontAwesomeIcon  icon={faFileImport} /></span> <span className="spanText">Import File</span></span>
           </button>
+
+          <Alert show={this.state.showSucc} variant="success" className="alert-success">
+            <p>
+              File uploaded successfully!
+            </p>
+            <hr />
+            <div className="d-flex justify-content-end">
+              <Button onClick={() => this.setState({showSucc:false})} variant="outline-success">
+                x
+              </Button>
+            </div>
+          </Alert>
+
+         
+
+           <Alert show={this.state.showErr} variant="danger" className="alert-error">
+            <p>
+              An error has occurred!
+            </p>
+            <div className="d-flex justify-content-end">
+              <Button onClick={() => this.setState({showErr:false})} variant="outline-danger">
+                x
+              </Button>
+            </div>
+          </Alert> 
         </div> 
 
         <nav className="nav-items">
@@ -140,11 +180,4 @@ class SideBar extends Component<SideProps> {
 }
 
 export default SideBar;
-
-{/* 
-TODO:
-- remove scroll bar from FireFox
-- remove horizontal scroll 
-- fix rightSide bug on mobile version
-*/}
 
