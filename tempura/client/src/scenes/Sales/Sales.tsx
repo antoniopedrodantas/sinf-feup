@@ -9,6 +9,7 @@ import '../../common.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faTimes, faCalendar } from '@fortawesome/free-solid-svg-icons'
 import axios from "axios";
+import formurlencoded from 'form-urlencoded';
 
 import { useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
@@ -23,13 +24,21 @@ interface TokenPayload {
 
 const Sales: React.FC = () => {
 
-  const lables2 = ["Jan", "Feb", "Mar", "Apr", "May", "June"];
-  const values2 = ["500", "200", "120", "310", "400", "297"];
-  const values3 = ["300", "180", "80", "180", "220", "110"];
+  // json request
+  const body = {
+    start_date: "2020-01-02 00:00:00",
+    end_date: "2021-01-01 00:00:00"
+  };
 
-  const history = useHistory();
-  const maxNumberRows = 6;
-
+  const [topClients, setTopClients] = useState([
+    {
+      id: '',
+      name: '',
+      total: 0,
+      orders: 0,
+      max: 0
+    }
+  ]);
   const [topProducts, setTopProducts] = useState(
     {
       columns: ["Name", "Sold Units", "Price"],
@@ -38,7 +47,26 @@ const Sales: React.FC = () => {
       ids: [] as string[]
     }
   );
+  const [cogs, setCogs] = useState([
+    {
+      date: '',
+      cogs: 0,
+      sr: 0
+    }
+  ]);
 
+  const history = useHistory();
+  const maxNumberRows = 6;
+
+
+  let lables2:Array<any> = [];
+  let values2:Array<any> = [];
+  let values3:Array<any> = [];
+  cogs.map((cog:any) => {
+    lables2.push(cog.date);
+    values2.push(cog.cogs);
+    values3.push(cog.sr);
+  });
 
   // checks for authentication
   useEffect(() => {
@@ -68,6 +96,7 @@ const Sales: React.FC = () => {
           history.push('/login');
         }
 
+        // gets top sold products
         await axios.get('http://localhost:8000/top_sold_products', { params: { rows: maxNumberRows }, headers: { authorization: token } })
           .then((res) => {
             let products: TopProduct[] = res.data;
@@ -86,6 +115,30 @@ const Sales: React.FC = () => {
           }).catch((err) => {
             console.log(err);
           });
+
+
+          // gets revenue_growth
+          await axios.get(`http://localhost:8000/top_clients?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+              headers: { 'authorization': token },
+            }).then((res:any) => {
+              setTopClients(res.data.clients);
+            }).catch((err: any) => {
+              console.log(err);
+            });
+
+          // gets cogs vs sr
+          await axios.post(`http://localhost:8000/cogs_vs_sales_revenue`, formurlencoded(body), {
+              headers: { 
+                'authorization': token,
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+            }).then((res) => {
+              setCogs(res.data.cogs_vs_sr);
+            }).catch((err: any) => {
+              console.log(err);
+            });
+
+
       }
       else {
         // redirects to login
@@ -97,25 +150,18 @@ const Sales: React.FC = () => {
   // Frontend
   const [showDatePicker, setShowDatePicker] = useState(false);
 
-  const columns1 = ["Name", "Sold Units", "Price"];
-  const types1 = ["text", "number", "money"];
-  const values1 = [
-      ["Sashimi", "150", "17.8"],
-      ["Tempura", "121", "18.8"],
-      ["Sushi", "103", "20.0"],
-      ["Robata", "89", "9.2"],
-      ["Robata", "89", "9.2"]
-  ];
-
   const columns2 = ["Name", "Total Spent", "Orders", "Maximum"];
   const types2 = ["text", "money", "number", "money"];
-  const valuesTable = [
-    ["Cliente top", "10,500", "17", "2,500"],
-    ["Cliente top", "10,500", "17", "2,500"],
-    ["Cliente top", "10,500", "17", "2,500"],
-    ["Cliente top", "10,500", "17", "2,500"],
-    ["Cliente top", "10,500", "17", "2,500"]
-];
+  let valuesTable:Array<any> = [];
+  let clientIds:Array<any> = [];
+  let counter = 0;
+  topClients.map(client => {
+    if(counter < 5){
+      valuesTable.push([client.name, client.total, client.orders, client.max]);
+      clientIds.push(client.id);
+    }
+    counter++;
+  })
 
   return (
     <>
@@ -157,7 +203,7 @@ const Sales: React.FC = () => {
                 </div>
               </div>
               <div className = "bottom-things">
-                <CustomTable title="Top Clients" columns={columns2} type={types2} values={valuesTable} drilldown="client" ids={topProducts.ids} />
+                <CustomTable title="Top Clients" columns={columns2} type={types2} values={valuesTable} drilldown="client" ids={clientIds} />
                 <p></p>
                 <CustomTable title="Top Selling Products" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={topProducts.ids} />
               </div>
