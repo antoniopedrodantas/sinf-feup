@@ -106,8 +106,6 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
 
     // iterates through SAFT
     safts.forEach(saft => {
-        console.log(saft.path);
-
         const json = JSON.parse(fs.readFileSync(saft.path).toString());
 
         // ----------------------------------- gets "Non Current Assets" ------------------------------------
