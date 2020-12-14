@@ -15,6 +15,8 @@ import jwt from 'jsonwebtoken';
 import CustomTable from 'src/components/CustomTable/CustomTable';
 import axios from "axios";
 
+import formurlencoded from 'form-urlencoded';
+
 interface TokenPayload {
   id: string;
   iat: number;
@@ -23,12 +25,12 @@ interface TokenPayload {
 
 const Purchases: React.FC = () => {
 
-  const lables = ["Vitor", "Bernas", "Tone", "Filipe", "Leonor"];
-  const values = ["13", "5", "3", "5", "7"];
+  const body = {
+    start_date: "2020-01-02 00:00:00",
+    end_date: "2021-01-01 00:00:00"
+  };
 
-  const lables2 = ["Jan", "Feb", "Mar", "Apr", "May", "June"];
-  const values2 = ["500", "200", "120", "310", "400", "297"];
-  const values3 = ["300", "180", "80", "180", "220", "110"];
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
   // TODO: fix this?
   const maxNumberRows = 6;
@@ -61,7 +63,21 @@ const Purchases: React.FC = () => {
     }
   );
 
-//  checks for authentication
+  const [avgMarginPerSupplier, setAvgMarginPerSupplier] = useState(
+    {
+      margin: 0
+    }
+  );
+
+  const [largestMarginSupplier, setLargestMarginSupplier] = useState(
+    {
+      id: "",
+      name: "",
+      margin: 0
+    }
+  )
+
+  //  checks for authentication
   useEffect(() => {
     (async () => {
 
@@ -90,7 +106,7 @@ const Purchases: React.FC = () => {
         history.push('/login');
       }
 
-      await axios.get(`http://localhost:8000/top_suppliers`, {
+      axios.get(`http://localhost:8000/top_suppliers`, {
         headers: { authorization: token },
         params: { rows: maxNumberRows }
       }).then((res) => {
@@ -112,7 +128,7 @@ const Purchases: React.FC = () => {
         console.log(err);
       });
 
-      await axios.get(`http://localhost:8000/top_purchased_products`, {
+      axios.get(`http://localhost:8000/top_purchased_products`, {
         headers: { authorization: token },
         params: { rows: maxNumberRows }
       }).then((res) => {
@@ -132,7 +148,8 @@ const Purchases: React.FC = () => {
       }).catch((err) => {
         console.log(err);
       });
-      await axios.get(`http://localhost:8000/supplier_country`, {
+
+      axios.get(`http://localhost:8000/supplier_country`, {
         headers: { authorization: token },
       }).then((res) => {
         let _supplierCountries: SupplierCountry[] = res.data;
@@ -149,6 +166,28 @@ const Purchases: React.FC = () => {
         console.log(err);
       });
 
+      axios.post(`http://localhost:8000/average_margin_per_supplier`, formurlencoded(body), {
+        headers: {
+          'authorization': token,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }).then((res) => {
+        setAvgMarginPerSupplier({ margin: res.data.average_margin });
+      }).catch((err: any) => {
+        console.log(err);
+      });
+
+      axios.post(`http://localhost:8000/largest_margin_supplier`, formurlencoded(body), {
+        headers: {
+          'authorization': token,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }).then((res) => {
+        setLargestMarginSupplier(res.data.supplier);
+      }).catch((err: any) => {
+        console.log(err);
+      });
+
     })();
 
   }, []);
@@ -157,31 +196,6 @@ const Purchases: React.FC = () => {
 
 
   // Frontend
-
-//   const columns1 = ["Name", "Sold Units", "Price"];
-//   const types1 = ["text", "number", "money"];
-//   const values1 = [
-//       ["Sashimi", "150", "17.8"],
-//       ["Tempura", "121", "18.8"],
-//       ["Sushi", "103", "20.0"],
-//       ["Robata", "89", "9.2"],
-//       ["Robata", "89", "9.2"]
-//   ];
-
-//   const columns2 = ["Name", "Total Spent", "Orders", "Maximum"];
-//   const types2 = ["text", "money", "number", "money"];
-//   const valuesTable = [
-//     ["Kayuza Lda.", "2124", "5", "809"],
-//     ["Kayuza Lda.", "2124", "5", "809"],
-//     ["Kayuza Lda.", "2124", "5", "809"],
-//     ["Kayuza Lda.", "2124", "5", "809"],
-//     ["Kayuza Lda.", "2124", "5", "809"]
-// ];
-
-  const labels2 = ["Portugal", "Japan"];
-  const valuesChart = ["40", "60"];
-  const ids = ["001", "002", "003", "004", "005"];
-  const [showDatePicker, setShowDatePicker] = useState(false);
 
 
   return (
@@ -205,33 +219,33 @@ const Purchases: React.FC = () => {
                 </div>
                 <div className="right-body">
 
-                <div className="purchases-content">
+                  <div className="purchases-content">
 
-                      <div className="date-selection">
-                          <Button onClick={()=> setShowDatePicker(!showDatePicker)}className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon"/> 
-                              {showDatePicker ? "Hide" : "Date Picker"}
-                          </Button>
-                          {showDatePicker && <Calendar start={new Date()} end={new Date(2021,0,30)}/>} 
+                    <div className="date-selection">
+                      <Button onClick={() => setShowDatePicker(!showDatePicker)} className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon" />
+                        {showDatePicker ? "Hide" : "Date Picker"}
+                      </Button>
+                      {showDatePicker && <Calendar start={new Date()} end={new Date(2021, 0, 30)} />}
+                    </div>
+                    <div className="top-things">
+                      <div className="left-cards">
+                        <SingleValueCard type="money" title="Average per Margin Supplier" value={avgMarginPerSupplier.margin} />
+                        <p></p>
+                        <SingleValueCard type="text" title="Largest Margin Supplier" value={largestMarginSupplier.name} supplierID={largestMarginSupplier.id} />
+                        <p></p>
                       </div>
-                <div className = "top-things">
-                  <div className ="left-cards">
-                    <SingleValueCard type="money" title="Average per Margin Supplier" value={23456} />
-                    <p></p>
-                    <SingleValueCard type="text" title="Largest Margin Supplier" value="Vitor Lda." supplierID="1" />
-                    <p></p>
+                      <div className="right-chart">
+                        <PieChart title="Supplier Countries" labels={supplierCountries.columns} data={supplierCountries.values} />
+                        <p></p>
+                      </div>
+                    </div>
+                    <div className="bottom-things">
+                      <CustomTable title="Top Suppliers" columns={topSuppliers.columns} type={topSuppliers.types} values={topSuppliers.values} drilldown="supplier" ids={topSuppliers.ids} />
+                      <p></p>
+                      <CustomTable title="Top Purchased Products" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={topProducts.ids} />
+                    </div>
                   </div>
-                  <div className = "right-chart">
-                    <PieChart title="Supplier Countries" labels={supplierCountries.columns} data={supplierCountries.values} />
-                  <p></p>
-                  </div>
                 </div>
-                <div className = "bottom-things">
-                  <CustomTable title="Top Suppliers" columns={topSuppliers.columns} type={topSuppliers.types} values={topSuppliers.values} drilldown="supplier" ids={topSuppliers.ids} />
-                  <p></p>
-                  <CustomTable title="Top Purchased Products" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={topProducts.ids} />
-                </div>
-                </div>
-              </div>
               </div>
             </div>
           </div>

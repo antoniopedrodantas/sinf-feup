@@ -13,7 +13,7 @@ const SingleValueCard: React.FC<SingleValueCardProps> = ({ type, title, value, s
 
   const suffixedValue = () => {
     switch (type) {
-      case 'money': return value + " €";
+      case 'money': return parseFloat(value.toString()).toFixed(2) + " €";
       case 'percentage': return value + ' %';
       case 'unit': return value + ' unit' + (value != 1 ? 's' : '');
       case 'date': return value + ' day' + (value != 1 ? 's' : '');

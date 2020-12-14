@@ -19,14 +19,14 @@ import formurlencoded from 'form-urlencoded';
 import axios, { AxiosResponse } from 'axios';
 
 interface TokenPayload {
-  id: string;
-  iat: number;
-  exp: number;
+    id: string;
+    iat: number;
+    exp: number;
 }
 
 const Client: React.FC = () => {
 
-    
+
     let pageURL = window.location.href;
     let clientID = pageURL.substr(pageURL.lastIndexOf('/') + 1);
 
@@ -75,64 +75,66 @@ const Client: React.FC = () => {
             const token = localStorage.getItem("auth-token");
 
             // token is not null
-            if(token != null){
+            if (token != null) {
 
-            try{
+                try {
 
-                // gets data from token
-                // TODO: change secret and add to a .env file possibly
-                const data = jwt.verify(token, 'secret');
+                    // gets data from token
+                    // TODO: change secret and add to a .env file possibly
+                    const data = jwt.verify(token, 'secret');
 
-                // gets user id from user
-                const { id } = data as TokenPayload;
+                    // gets user id from user
+                    const { id } = data as TokenPayload;
 
-            } catch(err) {
+
+
+                } catch (err) {
+                    history.push('/login');
+                }
+
+            }
+            else {
+                // redirects to login
                 history.push('/login');
             }
 
-            }
-            else{
-            // redirects to login
-            history.push('/login');
-            }
-
             // gets client's info
-            await axios.get(`http://localhost:8000/client/${clientID}/info?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
-                        headers: { 'authorization': token },
-                    }).then((res) => {
-                        setInfoResults(res.data);
-                    }).catch((err) => {
-                        console.log(err);
-                });
+            axios.get(`http://localhost:8000/client/${clientID}/info?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+                headers: { 'authorization': token },
+            }).then((res) => {
+                setInfoResults(res.data);
+            }).catch((err) => {
+                console.log(err);
+            });
 
             // gets total sales for that client
-            await axios.get(`http://localhost:8000/client/${clientID}/total_sales?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
-                        headers: { 'authorization': token },
-                    }).then((res) => {
-                        setTotalSales(res.data);
-                    }).catch((err) => {
-                        console.log(err);
-                });
+            axios.get(`http://localhost:8000/client/${clientID}/total_sales?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+                headers: { 'authorization': token },
+            }).then((res) => {
+                setTotalSales(res.data);
+            }).catch((err) => {
+                console.log(err);
+            });
 
             // gets client's top products purchased
-            await axios.get(`http://localhost:8000/client/${clientID}/top_products_purchased?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
-                        headers: { 'authorization': token },
-                    }).then((res) => {
-                        setTopProducts(res.data.products);
-                    }).catch((err) => {
-                        console.log(err);
-                });
+            axios.get(`http://localhost:8000/client/${clientID}/top_products_purchased?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+                headers: { 'authorization': token },
+            }).then((res) => {
+                setTopProducts(res.data.products);
+            }).catch((err) => {
+                console.log(err);
+            });
 
             // gets accounts receivable
-            await axios.post(`http://localhost:8000/client/${clientID}/accounts_receivable`, {
-                    body: formurlencoded(body)
-                }
+            axios.post(`http://localhost:8000/client/${clientID}/accounts_receivable`, {
+                body: formurlencoded(body)
+            }
                 , { headers: { authorization: token } }
-                    ).then((res) => {
-                        setAccountsReceivable(res.data);
-                    }).catch((err) => {
-                        console.log(err);
-                });
+            ).then((res) => {
+                setAccountsReceivable(res.data);
+            }).catch((err) => {
+                console.log(err);
+            });
 
         })();
 
@@ -140,64 +142,64 @@ const Client: React.FC = () => {
 
 
     // values for client info
-    let titles=["ID", "Name", "Country", "Tax ID", "Email", "Phone"];
-    let values=[clientID, infoResults.name, infoResults.country, infoResults.taxID, infoResults.email, infoResults.phone];
+    let titles = ["ID", "Name", "Country", "Tax ID", "Email", "Phone"];
+    let values = [clientID, infoResults.name, infoResults.country, infoResults.taxID, infoResults.email, infoResults.phone];
 
     const columns1 = ["Name", "Purchased Units"];
     const types1 = ["text", "number"];
 
     // values for top products purchased
     let counter = 0;
-    let values1:Array<any> = [];
-    let ids:Array<any> = [];
+    let values1: Array<any> = [];
+    let ids: Array<any> = [];
     topProducts.map((product) => {
-        if(counter < 5){
+        if (counter < 5) {
             values1.push([product.name, parseInt(product.units)]);
             ids.push(product.id);
         }
         counter++;
     });
-    
+
     const [showDatePicker, setShowDatePicker] = useState(false);
 
     return (
         <>
-            <div className="frame"> 
+            <div className="frame">
 
                 <input type="checkbox" id="menu" defaultChecked={true}></input>
 
                 <div className="row h-100">
                     <div className="left-side col-md-2">
-                        <label htmlFor="menu" className="menu-close"><FontAwesomeIcon icon={faTimes} className="toggle-icon"/></label>
-                        <SideBar coreview="drill"/>
+                        <label htmlFor="menu" className="menu-close"><FontAwesomeIcon icon={faTimes} className="toggle-icon" /></label>
+                        <SideBar coreview="drill" />
                     </div>
 
                     <div className="right-side col-md-10">
                         <div className="toggle-menu">
                             <div className="tempura"> Tempura</div>
-                            <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon"/></label>
+                            <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon" /></label>
                         </div>
                         <div className="right-body">
                             <div className="client-content">
                                 <div className="date-selection">
-                                    <Button onClick={()=> setShowDatePicker(!showDatePicker)}className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon"/> 
+                                    <Button onClick={() => setShowDatePicker(!showDatePicker)} className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon" />
                                         {showDatePicker ? "Hide" : "Date Picker"}
                                     </Button>
-                                    {showDatePicker && <Calendar start={new Date()} end={new Date(2021,0,30)}/>} 
+                                    {showDatePicker && <Calendar start={new Date()} end={new Date(2021, 0, 30)} />}
                                 </div>
-                                
-                                
+
+
                                 <div className="all-info">
                                     <div className="top-elements">
-                                        <DrillInfo title="Client Info" fields={titles} values={values}/>
-                                        <CustomTable title="Top Products Purchased" columns={columns1} type={types1} values={values1} drilldown="product" ids={ids}/>
+                                        <DrillInfo title="Client Info" fields={titles} values={values} />
+                                        <CustomTable title="Top Products Purchased" columns={columns1} type={types1} values={values1} drilldown="product" ids={ids} />
                                     </div>
-                                    <div className="bot-elements"> 
-                                        <SingleValueCard type="money" title="Total Sales" value={totalSales.total_sales}/>
-                                        <SingleValueCard type="money" title="Accounts Receivable" value={accountsReceivable.data}/>
+                                    <div className="bot-elements">
+                                        <SingleValueCard type="money" title="Total Sales" value={totalSales.total_sales} />
+                                        <SingleValueCard type="money" title="Accounts Receivable" value={accountsReceivable.data} />
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>

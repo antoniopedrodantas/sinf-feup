@@ -40,8 +40,8 @@ const Overview: React.FC = () => {
   // overview component
   const [revenueGrowth, setRevenueGrowth] = useState([
     {
-        day: '',
-        revenue_growth: 0,
+      day: '',
+      revenue_growth: 0,
     }
   ]);
   const [totalProfit, setTotalProfit] = useState(
@@ -81,9 +81,9 @@ const Overview: React.FC = () => {
       const token = localStorage.getItem("auth-token");
 
       // token is not null
-      if(token != null){
+      if (token != null) {
 
-        try{
+        try {
 
           // gets data from token
           // TODO: change secret and add to a .env file possibly
@@ -98,79 +98,79 @@ const Overview: React.FC = () => {
 
 
       }
-      else{
+      else {
         history.push('/login');
       }
 
       // gets revenue_growth
-      await axios.get(`http://localhost:8000/revenue_growth?start_date=2020-01-02 00:00:00&end_date=2021-01-01 00:00:00`, {
-              headers: { 'authorization': token },
-            }).then((res: { data: { revenue_growth: React.SetStateAction<{ day: string; revenue_growth: number; }[]>; }; }) => {
-              setRevenueGrowth(res.data.revenue_growth);
-            }).catch((err: any) => {
-              console.log(err);
-            });
+      axios.get(`http://localhost:8000/revenue_growth?start_date=2020-01-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+        headers: { 'authorization': token },
+      }).then((res: { data: { revenue_growth: React.SetStateAction<{ day: string; revenue_growth: number; }[]>; }; }) => {
+        setRevenueGrowth(res.data.revenue_growth);
+      }).catch((err: any) => {
+        console.log(err);
+      });
 
       // gets total profit
-      await axios.post(`http://localhost:8000/total_profit`, formurlencoded(body), {
-              headers: { 
-                'authorization': token,
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
-            }).then((res) => {
-              setTotalProfit(res.data);
-            }).catch((err: any) => {
-              console.log(err);
-            });
-      
+      axios.post(`http://localhost:8000/total_profit`, formurlencoded(body), {
+        headers: {
+          'authorization': token,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }).then((res) => {
+        setTotalProfit(res.data);
+      }).catch((err: any) => {
+        console.log(err);
+      });
+
 
       // gets total revenue
-      await axios.post(`http://localhost:8000/total_revenue`, formurlencoded(body), {
-              headers: { 
-                'authorization': token,
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
-            }).then((res) => {
-              setTotalRevenue(res.data);
-            }).catch((err: any) => {
-              console.log(err);
-            });
+      axios.post(`http://localhost:8000/total_revenue`, formurlencoded(body), {
+        headers: {
+          'authorization': token,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }).then((res) => {
+        setTotalRevenue(res.data);
+      }).catch((err: any) => {
+        console.log(err);
+      });
 
-          
+
       // gets liquidity
-      await axios.post(`http://localhost:8000/liquidity`, formurlencoded(body2), {
-              headers: { 
-                'authorization': token,
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
-            }).then((res) => {
-              setLiquidity(res.data);
-            }).catch((err: any) => {
-              console.log(err);
-            });
+      axios.post(`http://localhost:8000/liquidity`, formurlencoded(body2), {
+        headers: {
+          'authorization': token,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }).then((res) => {
+        setLiquidity(res.data);
+      }).catch((err: any) => {
+        console.log(err);
+      });
 
       // gets total costs
-      await axios.post(`http://localhost:8000/total_costs`, formurlencoded(body), {
-              headers: { 
-                'authorization': token,
-                'Content-Type': 'application/x-www-form-urlencoded',
-              },
-            }).then((res) => {
-              setTotalCosts(res.data);
-            }).catch((err: any) => {
-              console.log(err);
-            });
+      axios.post(`http://localhost:8000/total_costs`, formurlencoded(body), {
+        headers: {
+          'authorization': token,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }).then((res) => {
+        setTotalCosts(res.data);
+      }).catch((err: any) => {
+        console.log(err);
+      });
 
       // gets top selling products
-      await axios.get(`http://localhost:8000/top_selling_products?start_date=2020-01-02 00:00:00&end_date=2021-01-01 00:00:00`, {
-              headers: { 'authorization': token },
-            }).then((res) => {
-              setTopSellingProducts(res.data.products);
-            }).catch((err: any) => {
-              console.log(err);
-            });
+      axios.get(`http://localhost:8000/top_selling_products?start_date=2020-01-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+        headers: { 'authorization': token },
+      }).then((res) => {
+        setTopSellingProducts(res.data.products);
+      }).catch((err: any) => {
+        console.log(err);
+      });
 
-    
+
 
     })();
 
@@ -190,11 +190,11 @@ const Overview: React.FC = () => {
   // ];
   const columns1 = ["Name", "Sold Units"]
   const types1 = ["text", "number"];
-  let values1:Array<any> = [];
-  let ids:Array<any> = [];
+  let values1: Array<any> = [];
+  let ids: Array<any> = [];
   let counter = 0;
   topSellingProducts.map((product) => {
-    if(counter < 5){
+    if (counter < 5) {
       values1.push([product.name, product.quantity]);
       ids.push(product.name);
     }
@@ -203,8 +203,8 @@ const Overview: React.FC = () => {
 
   // const ids = ["001", "002", "003", "004", "005"];
 
-  let labels2:Array<any> = [];
-  let values2:Array<any> = [];
+  let labels2: Array<any> = [];
+  let values2: Array<any> = [];
   revenueGrowth.map((revenue) => {
     labels2.push(revenue.day);
     values2.push(revenue.revenue_growth);
@@ -212,49 +212,49 @@ const Overview: React.FC = () => {
 
   return (
     <>
-      <div className="frame"> 
+      <div className="frame">
 
         <input type="checkbox" id="menu" defaultChecked={true}></input>
 
         <div className="row h-100">
           <div className="left-side col-md-2">
-            <label htmlFor="menu" className="menu-close"><FontAwesomeIcon icon={faTimes} className="toggle-icon"/></label>
-            <SideBar coreview="overview"/>
+            <label htmlFor="menu" className="menu-close"><FontAwesomeIcon icon={faTimes} className="toggle-icon" /></label>
+            <SideBar coreview="overview" />
           </div>
 
           <div className="right-side col-md-10">
             <div className="toggle-menu">
               <div className="tempura"> Tempura</div>
-              <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon"/></label>
+              <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon" /></label>
             </div>
             <div className="right-body">
 
               <div className="overview-content">
 
                 <div className="date-selection">
-                  <Button onClick={()=> setShowDatePicker(!showDatePicker)}className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon"/> 
+                  <Button onClick={() => setShowDatePicker(!showDatePicker)} className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon" />
                     {showDatePicker ? "Hide" : "Date Picker"}
                   </Button>
-                  {showDatePicker && <Calendar start={new Date()} end={new Date(2021,0,30)}/>} 
+                  {showDatePicker && <Calendar start={new Date()} end={new Date(2021, 0, 30)} />}
                 </div>
 
-              
+
                 <div className="frame-top">
                   <div className="left-frame-top">
-                    <SingleValueCard type="money" title="Total Profit" value={totalProfit.total_profit}/>
-                    <SingleValueCard type="percentage" title="Liquidity" value={liquidity.liquidity}/>
+                    <SingleValueCard type="money" title="Total Profit" value={totalProfit.total_profit} />
+                    <SingleValueCard type="percentage" title="Liquidity" value={liquidity.liquidity} />
                   </div>
                   <div className="mid-frame-top">
-                    <SingleValueCard type="money" title="Total Revenue" value={totalRevenue.revenue}/>
-                    <SingleValueCard type="money" title="Total Costs" value={totalCosts.total_costs}/>
+                    <SingleValueCard type="money" title="Total Revenue" value={totalRevenue.revenue} />
+                    <SingleValueCard type="money" title="Total Costs" value={totalCosts.total_costs} />
                   </div>
                   <div className="top-selling">
-                    <CustomTable title="Top Selling Products" columns={columns1} type={types1} values={values1} drilldown="product" ids={ids}/>
+                    <CustomTable title="Top Selling Products" columns={columns1} type={types1} values={values1} drilldown="product" ids={ids} />
                   </div>
                 </div>
 
-                <LineChart title="Revenue Growth" labels={labels2} data={values2} width={600}/>
-                
+                <LineChart title="Revenue Growth" labels={labels2} data={values2} width={600} />
+
               </div>
             </div>
           </div>
