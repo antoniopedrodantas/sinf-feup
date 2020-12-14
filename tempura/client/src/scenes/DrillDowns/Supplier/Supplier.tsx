@@ -52,6 +52,16 @@ const Supplier: React.FC = () => {
             units: 0
         },
     ]);
+    const [accountsPayable, setAccountsPayable] = useState(
+        {
+            accounts_payable: 0,
+        }
+    );
+    const [totalPurchases, setTotalPurchases] = useState(
+        {
+            total_sales: 0,
+        }
+    );
 
     const history = useHistory();
 
@@ -104,6 +114,30 @@ const Supplier: React.FC = () => {
                 },
             }).then((res) => {
                 setTopProductsPurchased(res.data.products);
+            }).catch((err: any) => {
+                console.log(err);
+            });
+
+            // gets accounts payable
+            await axios.post(`http://localhost:8000/supplier/${supplierID}/accounts_payable`, formurlencoded(body), {
+                headers: { 
+                    'authorization': token,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            }).then((res) => {
+                setAccountsPayable(res.data);
+            }).catch((err: any) => {
+                console.log(err);
+            });
+
+            // gets total purchases
+            await axios.post(`http://localhost:8000/supplier/${supplierID}/total_purchases`, formurlencoded(body), {
+                headers: { 
+                    'authorization': token,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            }).then((res) => {
+                setTotalPurchases(res.data);
             }).catch((err: any) => {
                 console.log(err);
             });
@@ -176,8 +210,8 @@ const Supplier: React.FC = () => {
                                         <CustomTable title="Top Products Sold" columns={columns1} type={types1} values={values1} drilldown="product" ids={ids}/>
                                     </div>
                                     <div className="bot-elements"> 
-                                        <SingleValueCard type="money" title="Total Purchases" value={12000}/>
-                                        <SingleValueCard type="money" title="Accounts Payable" value={1400}/>
+                                        <SingleValueCard type="money" title="Total Purchases" value={totalPurchases.total_sales}/>
+                                        <SingleValueCard type="money" title="Accounts Payable" value={accountsPayable.accounts_payable}/>
                                     </div>
                                 </div>
                                 
