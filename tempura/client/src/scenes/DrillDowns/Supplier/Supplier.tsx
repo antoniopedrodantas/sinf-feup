@@ -102,7 +102,7 @@ const Supplier: React.FC = () => {
                 console.log(err);
             });
 
-            gets top products purchased
+            // gets top products purchased
             await axios.post(`http://localhost:8000/supplier/${supplierID}/top_products_purchased`, formurlencoded(body), {
                 headers: { 
                     'authorization': token,
@@ -114,7 +114,7 @@ const Supplier: React.FC = () => {
                 console.log(err);
             });
 
-            gets accounts payable
+            // gets accounts payable
             await axios.post(`http://localhost:8000/supplier/${supplierID}/accounts_payable`, formurlencoded(body), {
                 headers: { 
                     'authorization': token,
@@ -126,7 +126,7 @@ const Supplier: React.FC = () => {
                 console.log(err);
             });
 
-            gets total purchases
+            // gets total purchases
             await axios.post(`http://localhost:8000/supplier/${supplierID}/total_purchases`, formurlencoded(body), {
                 headers: { 
                     'authorization': token,
