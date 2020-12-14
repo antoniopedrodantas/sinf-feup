@@ -42,7 +42,7 @@ router.post('/upload', upload, asyncMiddleware(uploadfile));
 
 
 function filefilter(request: Request, file: Express.Multer.File, next: multer.FileFilterCallback) {
-	if (file.mimetype != 'application/xml') {
+	if (file.mimetype != 'application/xml' && file.mimetype != 'text/xml') {
 		console.log(file);
 		return next(new HttpException(415, 'Wrong file extension, not an xml file.'));
 	}
