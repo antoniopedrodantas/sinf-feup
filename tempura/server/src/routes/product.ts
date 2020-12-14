@@ -67,10 +67,14 @@ async function info(request: Request, response: Response, next: NextFunction) {
         name: ''
     }
 
+    type SupplierType = { 
+        units: number,
+        id: string
+    }
     let jasminRequest = new JasminRequester(user);
     try {
 
-        let topSuppliers: { [key: string]: number } = {}
+        let topSuppliers: { [key: string]: SupplierType } = {}
         let purchases = (await jasminRequest.getAllPurchaseOrders()).data
 
         purchases.forEach(purchase => {
@@ -91,18 +95,21 @@ async function info(request: Request, response: Response, next: NextFunction) {
 
                 if(_productID == productID){
                     // units += product.quantity;
-                    topSuppliers[supplierName] = (topSupplier)? topSupplier + product.quantity : product.quantity;
+                    topSuppliers[supplierName] = {
+                        units: (topSupplier)? topSupplier.units + product.quantity : product.quantity,
+                        id: purchase.sellerSupplierParty
+                    };
                 }
             });
 
-
-
         });
         
-        let result = Object.entries(topSuppliers).sort(([k1, v1], [k2, v2]) => v2 - v1);
+        let result = Object.entries(topSuppliers).sort(([k1, v1], [k2, v2]) => v2.units - v1.units);
 
-        mainSupplier.id = result[0][0];
-        mainSupplier.name = result[0][0];
+        if(result){
+            mainSupplier.id = result[0][1].id
+            mainSupplier.name = result[0][0];
+        }
 
     } catch (error) {
         return next(error);

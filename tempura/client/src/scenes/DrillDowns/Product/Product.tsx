@@ -236,7 +236,7 @@ const Product: React.FC = () => {
                                 
                                 <div className="all-info-product">
                                     <div className="main-info-product">
-                                    <DrillInfo title="Product Info" fields={titles} values={values} supplierID="1"/>
+                                    <DrillInfo title="Product Info" fields={titles} values={values} supplierID={productInfo.main_supplier.id}/>
                                     <LineChart title="Units Sold" labels={labels2} data={values2} width={600}/>
                                     </div>
                                     <div className="single-card-col">
