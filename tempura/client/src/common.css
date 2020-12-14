@@ -138,4 +138,9 @@
     overflow-x: hidden;
   }
 
+  
+  .col-md-10 {
+    max-width: 100% !important;
+  }
+
 }

@@ -88,6 +88,12 @@ div.frame-top > div.mid-frame-top > div:nth-child(1), div.frame-top > div.mid-fr
     }
 }
 
+@media(max-width: 768px){
+    .right-body{
+        width: 100vw;
+    }
+}
+
 @media(max-width: 650px){
     
     .overview-content{

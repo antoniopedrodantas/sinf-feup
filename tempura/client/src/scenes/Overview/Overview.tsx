@@ -73,7 +73,7 @@ const Overview: React.FC = () => {
 
   const history = useHistory();
 
-  // checks for authentication
+  //checks for authentication
   useEffect(() => {
     (async () => {
 
