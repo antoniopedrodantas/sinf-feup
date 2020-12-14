@@ -16,8 +16,6 @@ import CustomTable from 'src/components/CustomTable/CustomTable';
 import axios from "axios";
 
 import formurlencoded from 'form-urlencoded';
-import { string } from 'prop-types';
-
 
 interface TokenPayload {
   id: string;
