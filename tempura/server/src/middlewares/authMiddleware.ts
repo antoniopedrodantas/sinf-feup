@@ -14,7 +14,6 @@ export default function authMiddleware(request: Request, response: Response, nex
     const { authorization } = request.headers;
 
 
-    console.log(request.headers);
     // fails to get authorization
     if(!authorization){
         return next(new HttpException(401, "error: You need to be logged in to access this information."))

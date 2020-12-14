@@ -420,7 +420,6 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
 
         // SAFT CHECK
         const check = totalAssets - (totalEquity + totalLiabilities);
-        console.log("CHECK RESULTS: ", check);
     });
 
     // ----------------------------------- JSON Response ------------------------------------
@@ -569,8 +568,6 @@ async function resultsDemonstration(request: Request, response: Response, next: 
 
      // iterates through SAFT
      safts.forEach(saft => {
-        console.log(saft.path);
-
         const json = JSON.parse(fs.readFileSync(saft.path).toString());
         
         // -------------------------------------- "Income and Expenses" ---------------------------------------

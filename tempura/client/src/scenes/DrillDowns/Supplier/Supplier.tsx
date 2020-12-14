@@ -27,7 +27,6 @@ const Supplier: React.FC = () => {
 
     let pageURL = window.location.href;
     let supplierID = pageURL.substr(pageURL.lastIndexOf('/') + 1);
-    console.log( "Supplier ID: " + supplierID);
 
     // json request body
     const body = {
@@ -83,9 +82,6 @@ const Supplier: React.FC = () => {
 
                 // gets user id from user
                 const { id } = data as TokenPayload;
-
-                // TODO: maybe do something with id later on
-                console.log("User ID: ", id);
 
             } catch(err) {
                 history.push('/login');
