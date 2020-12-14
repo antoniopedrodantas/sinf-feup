@@ -1,13 +1,13 @@
 export type SVCNumberProp = {
   type: 'money' | 'percentage' | 'unit' | 'date';
-  title: String;
-  value: Number;
-  supplierID?: String;
+  title: string;
+  value: number;
+  supplierID?: string;
 };
 
 export type SVCTextProp = {
   type: 'text';
-  title: String;
-  value: String;
-  supplierID?: String;
+  title: string;
+  value: string;
+  supplierID?: string;
 };
