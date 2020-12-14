@@ -72,11 +72,14 @@ const Sales: React.FC = () => {
   let lables2:Array<any> = [];
   let values2:Array<any> = [];
   let values3:Array<any> = [];
-  cogs.map((cog:any) => {
-    lables2.push(cog.date);
-    values2.push(cog.cogs);
-    values3.push(cog.sr);
-  });
+  if(cogs){
+    cogs.map((cog:any) => {
+      lables2.push(cog.date);
+      values2.push(cog.cogs);
+      values3.push(cog.sr);
+    });
+  }
+  
 
   // checks for authentication
   useEffect(() => {
@@ -107,7 +110,7 @@ const Sales: React.FC = () => {
         }
 
         // gets top sold products
-        await axios.get('http://localhost:8000/top_sold_products', { params: { rows: maxNumberRows }, headers: { authorization: token } })
+        axios.get('http://localhost:8000/top_sold_products', { params: { rows: maxNumberRows }, headers: { authorization: token } })
           .then((res) => {
             let products: TopProduct[] = res.data;
             let _topProducts = {
@@ -128,7 +131,7 @@ const Sales: React.FC = () => {
 
 
           // gets revenue_growth
-          await axios.get(`http://localhost:8000/top_clients?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+          axios.get(`http://localhost:8000/top_clients?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
               headers: { 'authorization': token },
             }).then((res:any) => {
               setTopClients(res.data.clients);
@@ -137,7 +140,7 @@ const Sales: React.FC = () => {
             });
 
           // gets cogs vs sr
-          await axios.post(`http://localhost:8000/cogs_vs_sales_revenue`, formurlencoded(body), {
+          axios.post(`http://localhost:8000/cogs_vs_sales_revenue`, formurlencoded(body), {
               headers: { 
                 'authorization': token,
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -149,7 +152,7 @@ const Sales: React.FC = () => {
             });
 
           // gets avergae sales price
-          await axios.get(`http://localhost:8000/average_sale_price?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+          axios.get(`http://localhost:8000/average_sale_price?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
               headers: { 'authorization': token },
             }).then((res:any) => {
               setSalesPrice(res.data);
@@ -158,7 +161,7 @@ const Sales: React.FC = () => {
             });
 
           // gets total revenue
-          await axios.post(`http://localhost:8000/total_revenue`, formurlencoded(body), {
+          axios.post(`http://localhost:8000/total_revenue`, formurlencoded(body), {
               headers: { 
                 'authorization': token,
                 'Content-Type': 'application/x-www-form-urlencoded',
