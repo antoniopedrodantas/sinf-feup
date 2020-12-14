@@ -67,7 +67,7 @@ function filefilter(request: Request, file: Express.Multer.File, next: multer.Fi
 async function uploadfile(request: Request, response: Response, next: NextFunction) {
 
 	// xml to json
-	const xmlData = fs.readFileSync(`${root}/safts/tmp/${request.file.filename}`);
+	const xmlData = fs.readFileSync(`${root}/safts/tmp/${request.file.filename}`, 'utf8');
 	let jsonObj = JSON.parse(parser.toJson(xmlData));
 
 	// delete tmp file

@@ -25,6 +25,11 @@ router.get('/:id/units_sold_per_day', authMiddleware, asyncMiddleware(units_sold
 
 
 async function info(request: Request, response: Response, next: NextFunction) {
+
+    let user = await getRepository(User).findOne({ where: { id: request.user } });
+    if (!user) {
+        return next(new HttpException(401, "User not logged in"));
+    }
     
     // gets params
     const productID = request.params.id;
@@ -55,14 +60,66 @@ async function info(request: Request, response: Response, next: NextFunction) {
     // const productInvoice = JSON.parse(fs.readFileSync(safts[0].path).toString())["SourceDocuments"]["SalesInvoices"]["ProductInvoice"][productID];
     // const mainSupplier = getMainSupplier(invoices, productInvoice);
 
-    const mainSupplier = {
-        "id": "undefined",
-        "name": "undefined"
+    // main supplier
+
+    let mainSupplier = {
+        id: '',
+        name: ''
     }
 
-    response
+    type SupplierType = { 
+        units: number,
+        id: string
+    }
+    let jasminRequest = new JasminRequester(user);
+    try {
+
+        let topSuppliers: { [key: string]: SupplierType } = {}
+        let purchases = (await jasminRequest.getAllPurchaseOrders()).data
+
+        purchases.forEach(purchase => {
+            const supplierName = purchase.sellerSupplierPartyName;
+            if (!supplierName) {
+                return;
+            }
+
+            const topSupplier = topSuppliers[supplierName];
+            // topSuppliers[supplierName] =
+            let units = 0;
+            purchase.documentLines.forEach(product => {
+                const _productID = product.purchasesItem;
+                
+                if(!_productID){
+                    return;
+                }
+
+                if(_productID == productID){
+                    // units += product.quantity;
+                    topSuppliers[supplierName] = {
+                        units: (topSupplier)? topSupplier.units + product.quantity : product.quantity,
+                        id: purchase.sellerSupplierParty
+                    };
+                }
+            });
+
+        });
+        
+        let result = Object.entries(topSuppliers).sort(([k1, v1], [k2, v2]) => v2.units - v1.units);
+
+        if(result){
+            mainSupplier.id = result[0][1].id
+            mainSupplier.name = result[0][0];
+        }
+
+    } catch (error) {
+        return next(error);
+    }
+
+    // --------
+
+    return response
         .status(200)
-        .send({
+        .json({
             "name": productID,
             "description": product.ProductDescription,
             "main_supplier": mainSupplier,
