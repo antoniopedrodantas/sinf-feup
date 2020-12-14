@@ -54,6 +54,16 @@ const Sales: React.FC = () => {
       sr: 0
     }
   ]);
+  const [salesPrice, setSalesPrice] = useState(
+    {
+      avg_sale: 0
+    }
+  );
+  const [totalRevenue, setTotalRevenue] = useState(
+    {
+      revenue: 0
+    }
+  );
 
   const history = useHistory();
   const maxNumberRows = 6;
@@ -138,6 +148,27 @@ const Sales: React.FC = () => {
               console.log(err);
             });
 
+          // gets avergae sales price
+          await axios.get(`http://localhost:8000/average_sale_price?start_date=2020-12-02 00:00:00&end_date=2021-01-01 00:00:00`, {
+              headers: { 'authorization': token },
+            }).then((res:any) => {
+              setSalesPrice(res.data);
+            }).catch((err: any) => {
+              console.log(err);
+            });
+
+          // gets total revenue
+          await axios.post(`http://localhost:8000/total_revenue`, formurlencoded(body), {
+              headers: { 
+                'authorization': token,
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+            }).then((res) => {
+              setTotalRevenue(res.data);
+            }).catch((err: any) => {
+              console.log(err);
+            });
+
 
       }
       else {
@@ -192,9 +223,9 @@ const Sales: React.FC = () => {
 
               <div className = "top-things">
                 <div className ="left-names">
-                  <SingleValueCard type="money" title="Total Revenue" value={500309} />
+                  <SingleValueCard type="money" title="Total Revenue" value={Math.round((totalRevenue.revenue) * 100) / 100} />
                   <p></p>
-                  <SingleValueCard type="money" title="Average Sales Price" value={789} />
+                  <SingleValueCard type="money" title="Average Sales Price" value={Math.round((salesPrice.avg_sale) * 100) / 100} />
                   <p></p>
                 </div>
                 <div className = "right-line">
