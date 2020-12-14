@@ -115,7 +115,7 @@ const Purchases: React.FC = () => {
           let _topSuppliers = {
             ...topSuppliers
           }
-          _topSuppliers.ids.push(supplier.name);
+          _topSuppliers.ids.push(supplier.id);
           _topSuppliers.values.push([
             supplier.name,
             supplier.total_spent,
