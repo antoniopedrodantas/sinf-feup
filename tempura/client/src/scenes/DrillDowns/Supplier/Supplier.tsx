@@ -14,6 +14,9 @@ import { useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
 import { Button } from 'react-bootstrap';
 
+import axios from 'axios';
+import formurlencoded from 'form-urlencoded';
+
 interface TokenPayload {
   id: string;
   iat: number;
@@ -22,55 +25,120 @@ interface TokenPayload {
 
 const Supplier: React.FC = () => {
 
+    let pageURL = window.location.href;
+    let supplierID = pageURL.substr(pageURL.lastIndexOf('/') + 1);
+    console.log( "Supplier ID: " + supplierID);
+
+    // json request body
+    const body = {
+        start_date: "2020-01-02 00:00:00",
+        end_date: "2021-01-01 00:00:00"
+    };
+
+    const [supplierInfo, setSupplierInfo] = useState(
+        {
+            id: '',
+            name: '',
+            country: '',
+            tax_id: '',
+            email: '',
+            phone: ''
+        }
+    );
+    const [topProductsPurchased, setTopProductsPurchased] = useState([
+        {
+            id: '',
+            name: '',
+            units: 0
+        },
+    ]);
+
     const history = useHistory();
 
     // checks for authentication
     useEffect(() => {
+        (async () => {
 
-        // gets auth-token from the local storage
-        const token = localStorage.getItem("auth-token");
+            // gets auth-token from the local storage
+            const token = localStorage.getItem("auth-token");
 
-        // token is not null
-        if(token != null){
+            // token is not null
+            if(token != null){
 
-        try{
+            try{
 
-            // gets data from token
-            // TODO: change secret and add to a .env file possibly
-            const data = jwt.verify(token, 'secret');
+                // gets data from token
+                // TODO: change secret and add to a .env file possibly
+                const data = jwt.verify(token, 'secret');
 
-            // gets user id from user
-            const { id } = data as TokenPayload;
+                // gets user id from user
+                const { id } = data as TokenPayload;
 
-            // TODO: maybe do something with id later on
-            console.log("User ID: ", id);
+                // TODO: maybe do something with id later on
+                console.log("User ID: ", id);
 
-        } catch(err) {
+            } catch(err) {
+                history.push('/login');
+            }
+
+            }
+            else{
+            // redirects to login
             history.push('/login');
-        }
+            }
 
-        }
-        else{
-        // redirects to login
-        history.push('/login');
-        }
+            // gets supplier's info
+            await axios.get(`http://localhost:8000/supplier/${supplierID}/info`, {
+                headers: { 'authorization': token },
+            }).then((res) => {
+                setSupplierInfo(res.data);
+            }).catch((err) => {
+                console.log(err);
+            });
+
+            // gets top products purchased
+            await axios.post(`http://localhost:8000/supplier/${supplierID}/top_products_purchased`, formurlencoded(body), {
+                headers: { 
+                    'authorization': token,
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+            }).then((res) => {
+                setTopProductsPurchased(res.data.products);
+            }).catch((err: any) => {
+                console.log(err);
+            });
+
+        })();
+
 
     }, []);
 
-    const titles=["Entity", "Name", "Country", "Tax ID", "Email", "Phone"];
-    const values=["LRLDA", "L. Ribeiro, Lda.", "Portugal", "502607564", "geral@lribeiro.pt", "+351 253 534 890"];
+    const titles=["ID", "Name", "Country", "Tax ID", "Email", "Phone"];
+    // const values=["LRLDA", "L. Ribeiro, Lda.", "Portugal", "502607564", "geral@lribeiro.pt", "+351 253 534 890"];
+    const values=[supplierInfo.id, supplierInfo.name, supplierInfo.country, supplierInfo.tax_id, supplierInfo.email, supplierInfo.phone];
 
     const columns1 = ["Name", "Sold Units"];
     const types1 = ["text", "number"];
-    const values1 = [
-        ["Sushi", "550"],
-        ["Hossomakis", "550"],
-        ["Sashimi", "5150"],
-        ["Yakisoba", "550"],
-        ["Yakisoba", "550"]
-    ];
+    // const values1 = [
+    //     ["Sushi", "550"],
+    //     ["Hossomakis", "550"],
+    //     ["Sashimi", "5150"],
+    //     ["Yakisoba", "550"],
+    //     ["Yakisoba", "550"]
+    // ];
+    let values1:Array<any> = [];
+    let ids:Array<any> = [];
+    let counter = 0;
+    topProductsPurchased.map((product:any) => {
+        if(counter < 5){
+            values1.push([product.name, product.units]);
+            ids.push(product.id);
+        }
+        counter++;
+    });
 
-    const ids = ["001", "002", "003", "004", "005"];
+
+    //const ids = ["001", "002", "003", "004", "005"];
 
 
     const [showDatePicker, setShowDatePicker] = useState(false);
