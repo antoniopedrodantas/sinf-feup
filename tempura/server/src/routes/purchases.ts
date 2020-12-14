@@ -141,7 +141,7 @@ async function top_suppliers(request: Request, response: Response, next: NextFun
                 total_spent: (!topSupplier) ? (purchase.grossValue.amount ?? 0) : topSupplier.total_spent + purchase.grossValue.amount,
                 numOrders: (!topSupplier) ? 1 : topSupplier.numOrders + 1,
                 max_spent: (!topSupplier) ? (purchase.grossValue.amount ?? 0) : Math.max(topSupplier.max_spent, purchase.grossValue.amount),
-                id: supplierID
+                id: purchase.sellerSupplierParty
             }
 
         });
