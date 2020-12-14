@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
 import SideBar from '../../components/SideBar/SideBar';
+import SingleValueCard from 'src/components/SingleValueCard/SingleValueCard';
+import Calendar from 'src/components/Calendar/Calendar';
 import './styles/Purchases.css';
-import PieChart from '../../components/Charts/PieChart';
-import LineChart from '../../components/Charts/LineChart';
+import PieChart from 'src/components/Charts/PieChart';
 import '../../common.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faTimes, faCalendar } from '@fortawesome/free-solid-svg-icons'
+import { Button } from 'react-bootstrap';
 
 import { useHistory } from 'react-router-dom';
 import jwt from 'jsonwebtoken';
@@ -59,7 +61,7 @@ const Purchases: React.FC = () => {
     }
   );
 
-  // checks for authentication
+//  checks for authentication
   useEffect(() => {
     (async () => {
 
@@ -155,8 +157,34 @@ const Purchases: React.FC = () => {
   }, []);
 
 
+
+
   // Frontend
 
+//   const columns1 = ["Name", "Sold Units", "Price"];
+//   const types1 = ["text", "number", "money"];
+//   const values1 = [
+//       ["Sashimi", "150", "17.8"],
+//       ["Tempura", "121", "18.8"],
+//       ["Sushi", "103", "20.0"],
+//       ["Robata", "89", "9.2"],
+//       ["Robata", "89", "9.2"]
+//   ];
+
+//   const columns2 = ["Name", "Total Spent", "Orders", "Maximum"];
+//   const types2 = ["text", "money", "number", "money"];
+//   const valuesTable = [
+//     ["Kayuza Lda.", "2124", "5", "809"],
+//     ["Kayuza Lda.", "2124", "5", "809"],
+//     ["Kayuza Lda.", "2124", "5", "809"],
+//     ["Kayuza Lda.", "2124", "5", "809"],
+//     ["Kayuza Lda.", "2124", "5", "809"]
+// ];
+
+  const labels2 = ["Portugal", "Japan"];
+  const valuesChart = ["40", "60"];
+  const ids = ["001", "002", "003", "004", "005"];
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
 
   return (
@@ -179,16 +207,34 @@ const Purchases: React.FC = () => {
                   <label htmlFor="menu" className="menu-bar"><FontAwesomeIcon icon={faBars} className="toggle-icon" /></label>
                 </div>
                 <div className="right-body">
-                  <PieChart title="Supplier Countries" labels={supplierCountries.columns} data={supplierCountries.values} />
+
+                <div className="purchases-content">
+
+                      <div className="date-selection">
+                          <Button onClick={()=> setShowDatePicker(!showDatePicker)}className="date-btn" variant="outlined"> <FontAwesomeIcon icon={faCalendar} className="calendar-icon"/> 
+                              {showDatePicker ? "Hide" : "Date Picker"}
+                          </Button>
+                          {showDatePicker && <Calendar start={new Date()} end={new Date(2021,0,30)}/>} 
+                      </div>
+                <div className = "top-things">
+                  <div className ="left-cards">
+                    <SingleValueCard type="money" title="Average per Margin Supplier" value={23456} />
+                    <p></p>
+                    <SingleValueCard type="text" title="Largest Margin Supplier" value="Vitor Lda." supplierID="1" />
+                    <p></p>
+                  </div>
+                  <div className = "right-chart">
+                    <PieChart title="Supplier Countries" labels={supplierCountries.columns} data={supplierCountries.values} />
                   <p></p>
-                  <LineChart title="Revenue Growth" labels={lables2} data={values2} width={600} />
-                  <p></p>
-                  <LineChart title="Cost of Goods Sold vs Sales Revenue" labels={lables2} data={values2} data2={values3} width={600} />
-                  <p></p>
-                  <CustomTable title="Top Suppliers" columns={topSuppliers.columns} type={topSuppliers.types} values={topSuppliers.values} drilldown="product" ids={topSuppliers.ids} />
-                  <p></p>
-                  <CustomTable title="Top Products" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={topProducts.ids} />
+                  </div>
                 </div>
+                <div className = "bottom-things">
+                  <CustomTable title="Top Suppliers" columns={topSuppliers.columns} type={topSuppliers.types} values={topSuppliers.values} drilldown="supplier" ids={topSuppliers.ids} />
+                  <p></p>
+                  <CustomTable title="Top Purchased Products" columns={topProducts.columns} type={topProducts.types} values={topProducts.values} drilldown="product" ids={topProducts.ids} />
+                </div>
+                </div>
+              </div>
               </div>
             </div>
           </div>
