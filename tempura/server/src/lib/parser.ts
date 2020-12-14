@@ -140,6 +140,12 @@ function parseSalesInvoices(old: any) {
         }
 
         let lines: Array<any> = element["Line"];
+
+        if (!Array.isArray(lines)) {
+            element.Line = [lines];
+            lines = element.Line
+        }
+
         lines.forEach(line => {
             let number = line["LineNumber"];
             let productID = line["ProductCode"];
@@ -173,20 +179,15 @@ function parseSalesInvoices(old: any) {
 
 
 function parseJournal(journals: Array<any>, accounts: any) {
-    // console.log(accounts)
-    // console.log("inside journal func")
     journals.forEach(journalEntry => {
-        // console.log("inside journal loop")
         let transactions: Array<any> = journalEntry["Transaction"];
 
         transactions.forEach(transaction => {
 
             if (transaction.Lines.hasOwnProperty("CreditLine")) {
                 let creditLines = transaction.Lines.CreditLine;
-                // 622613
                 if (Array.isArray(creditLines)) {
                     creditLines.forEach(line => {
-                        // console.log("inside credit lines loop")
                         let accountID = line.AccountID;
 
                         if (accountID.charAt(0) !== "6" && accountID.charAt(0) !== "7") {
@@ -196,8 +197,6 @@ function parseJournal(journals: Array<any>, accounts: any) {
                         let amount = parseFloat(accounts[accountID].ClosingCreditBalance);
                         amount += parseFloat(line.CreditAmount);
                         accounts[accountID].ClosingCreditBalance = `${amount}`;
-
-                        // console.log(`ACCOUNT: ${accountID}\t\tTOTAL: ${amount}`)
                     });
                 } else {
                     let accountID = creditLines.AccountID;

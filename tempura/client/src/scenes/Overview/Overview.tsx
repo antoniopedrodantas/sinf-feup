@@ -91,8 +91,6 @@ const Overview: React.FC = () => {
           const { id } = data as TokenPayload;
 
           // TODO: maybe do something with id later on
-          console.log("User ID: ", id);
-
         } catch(err) {
           history.push('/login');
         }

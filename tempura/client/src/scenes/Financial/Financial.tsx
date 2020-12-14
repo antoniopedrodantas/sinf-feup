@@ -154,9 +154,6 @@ export const Financial: React.FC = () => {
           // gets user id from user
           const { id } = data as TokenPayload;
 
-          // TODO: maybe do something with id later on
-          console.log("User ID: ", id);
-
         } catch(err) {
           history.push('/login');
         }
@@ -181,7 +178,6 @@ export const Financial: React.FC = () => {
               headers: { 'authorization': token },
             }).then((res) => {
               setResultsDemonstration(res.data["Income and Expenses"]);
-              console.log(res.data);
             }).catch((err) => {
               console.log(err);
             });
