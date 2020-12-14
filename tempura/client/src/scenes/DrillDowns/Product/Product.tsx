@@ -116,7 +116,7 @@ const Product: React.FC = () => {
                 console.log(err);
             });
 
-            // gets total units sold
+            //gets total units sold
             axios.post(`http://localhost:8000/product/${productID}/total_units_sold`, formurlencoded(body), {
                 headers: {
                     'authorization': token,
@@ -137,7 +137,7 @@ const Product: React.FC = () => {
                 console.log(err);
             });
 
-            // gets average purchase price
+            //gets average purchase price
             axios.post(`http://localhost:8000/product/${productID}/average_purchase_price`, formurlencoded(body), {
                 headers: {
                     'authorization': token,
@@ -149,7 +149,7 @@ const Product: React.FC = () => {
                 console.log(err);
             });
 
-            // gets average sales price
+            //gets average sales price
             axios.post(`http://localhost:8000/product/${productID}/average_sale_price`, formurlencoded(body), {
                 headers: {
                     'authorization': token,
@@ -161,7 +161,7 @@ const Product: React.FC = () => {
                 console.log(err);
             });
 
-            // gets average profit per unit
+            //gets average profit per unit
             axios.post(`http://localhost:8000/product/${productID}/average_profit_per_unit`, formurlencoded(body), {
                 headers: {
                     'authorization': token,

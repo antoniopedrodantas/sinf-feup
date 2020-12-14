@@ -125,7 +125,7 @@ const Client: React.FC = () => {
                 console.log(err);
             });
 
-            // gets accounts receivable
+            //gets accounts receivable
             axios.post(`http://localhost:8000/client/${clientID}/accounts_receivable`, {
                 body: formurlencoded(body)
             }

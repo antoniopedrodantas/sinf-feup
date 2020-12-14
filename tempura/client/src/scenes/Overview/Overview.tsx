@@ -124,7 +124,7 @@ const Overview: React.FC = () => {
       });
 
 
-      // gets total revenue
+     // gets total revenue
       axios.post(`http://localhost:8000/total_revenue`, formurlencoded(body), {
         headers: {
           'authorization': token,
@@ -137,7 +137,7 @@ const Overview: React.FC = () => {
       });
 
 
-      // gets liquidity
+      //gets liquidity
       axios.post(`http://localhost:8000/liquidity`, formurlencoded(body2), {
         headers: {
           'authorization': token,

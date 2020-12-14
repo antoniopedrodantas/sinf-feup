@@ -81,7 +81,7 @@ const Purchases: React.FC = () => {
   useEffect(() => {
     (async () => {
 
-      // gets auth-token from the local storage
+      //gets auth-token from the local storage
       const token = localStorage.getItem("auth-token");
 
       // token is not null
