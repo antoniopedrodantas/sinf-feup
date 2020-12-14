@@ -5,25 +5,48 @@ import { getRepository } from "typeorm";
 import { User } from "../entity/User";
 import HttpException from "../exceptions/HttpException";
 import JasminRequester from "../lib/JasminRequester";
+import { getAvgSupplierMargin, getLargestMarginSupplier } from "../lib/purchases";
 
 const router = express.Router();
 
 
-router.get('/average_margin_per_supplier', authMiddleware, asyncMiddleware(average_margin_per_supplier));
-router.get('/largest_margin_supplier', authMiddleware, asyncMiddleware(largest_margin_supplier));
+router.post('/average_margin_per_supplier', authMiddleware, asyncMiddleware(average_margin_per_supplier));
+router.post('/largest_margin_supplier', authMiddleware, asyncMiddleware(largest_margin_supplier));
 router.get('/top_purchased_products', authMiddleware, asyncMiddleware(top_purchased_products));
 router.get('/supplier_country', authMiddleware, asyncMiddleware(supplier_country));
 router.get('/top_suppliers', authMiddleware, asyncMiddleware(top_suppliers));
 
 
-function average_margin_per_supplier(request: Request, response: Response, next: NextFunction) {
-    // TODO: implement this endpoint
-    response.send('NOT IMPLEMENTED');
+async function average_margin_per_supplier(request: Request, response: Response, next: NextFunction) {
+    let user = await getRepository(User).findOne({ where: { id: request.user } });
+    if (!user) {
+        return next(new HttpException(500, "User missing"));
+    }
+
+    const startDate = request.body.start_date;
+    const endDate = request.body.end_date;
+
+    let avgMargin = await getAvgSupplierMargin(user, startDate, endDate);
+
+    response
+        .status(200)
+        .send({ average_margin: avgMargin });
 }
 
-function largest_margin_supplier(request: Request, response: Response, next: NextFunction) {
-    // TODO: implement this endpoint
-    response.send('NOT IMPLEMENTED');
+async function largest_margin_supplier(request: Request, response: Response, next: NextFunction) {
+    let user = await getRepository(User).findOne({ where: { id: request.user } });
+    if (!user) {
+        return next(new HttpException(500, "User missing"));
+    }
+
+    const startDate = request.body.start_date;
+    const endDate = request.body.end_date;
+
+    let largestMarginSupplier = await getLargestMarginSupplier(user, startDate, endDate);
+
+    response
+        .status(200)
+        .send({ supplier: largestMarginSupplier });
 }
 
 async function top_purchased_products(request: Request, response: Response, next: NextFunction) {
