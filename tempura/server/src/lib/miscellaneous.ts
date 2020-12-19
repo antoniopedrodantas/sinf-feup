@@ -6,14 +6,12 @@ import fs from "fs";
 
 export async function getTotalRevenue(user: User, startDate: string, endDate: string) {
 
-    // TODO: add user param to query
     const safts = await getSaftFiles(TaxAccountingBasis.BILLING, startDate, endDate);
 
     if (safts.length === 0) {
         return 0;
     }
 
-    // TODO: getting the first saft of the list is temporary
     const bills = JSON.parse(fs.readFileSync(safts[0].path).toString())["SourceDocuments"]["SalesInvoices"]["Invoice"];
     const revenueTotal = getRevenueTotal(bills);
 

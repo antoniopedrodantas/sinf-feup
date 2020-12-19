@@ -36,32 +36,22 @@ async function info(request: Request, response: Response, next: NextFunction) {
     const start = request.query.start_date;
     const end = request.query.end_date;
 
-    // TODO: add user parameter to query
     const safts = await getSaftFiles(TaxAccountingBasis.BILLING, start, end);
 
     if (safts.length == 0) {
-        // TODO: add descriptive error message and status code
         return next(new HttpException(500, "Internal server error."))
     }
 
-    // TODO: getting the first saft of the list is temporary
     const products = JSON.parse(fs.readFileSync(safts[0].path).toString())["MasterFiles"]["Product"];
 
     if (!products.hasOwnProperty(productID)) {
-        // TODO: add descriptive error message and status code
         return next(new HttpException(500, "Client with specified id not found."))
     }
 
     // gets Product
     const product = products[productID];
 
-    // TODO: get main supplier
-    // const invoices = JSON.parse(fs.readFileSync(safts[0].path).toString())["SourceDocuments"]["SalesInvoices"]["Invoice"];
-    // const productInvoice = JSON.parse(fs.readFileSync(safts[0].path).toString())["SourceDocuments"]["SalesInvoices"]["ProductInvoice"][productID];
-    // const mainSupplier = getMainSupplier(invoices, productInvoice);
-
     // main supplier
-
     let mainSupplier = {
         id: '',
         name: ''
@@ -84,7 +74,6 @@ async function info(request: Request, response: Response, next: NextFunction) {
             }
 
             const topSupplier = topSuppliers[supplierName];
-            // topSuppliers[supplierName] =
             let units = 0;
             purchase.documentLines.forEach(product => {
                 const _productID = product.purchasesItem;
@@ -94,7 +83,6 @@ async function info(request: Request, response: Response, next: NextFunction) {
                 }
 
                 if(_productID == productID){
-                    // units += product.quantity;
                     topSuppliers[supplierName] = {
                         units: (topSupplier)? topSupplier.units + product.quantity : product.quantity,
                         id: purchase.sellerSupplierParty
@@ -114,8 +102,6 @@ async function info(request: Request, response: Response, next: NextFunction) {
     } catch (error) {
         return next(error);
     }
-
-    // --------
 
     return response
         .status(200)
@@ -237,19 +223,15 @@ async function units_sold_per_day(request: Request, response: Response, next: Ne
     const start = request.query.start_date;
     const end = request.query.end_date;
 
-    // TODO: add user parameter to query
     const safts = await getSaftFiles(TaxAccountingBasis.BILLING, start, end);
 
     if (safts.length == 0) {
-        // TODO: add descriptive error message and status code
         return next(new HttpException(500, "Internal server error."))
     }
 
-    // TODO: getting the first saft of the list is temporary
     const products = JSON.parse(fs.readFileSync(safts[0].path).toString())["MasterFiles"]["Product"];
 
     if (!products.hasOwnProperty(productID)) {
-        // TODO: add descriptive error message and status code
         return next(new HttpException(500, "Client with specified id not found."))
     }
 

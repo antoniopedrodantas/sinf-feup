@@ -1,7 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import multer from "multer";
 import { root } from "../path";
-// import libxml from "libxmljs";
 import fs from "fs";
 import parser from "xml2json";
 
@@ -25,8 +24,6 @@ const storage = multer.diskStorage({
 		next(null, `${root}/safts/tmp/`);
 	},
 	filename: (request, file, next) => {
-		// TODO: add name scheme or name generator
-		// TODO: use user id or smth
 		next(null, `${Math.floor(Date.now() / 1000)}`);
 	}
 });
@@ -37,7 +34,6 @@ const upload = multer({
 }).single('saft');
 
 
-// TODO: add authentication middleware
 router.post('/upload', upload, asyncMiddleware(uploadfile));
 
 
@@ -45,20 +41,6 @@ function filefilter(request: Request, file: Express.Multer.File, next: multer.Fi
 	if (file.mimetype != 'application/xml' && file.mimetype != 'text/xml') {
 		return next(new HttpException(415, 'Wrong file extension, not an xml file.'));
 	}
-	// TODO: add xml validation with provided xsd
-	// commented code is here for when we get back to this
-
-	// console.log(file.buffer);
-	// const xmlDoc = libxml.parseXml((file.buffer).toString());
-	// const xsdDoc = libxml.parseXml(fs.readFileSync(xsdPath).toString());
-
-	// if (xmlDoc.validate(xsdDoc)) {
-	//   console.log('valid xml');
-	//   cb(null, true);
-	// } else {
-	//   console.log('not a valid xml');
-	//   cb(new Error('Not a valid SAFT-PT file.'));
-	// }
 
 	return next(null, true);
 }
@@ -81,7 +63,6 @@ async function uploadfile(request: Request, response: Response, next: NextFuncti
 		throw next(new HttpException(400, 'SAFT type not supported'));
 	}
 
-	// TODO: come up with some sort of naming scheme
 	let fileName = `${request.file.filename}.json`;
 
 	const saftRepository = getRepository(Saft);
@@ -127,7 +108,6 @@ function getSaftInfo(fileName: string, header: any) {
 		path: `${root}/safts/${fileName}`,
 		fiscal_year: parseInt(header.FiscalYear, 10),
 		tax_accounting_basis: header.TaxAccountingBasis
-		// FIXME: add user information
 	}
 }
 

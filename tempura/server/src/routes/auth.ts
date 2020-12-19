@@ -58,7 +58,6 @@ async function login(request: Request, response: Response, next: NextFunction) {
 }
 
 function logout(request: Request, response: Response, next: NextFunction) {
-    // TODO: implement this endpoint
     response.send('NOT IMPLEMENTED');
 }
 
