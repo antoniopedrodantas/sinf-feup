@@ -18,7 +18,6 @@ const swaggerDef = {
 const options = {
     swaggerDef,
     customCss: '.swagger-ui .topbar { display: none }'
-    // explorer: true
 };
 
 

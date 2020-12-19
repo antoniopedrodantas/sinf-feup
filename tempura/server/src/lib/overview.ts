@@ -30,7 +30,6 @@ export async function getTotalCosts(user: User, startDate: string, endDate: stri
 
 export async function getLiquidity(user: User, startDate: string, endDate: string) {
 
-    // TODO: add user to this query
     const safts = await getSaftFiles(TaxAccountingBasis.ACCOUNTING, startDate, endDate);
 
     if (safts.length === 0) {

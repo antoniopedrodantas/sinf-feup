@@ -27,7 +27,6 @@ export default function authMiddleware(request: Request, response: Response, nex
         try{
 
             // gets data from token
-            // TODO: change secret and add to a .env file possibly
             const data = jwt.verify(token, process.env.TOKEN_SECRET ?? "secret");
 
             // gets user id from user
@@ -43,10 +42,6 @@ export default function authMiddleware(request: Request, response: Response, nex
 
     }
     else {
-
-        // authorization is null
-        // response.status(401);
-        // response.json("error: You need to be logged in to access this information.");
         return next(new HttpException(401, "error: You need to be logged in to access this information."))
     }
 

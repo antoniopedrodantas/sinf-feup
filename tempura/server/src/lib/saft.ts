@@ -2,7 +2,6 @@ import { Between, getRepository } from "typeorm";
 import { Saft, TaxAccountingBasis } from "../entity/Saft";
 
 
-// TODO: add user parameter to query
 async function getSaftFiles(type: TaxAccountingBasis, start: any, end: any) {
     const saftRepository = getRepository(Saft);
 

@@ -45,11 +45,9 @@ async function top_clients(request: Request, response: Response, next: NextFunct
     const safts = await getSaftFiles(TaxAccountingBasis.BILLING, start, end);
 
     if (safts.length == 0) {
-        // TODO: add descriptive error message and status code
         return next(new HttpException(500, "Internal server error."))
     }
 
-    // TODO: getting the first saft on the list is temporary
     const jsonObj = JSON.parse(fs.readFileSync(safts[0].path).toString());
 
     const invoices = jsonObj.SourceDocuments.SalesInvoices.Invoice;
@@ -104,11 +102,9 @@ async function average_sale_price(request: Request, response: Response, next: Ne
     const safts = await getSaftFiles(TaxAccountingBasis.BILLING, start, end);
 
     if (safts.length == 0) {
-        // TODO: add descriptive error message and status code
         return next(new HttpException(500, "Internal server error."))
     }
 
-    // TODO: getting the first saft on the list is temporary
     const jsonObj = JSON.parse(fs.readFileSync(safts[0].path).toString());
 
     let sum: number = 0, counter: number = 0;
