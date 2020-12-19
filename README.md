@@ -1,5 +1,7 @@
-# SINF
-Code developed for the course SINF at FEUP.
+# Tempura
+This is a web application that is able to present information and key performance indicators (KPIs), relevant to any business, in a more comprehensive and straightforward manner. It interoperates with the Primavera ERP and is meant for the company’s internal use.
+
+This project was developed for the course SINF at FEUP.
 
 ## Info
  - **Date** : 4th year, 1st Semester, 2020/2021
