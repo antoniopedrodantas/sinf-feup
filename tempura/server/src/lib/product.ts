@@ -110,7 +110,6 @@ export async function getTotalUnitsSold(productID: string, user: User, startDate
         return 0;
     }
 
-    // TODO: getting the first saft of the list is temporary
     const json = JSON.parse(fs.readFileSync(safts[0].path).toString());
     const products = json["MasterFiles"]["Product"];
 
@@ -127,19 +126,17 @@ export async function getTotalUnitsSold(productID: string, user: User, startDate
 }
 
 export async function getAvgSalePrice(productID: string, user: User, startDate: string, endDate: string) {
-    // TODO: add user to this query
+
     const safts = await getSaftFiles(TaxAccountingBasis.BILLING, startDate, endDate);
 
     if (safts.length == 0) {
         return 0;
     }
 
-    // TODO: getting the first saft of the list is temporary
     const json = JSON.parse(fs.readFileSync(safts[0].path).toString())
     const products = json["MasterFiles"]["Product"];
 
     if (!products.hasOwnProperty(productID)) {
-        // TODO: what to do when the product is not found?
         return 0;
     }
 

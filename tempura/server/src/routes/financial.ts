@@ -21,7 +21,6 @@ async function balanceSheet(request: Request, response: Response, next: NextFunc
     const start = request.query.start_date;
     const end = request.query.end_date;
 
-    // TODO: add user param to query
     const safts = await getSaftFiles(TaxAccountingBasis.ACCOUNTING, start, end);
 
     // balance sheet fields
@@ -532,7 +531,6 @@ async function resultsDemonstration(request: Request, response: Response, next: 
     const start = request.query.start_date;
     const end = request.query.end_date;
 
-    // TODO: add user param to query
     const safts = await getSaftFiles(TaxAccountingBasis.ACCOUNTING, start, end);
 
     // balance sheet fields

@@ -43,15 +43,10 @@ createConnection(options)
         // create express app
         const app = express();
 
-        // setup express app here
-        // ...
-
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({ extended: true }))
         app.use(cors(corsOptions));
         app.use(morgan('dev'));
-
-        // ...
 
         app.use(router);
 

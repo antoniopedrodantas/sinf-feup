@@ -37,7 +37,6 @@ export async function getAvgSaleQuantity(user: User, startDate: string, endDate:
         return 0;
     }
 
-    // TODO: getting the first saft of the list is temporary
     const json = JSON.parse(fs.readFileSync(safts[0].path).toString());
 
     let sum = 0, counter = 0;

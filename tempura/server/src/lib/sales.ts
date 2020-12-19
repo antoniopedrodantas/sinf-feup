@@ -12,7 +12,6 @@ export async function getCostOfGoodsSoldVsSalesRevenue(user: User, startDate: st
         return 0;
     }
 
-    // TODO: getting the first saft of the list is temporary
     const json = JSON.parse(fs.readFileSync(safts[0].path).toString());
 
     let result: { [date: string]: COGSvsSR } = {};
