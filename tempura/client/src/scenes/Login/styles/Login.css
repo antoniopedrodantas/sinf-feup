@@ -118,7 +118,6 @@ input:focus, textarea:focus, select:focus{
     color: var(--red-color);
 }
 
-/* add media queries*/
 @media(max-width:1300px)
 {
     .loginContainer{

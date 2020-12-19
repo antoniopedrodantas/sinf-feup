@@ -178,16 +178,6 @@ const Overview: React.FC = () => {
 
   // Frontend
   const [showDatePicker, setShowDatePicker] = useState(false);
-
-  // const columns1 = ["Name", "Sold Units", "Price"];
-  // const types1 = ["text", "number", "money"];
-  // const values1 = [
-  //     ["Sashimi", "150", "17.8"],
-  //     ["Tempura", "121", "18.8"],
-  //     ["Sushi", "103", "20.0"],
-  //     ["Robata", "89", "9.2"],
-  //     ["Robata", "89", "9.2"]
-  // ];
   const columns1 = ["Name", "Sold Units"]
   const types1 = ["text", "number"];
   let values1: Array<any> = [];
@@ -201,7 +191,6 @@ const Overview: React.FC = () => {
     counter++;
   });
 
-  // const ids = ["001", "002", "003", "004", "005"];
 
   let labels2: Array<any> = [];
   let values2: Array<any> = [];

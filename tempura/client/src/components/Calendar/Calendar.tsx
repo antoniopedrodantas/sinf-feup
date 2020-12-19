@@ -24,7 +24,6 @@ const Calendar: React.FC<CalendarProps> = ({start, end}) => {
         setEndDate(ranges.selection.endDate);
     }
 
-    /*TODO: process dates BACKEND */
     const submit = async (event: any) => {
         event.preventDefault();
     };

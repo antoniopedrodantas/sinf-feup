@@ -144,18 +144,10 @@ const Supplier: React.FC = () => {
     }, []);
 
     const titles=["ID", "Name", "Country", "Tax ID", "Email", "Phone"];
-    // const values=["LRLDA", "L. Ribeiro, Lda.", "Portugal", "502607564", "geral@lribeiro.pt", "+351 253 534 890"];
     const values=[supplierInfo.id, supplierInfo.name, supplierInfo.country, supplierInfo.tax_id, supplierInfo.email, supplierInfo.phone];
 
     const columns1 = ["Name", "Sold Units"];
     const types1 = ["text", "number"];
-    // const values1 = [
-    //     ["Sushi", "550"],
-    //     ["Hossomakis", "550"],
-    //     ["Sashimi", "5150"],
-    //     ["Yakisoba", "550"],
-    //     ["Yakisoba", "550"]
-    // ];
     let values1:Array<any> = [];
     let ids:Array<any> = [];
     let counter = 0;
@@ -166,10 +158,6 @@ const Supplier: React.FC = () => {
         }
         counter++;
     });
-
-
-    //const ids = ["001", "002", "003", "004", "005"];
-
 
     const [showDatePicker, setShowDatePicker] = useState(false);
 

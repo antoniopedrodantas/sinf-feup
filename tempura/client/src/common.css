@@ -90,11 +90,7 @@
     background-color: var(--card-background);
     width: 100vw;
     left: 0;
-
-    /* position: fixed !important;
-    top:0;
-    width: 90%; */
-
+    
     display: flex !important;
     flex-direction: row;
     justify-content: space-between;
@@ -124,7 +120,6 @@
   }
 
   input[type=checkbox]:checked ~ .row > .left-side{
-    /* transform: translate3d(100vw, 0, 0) !important; */
     display: none !important;
   }
 

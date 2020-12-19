@@ -8,14 +8,10 @@
 
 .all-info-product{
     display: inline-block;
-    /*flex-direction: row;
-    justify-content: space-between; */
     margin-top: 8vh;
 }
 
 .main-info-product {
-    /* display:flex;
-    flex-direction: column; */
     width: 45vw !important;
     float: left;
 }

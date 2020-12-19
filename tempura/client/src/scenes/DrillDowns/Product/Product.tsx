@@ -193,8 +193,6 @@ const Product: React.FC = () => {
     const ids = ["001", "002", "003", "004", "005"];
     const [showDatePicker, setShowDatePicker] = useState(false);
 
-    // const labels2 = ["Jan", "Feb", "Mar", "Apr", "May", "June"];
-    // const values2 = ["50", "40", "45", "30", "52", "30"];
     const labels2: Array<any> = [];
     const values2: Array<any> = [];
     unitsSoldPerDay.map((day: any) => {

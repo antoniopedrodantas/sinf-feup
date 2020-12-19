@@ -29,7 +29,6 @@ const NotFound: React.FC = () => {
       try{
 
         // gets data from token
-        // TODO: change secret and add to a .env file possibly
         const data = jwt.verify(token, 'secret');
         const { id } = data as TokenPayload;
 
