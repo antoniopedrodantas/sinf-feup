@@ -9,14 +9,15 @@ This project was developed for the course SINF at FEUP.
  - **Colaborators** : [António Dantas](https://github.com/antoniopedrodantas), [Bernardo Santos](https://github.com/bernas670), [Filipe Ferreira](https://github.com/topogibra), [Leonor Freitas](https://github.com/leonormfreitas), [Vítor Gonçalves](https://github.com/vitorhugo13)
 
 ## A little preview
+
+* Login page
 ![Login Page](./deliverables/site-prints/login.png)
-<p style="text-align: center">Login page</p>
 
+* Overview page
 ![Overview Page](./deliverables/site-prints/overview.png)
-<p style="text-align: center">Overview page</p>
 
+* Purchases page
 ![Purchases Page](./deliverables/site-prints/purchases.png)
-<p style="text-align: center">Purchases page</p>
 
 ## Running the project
 Run each set of instructions below in different terminals in order to have the client and the server running at the same time. 
