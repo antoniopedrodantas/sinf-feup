@@ -79,14 +79,10 @@ const Stock: React.FC = () => {
         try {
 
           // gets data from token
-          // TODO: change secret and add to a .env file possibly
           const data = jwt.verify(token, 'secret');
 
           // gets user id from user
           const { id } = data as TokenPayload;
-
-          // TODO: maybe do something with id later on
-
 
         } catch (err) {
           history.push('/login');

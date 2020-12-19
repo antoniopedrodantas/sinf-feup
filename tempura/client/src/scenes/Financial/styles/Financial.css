@@ -1,8 +1,5 @@
 @import '../../../index.css';
 
-/* .financial{
-    background-color: orange;
-} */
 
 .bs-title{
     padding-top: 0.5em;
@@ -20,7 +17,6 @@
 .financial-content{
     padding-left: 3em;
     padding-right: 3em;
-    /* overflow: hidden; */
 }
 
 .tb1 {
@@ -38,7 +34,6 @@
 .income-loss-div {
     width: 35vw;
     height: 90vh;
-    /* padding-right: 15px; */
     padding-left: 1em !important;
 }
 
